@@ -1,0 +1,92 @@
+.filter-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  background-color: var(--color-bg-card);
+  padding: var(--space-lg);
+  border-radius: var(--radius-xl);
+  border: 2px solid var(--color-border);
+  font-family: var(--font-sans);
+  width: 100%;
+  height: fit-content;
+}
+
+.filter-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+
+.filter-panel__title {
+  font-size: var(--font-size-md);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-main);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* Clear all actions */
+.filter-panel__clear-btn {
+  font-size: var(--font-size-xs);
+  color: var(--color-secondary);
+  font-weight: var(--weight-semibold);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.filter-panel__clear-btn:hover {
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   DIALOG OVERLAY / DIALOG COMPONENT MODE
+   ========================================================================== */
+dialog.filter-dialog {
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: auto;
+  width: calc(100% - var(--space-2xl));
+  max-width: 480px;
+  max-height: 90vh;
+  outline: none;
+}
+
+dialog.filter-dialog::backdrop {
+  background-color: rgba(25, 10, 49, 0.6);
+  backdrop-filter: blur(4px);
+  transition: opacity var(--transition-base);
+}
+
+.filter-dialog__content {
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  overflow-y: auto;
+  max-height: 85vh;
+  position: relative;
+}
+
+.filter-dialog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: var(--space-sm);
+}
+
+.filter-dialog__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-main);
+}

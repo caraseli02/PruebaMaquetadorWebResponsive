@@ -1,0 +1,63 @@
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  list-style: none;
+  font-family: var(--font-sans);
+  padding: var(--space-2xs) 0;
+  border-bottom: 2px solid var(--color-border);
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none; /* Hide scrollbar for clean visual on mobile */
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tabs__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  padding: var(--space-sm) var(--space-md);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.tabs__item:hover {
+  color: var(--color-primary);
+}
+
+.tabs__item--active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+  font-weight: var(--weight-bold);
+}
+
+/* Figma Segmented Button tab variant */
+.tabs--pill {
+  border-bottom: none;
+  background-color: var(--color-gray-100);
+  padding: var(--space-2xs);
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  width: auto;
+}
+
+.tabs--pill .tabs__item {
+  border-bottom: none;
+  border-radius: var(--radius-full);
+  padding: var(--space-xs) var(--space-lg);
+  font-weight: var(--weight-semibold);
+}
+
+.tabs--pill .tabs__item--active {
+  background-color: var(--color-bg-card);
+  color: var(--color-secondary);
+  box-shadow: var(--shadow-sm);
+}

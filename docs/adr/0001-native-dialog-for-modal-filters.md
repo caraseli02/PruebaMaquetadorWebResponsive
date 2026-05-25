@@ -1,0 +1,3 @@
+# Usar el Elemento HTML <dialog> Nativo para el Panel de Filtros Móvil
+
+Para la versión móvil y tablet pequeña, decidimos usar el elemento HTML5 nativo `<dialog>` en lugar de construir un modal personalizado basado en `div` con controladores de eventos manuales. Esta decisión se fundamenta en la necesidad de garantizar un comportamiento de accesibilidad (a11y) impecable y nativo, incluyendo el atrapado de foco (focus trap), el cierre automático con la tecla Escape y el bloqueo nativo del scroll de fondo mediante `.showModal()`, sin agregar dependencias externas ni código JavaScript redundante.

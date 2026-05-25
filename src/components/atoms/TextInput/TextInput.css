@@ -1,0 +1,48 @@
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-family: var(--font-sans);
+}
+
+.input-field {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-main);
+  background-color: var(--color-bg-card);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* Styled Focus Ring for custom input fields */
+.input-field:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-orange-100);
+}
+
+.input-field::placeholder {
+  color: var(--color-gray-400);
+}
+
+/* Icon integration */
+.input-wrapper--has-icon .input-field {
+  padding-left: var(--space-3xl);
+}
+
+.input-icon {
+  position: absolute;
+  left: var(--space-md);
+  color: var(--color-gray-500);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-field:focus + .input-icon {
+  color: var(--color-primary);
+}

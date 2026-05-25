@@ -1,0 +1,156 @@
+.footer {
+  width: 100%;
+  background-color: var(--color-bg-footer);
+  color: var(--color-text-light);
+  padding: var(--space-4xl) 0 var(--space-xl) 0;
+  font-family: var(--font-sans);
+}
+
+.footer__container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3xl);
+}
+
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.footer__logo img {
+  height: 28px;
+  width: auto;
+}
+
+.footer__desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-300);
+  line-height: var(--lh-relaxed);
+  max-width: 320px;
+}
+
+/* Nav Columns styling */
+.footer__nav {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xl);
+}
+
+.footer__nav-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.footer__nav-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.footer__nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  list-style: none;
+}
+
+.footer__nav-link {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-300);
+  transition: color var(--transition-fast);
+}
+
+.footer__nav-link:hover {
+  color: var(--color-primary);
+}
+
+/* Social links icons row */
+.footer__socials {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.footer__social-list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.footer__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--color-text-light);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.footer__social-link:hover {
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+}
+
+/* Divider & Copyright base row */
+.footer__bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: var(--space-3xl);
+  padding-top: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  text-align: center;
+}
+
+.footer__copyright {
+  font-size: var(--font-size-2xs);
+  color: var(--color-gray-400);
+}
+
+.footer__bottom-links {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.footer__bottom-link {
+  font-size: var(--font-size-2xs);
+  color: var(--color-gray-400);
+  transition: color var(--transition-fast);
+}
+
+.footer__bottom-link:hover {
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   BREAKPOINTS OVERRIDES
+   ========================================================================== */
+@media (min-width: 744px) {
+  .footer__container {
+    grid-template-columns: 1.2fr 1.8fr;
+  }
+  
+  .footer__nav {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer__container {
+    grid-template-columns: 1fr 2fr 1fr;
+  }
+  
+  .footer__bottom {
+    flex-direction: row;
+    text-align: left;
+  }
+}

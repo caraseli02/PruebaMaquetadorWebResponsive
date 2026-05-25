@@ -1,0 +1,45 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-family: var(--font-sans);
+  font-weight: var(--weight-bold);
+  font-size: var(--font-size-2xs);
+  padding: var(--space-2xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* Round Badge style */
+.tag--round {
+  border-radius: var(--radius-full);
+}
+
+/* ==========================================================================
+   VARIANTS
+   ========================================================================== */
+.tag--primary {
+  background-color: var(--color-orange-100);
+  color: var(--color-orange-800);
+}
+
+.tag--secondary {
+  background-color: var(--color-purple-100);
+  color: var(--color-secondary);
+}
+
+.tag--featured {
+  background-color: var(--color-yellow-500);
+  color: var(--color-midnight-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.tag--outline {
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-weight: var(--weight-medium);
+}

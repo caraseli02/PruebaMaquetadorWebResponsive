@@ -1,0 +1,132 @@
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-sans);
+}
+
+.tooltip-trigger {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  color: var(--color-secondary);
+  font-weight: var(--weight-bold);
+}
+
+.tooltip-bubble {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background-color: var(--color-midnight-base);
+  color: var(--color-text-light);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-2xs);
+  line-height: var(--lh-tight);
+  white-space: nowrap;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--transition-base), transform var(--transition-base), visibility var(--transition-base);
+  z-index: 50;
+}
+
+/* Arrow indicator bottom */
+.tooltip-bubble::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: var(--color-midnight-base) transparent transparent transparent;
+}
+
+/* Show states */
+.tooltip-container:hover .tooltip-bubble,
+.tooltip-container:focus-within .tooltip-bubble {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ==========================================================================
+   INTERACTIVE TOOLTIP CARD (POPUP STYLE FOR PRICING BREAKDOWN)
+   ========================================================================== */
+.tooltip-card {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 280px;
+  background-color: var(--color-bg-card);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xl);
+  padding: var(--space-md);
+  margin-top: var(--space-xs);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  z-index: 50;
+  animation: slideIn var(--transition-base);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tooltip-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-2xs);
+}
+
+.tooltip-card__title {
+  font-size: var(--font-size-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-main);
+}
+
+.tooltip-card__close {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--color-text-muted);
+}
+
+.tooltip-card__close:hover {
+  color: var(--color-primary);
+}
+
+.tooltip-card__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.tooltip-card__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+}
+
+.tooltip-card__row--total {
+  border-top: 1px dashed var(--color-border);
+  padding-top: var(--space-2xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-secondary);
+}

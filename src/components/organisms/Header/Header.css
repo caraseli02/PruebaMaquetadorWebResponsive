@@ -1,0 +1,140 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  background-color: var(--color-bg-card);
+  border-bottom: 2px solid var(--color-border);
+  font-family: var(--font-sans);
+}
+
+.header__container {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Brand logo styling */
+.header__logo {
+  display: flex;
+  align-items: center;
+}
+
+.header__logo svg {
+  height: 28px;
+  width: auto;
+}
+
+/* Desktop nav list */
+.header__nav {
+  display: none;
+}
+
+.header__nav-list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+  list-style: none;
+}
+
+.header__nav-link {
+  font-size: var(--font-size-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-main);
+  padding: var(--space-xs) 0;
+  position: relative;
+  transition: color var(--transition-fast);
+}
+
+.header__nav-link:hover {
+  color: var(--color-primary);
+}
+
+/* Active indicator underline for hover effects */
+.header__nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-primary);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--transition-fast);
+}
+
+.header__nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Mobile Toggles */
+.header__toggle {
+  display: inline-flex;
+}
+
+/* Mobile dropdown navigation menu overlay */
+.header__mobile-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: var(--color-bg-card);
+  border-bottom: 2px solid var(--color-border);
+  padding: var(--space-md) var(--space-md) var(--space-xl) var(--space-md);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity var(--transition-base), visibility var(--transition-base), transform var(--transition-base);
+}
+
+.header__mobile-menu--open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.header__mobile-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  list-style: none;
+}
+
+.header__mobile-nav-link {
+  font-size: var(--font-size-md);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-main);
+  display: block;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.header__mobile-nav-link:hover {
+  background-color: var(--color-orange-100);
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   BREAKPOINTS RESPONSIVE OVERRIDES
+   ========================================================================== */
+@media (min-width: 744px) {
+  .header__nav {
+    display: block;
+  }
+  
+  .header__toggle {
+    display: none;
+  }
+  
+  .header__mobile-menu {
+    display: none;
+  }
+}
