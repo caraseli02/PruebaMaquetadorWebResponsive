@@ -12,15 +12,43 @@
   - [x] Configuración de barras de scroll premium y selección de texto customizada
 
 ## Fase 2: Componentes Atómicos (Atoms)
-- [ ] Crear componente/recurso de `Icon` vectorial (SVGs inline)
-  - [ ] Crear historias de Storybook para visualización
-- [ ] Crear componente `Button` (Botonera principal)
-  - [ ] Diseñar estados: hover, active, focus-visible, disabled
-  - [ ] Crear historias en Storybook con variantes de color y tamaño
-- [ ] Crear componentes de control `Checkbox` e inputs
-  - [ ] Añadir etiquetas accesibles y focus-visible
+- [ ] **Icon (Iconografía Vectorial)**
+  - [ ] Implementar recurso/componente de icono vectorial (SVG inline)
+  - [ ] Extraer y definir paths para los siguientes iconos de Figma:
+    - [ ] `Bookmark` (Marcador/guardado - mostrado en chips de "Price Range" / "Narrow Range")
+    - [ ] `Search` (Lupa de búsqueda)
+    - [ ] `Filter` (Icono de filtros/embudo)
+    - [ ] `Close` (Cruz para cerrar filtros y borrar búsquedas)
+    - [ ] `Chevron` (Flecha indicadora para desplegables)
+    - [ ] `Star` (Estrella para ratings de tarjetas)
+  - [ ] Crear historia en Storybook mostrando una cuadrícula/galería con todos los iconos de interfaz disponibles
+- [ ] **Button (Botones de Acción)**
+  - [ ] Implementar componente `Button` altamente reusable
+  - [ ] Configurar variantes de estilo BEM:
+    - [ ] Botón Primario (fondo de color sólido de marca naranja/púrpura)
+    - [ ] Botón Secundario (borde delineado / outline)
+    - [ ] Botón Ghost / Icon-Button (sin fondo, solo icono, ej. para el cierre de filtros)
+  - [ ] Maquetar todos los estados interactivos: `:hover`, `:active`, `:disabled` y anillo `:focus-visible` accesible
+  - [ ] Crear historias en Storybook con controles interactivos para probar cada estado y variante
+- [ ] **TextInput & SearchInput (Campos de Entrada)**
+  - [ ] Crear componente `TextInput` estándar con soporte para placeholders y estados de foco
+  - [ ] Crear componente `SearchInput` que integre el icono de lupa (`Search`) a la izquierda y un botón de cruz (`Close`) a la derecha para limpiar el texto
+  - [ ] Asegurar accesibilidad total (etiquetas para lectores de pantalla y foco visual `:focus-visible`)
+  - [ ] Crear historias interactivas en Storybook
+- [ ] **Checkbox & Radio (Selectores de Lista)**
+  - [ ] Crear componentes de control `Checkbox` y `Radio` personalizados en CSS puro (reemplazando los selectores nativos por cajas decoradas de Figma)
+  - [ ] Asegurar que respondan dinámicamente al estado `:checked` y tengan anillo de foco `:focus-visible`
+  - [ ] Crear historias detalladas en Storybook para estados marcados/no-marcados
+- [ ] **Chip & Tag (Etiquetas y Chips de Filtro Seleccionables)**
+  - [ ] Crear componente `Tag` estático para metadatos (ej. tags de tarjetas)
+  - [ ] Crear componente `Chip` interactivo y seleccionable (ej. "Price Range" con icono de bookmark y fondo transparente/borde; "Narrow Range" con icono de bookmark y fondo sólido azul/naranja activo)
+  - [ ] Crear componente `Chip` descartable (con un botón de cruz a la derecha para quitar filtros activos)
+  - [ ] Documentar en Storybook todos los estados: por defecto, seleccionado, hover y descartable
+- [ ] **Rating (Calificador por Estrellas)**
+  - [ ] Crear componente `Rating` para renderizar estrellas (vacías/llenas) según una puntuación numérica (ej. 4.5 estrellas)
   - [ ] Documentar en Storybook
-- [ ] Ejecutar auditoría a11y inicial con addon-a11y en los Atoms
+- [ ] **Auditoría de Accesibilidad Inicial**
+  - [ ] Correr auditoría automatizada `addon-a11y` en Storybook para garantizar que todos los Atoms cumplen con la semántica básica de colores y focos antes de subir a Molecules
 
 ## Fase 3: Componentes Moleculares (Molecules)
 - [ ] Crear componente de tarjeta individual `Card`
