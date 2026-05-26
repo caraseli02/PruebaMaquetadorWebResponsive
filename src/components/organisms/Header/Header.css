@@ -4,15 +4,16 @@
   z-index: 100;
   width: 100%;
   background-color: var(--color-bg-card);
-  border-bottom: 1.5px solid var(--color-border);
+  border-bottom: 1.5px solid var(--color-orange-500);
   font-family: var(--font-sans);
 }
 
 .header__container {
-  height: 72px;
   display: flex;
+  height: 64px;
   align-items: center;
   justify-content: space-between;
+  gap: var(--space-xl);
 }
 
 /* Brand logo styling */
@@ -22,7 +23,7 @@
 }
 
 .header__logo-img {
-  height: 32px;
+  height: 28px;
   width: auto;
 }
 
@@ -34,52 +35,55 @@
 .header__nav-list {
   display: flex;
   align-items: center;
-  gap: var(--space-xl);
+  gap: 72px;
   list-style: none;
 }
 
+.header__nav-list.dux-tabs {
+  display: flex;
+  min-height: 64px;
+  overflow: visible;
+}
+
 .header__nav-link {
-  font-size: var(--font-size-sm);
-  font-weight: var(--weight-semibold);
-  color: var(--color-purple-700);
-  padding: var(--space-xs) 0;
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 64px;
+  padding: 0;
+  color: var(--color-gray-800);
+  font-size: var(--font-size-sm);
+  font-weight: var(--weight-normal);
   transition: color var(--transition-fast);
 }
 
+.header__nav-link.dux-tabs__tab {
+  min-height: 64px;
+  color: var(--color-gray-800);
+  font-size: var(--font-size-sm);
+  gap: 7px;
+}
+
+.header__nav-link--active,
 .header__nav-link:hover {
-  color: var(--color-orange-500);
+  color: var(--color-gray-900);
 }
 
-/* Active indicator underline for hover effects */
-.header__nav-link::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: var(--color-orange-500);
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform var(--transition-fast);
-}
-
-.header__nav-link:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
+.header__nav-link.dux-tabs__tab::before {
+  width: 0;
 }
 
 /* Mobile Toggles */
 .header__toggle {
   display: inline-flex;
-  min-width: 40px !important;
-  height: 40px !important;
+  min-width: 44px !important;
+  height: 44px !important;
   padding: 0 !important;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--color-border) !important;
+  border-radius: 0;
+  border: 0 !important;
   color: var(--color-purple-700) !important;
-  background: white !important;
+  background: transparent !important;
   justify-content: center;
   align-items: center;
 }
@@ -122,18 +126,81 @@
 }
 
 .header__mobile-nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  color: var(--color-purple-700);
   font-size: var(--font-size-md);
   font-weight: var(--weight-bold);
-  color: var(--color-purple-700);
-  display: block;
-  padding: var(--space-sm) var(--space-md);
   border-radius: var(--radius-md);
   transition: background-color var(--transition-fast), color var(--transition-fast);
 }
 
+.header__mobile-nav-link--active,
 .header__mobile-nav-link:hover {
   background-color: var(--color-orange-100);
   color: var(--color-orange-700);
+}
+
+.nav-bar-story {
+  display: grid;
+  gap: 98px;
+  align-content: start;
+  min-height: 820px;
+  padding: 28px 10px;
+  background: #f3f3f3;
+}
+
+.nav-bar-story .header {
+  position: relative;
+}
+
+.nav-bar-story .container {
+  max-width: none;
+}
+
+.nav-bar-story__desktop {
+  width: 1172px;
+}
+
+.nav-bar-story__tablet {
+  width: 834px;
+}
+
+.nav-bar-story__mobile {
+  width: 606px;
+}
+
+.nav-bar-story__compact {
+  width: 318px;
+}
+
+.nav-bar-story__tablet .header__container {
+  height: 66px;
+}
+
+.nav-bar-story__tablet .header__nav-list {
+  gap: 40px;
+}
+
+.nav-bar-story__mobile .header__container,
+.nav-bar-story__compact .header__container {
+  height: 64px;
+}
+
+.nav-bar-story__mobile .header__nav,
+.nav-bar-story__compact .header__nav {
+  display: none;
+}
+
+.nav-bar-story__mobile .header__toggle,
+.nav-bar-story__compact .header__toggle {
+  display: inline-flex;
+}
+
+.nav-bar-story__compact .header__logo-img {
+  height: 20px;
 }
 
 /* ==========================================================================

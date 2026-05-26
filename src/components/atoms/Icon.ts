@@ -38,7 +38,7 @@ type IconDefinition = {
 const icons: Record<IconName, IconDefinition> = {
   chevronRight: {
     color: "#FF8F50",
-    markup: `<path d="M95.2897 115.292C95.6816 115.683 95.6816 116.317 95.2897 116.708L90.2195 121.763C89.8293 122.152 89.1978 122.152 88.8075 121.763L88.7103 121.666C88.3184 121.275 88.3184 120.64 88.7103 120.25L92.973 116L88.7103 111.75C88.3184 111.359 88.3184 110.725 88.7103 110.334L88.8075 110.237C89.1978 109.848 89.8293 109.848 90.2195 110.237L95.2897 115.292Z" fill="currentColor" transform="translate(-80 -104)" />`,
+    markup: `<path d="M9 6L15 12L9 18" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" />`,
   },
   menu: {
     color: "#1D2021",
@@ -79,7 +79,7 @@ const icons: Record<IconName, IconDefinition> = {
   },
   chevronLeft: {
     color: "#FF8F50",
-    markup: `<path d="M88.7103 332.708C88.3184 332.317 88.3184 331.683 88.7103 331.292L93.7805 326.237C94.1707 325.848 94.8022 325.848 95.1925 326.237L95.2897 326.334C95.6816 326.725 95.6816 327.36 95.2897 327.75L91.027 332L95.2897 336.25C95.6816 336.641 95.6816 337.275 95.2897 337.666L95.1925 337.763C94.8022 338.152 94.1707 338.152 93.7805 337.763L88.7103 332.708Z" fill="currentColor" transform="translate(-80 -320)" />`,
+    markup: `<path d="M15 6L9 12L15 18" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" />`,
   },
   triangleDown: {
     color: "#FF8F50",
@@ -104,11 +104,11 @@ const icons: Record<IconName, IconDefinition> = {
   },
   chevronDown: {
     color: "#FF8F50",
-    markup: `<path d="M92.7082 499.29C92.3174 499.682 91.6826 499.682 91.2919 499.29L86.2371 494.22C85.848 493.829 85.848 493.198 86.2371 492.807L86.334 492.71C86.7247 492.318 87.3595 492.318 87.7503 492.71L92 496.973L96.2498 492.71C96.6405 492.318 97.2753 492.318 97.6661 492.71L97.763 492.807C98.1521 493.198 98.1521 493.829 97.763 494.22L92.7082 499.29Z" fill="currentColor" transform="translate(-80 -480)" />`,
+    markup: `<path d="M6.75 9.5L12 14.75L17.25 9.5" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" />`,
   },
   chevronDownCompact: {
     color: "#FF8F50",
-    markup: `<path d="M92.4723 454.193C92.2118 454.454 91.7886 454.454 91.5281 454.193L88.1582 450.813C87.8988 450.553 87.8988 450.132 88.1582 449.872L88.2228 449.807C88.4833 449.546 88.9065 449.546 89.167 449.807L92.0002 452.649L94.8333 449.807C95.0939 449.546 95.5171 449.546 95.7776 449.807L95.8421 449.872C96.1015 450.132 96.1015 450.553 95.8421 450.813L92.4723 454.193Z" fill="currentColor" transform="translate(-80 -440)" />`,
+    markup: `<path d="M8 10L12 14L16 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />`,
   },
 };
 

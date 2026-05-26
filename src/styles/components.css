@@ -3,7 +3,7 @@
    ========================================================================== */
 
 .dux-icon {
-  display: inline-block;
+  display: block;
   flex: 0 0 auto;
   vertical-align: middle;
 }
@@ -370,6 +370,7 @@
 
 .dux-text-input__content {
   display: grid;
+  flex: 1 1 auto;
   min-width: 0;
   gap: 1px;
 }
@@ -423,6 +424,7 @@
 }
 
 .dux-text-input__chevron {
+  margin-left: auto;
   color: var(--color-orange-500);
 }
 

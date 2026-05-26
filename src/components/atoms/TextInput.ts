@@ -36,7 +36,7 @@ export const createTextInput = ({
 
   const control = document.createElement("span");
   control.className = "dux-text-input__control";
-  control.append(createIcon({ name: icon, size: 18, color: "currentColor" }));
+  control.append(createIcon({ name: icon, size: 24, color: "currentColor" }));
 
   const content = document.createElement("span");
   content.className = "dux-text-input__content";
@@ -53,7 +53,7 @@ export const createTextInput = ({
   control.append(content);
 
   if (hasChevron) {
-    control.append(createIcon({ name: "chevronDownCompact", size: 18, className: "dux-text-input__chevron" }));
+    control.append(createIcon({ name: "chevronDownCompact", size: 16, className: "dux-text-input__chevron" }));
   }
 
   wrapper.append(control);

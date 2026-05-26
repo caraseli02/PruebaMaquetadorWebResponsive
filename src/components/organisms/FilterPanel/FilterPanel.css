@@ -1,228 +1,275 @@
 .filter-panel {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xl);
-  background-color: var(--color-bg-card);
-  padding: var(--space-lg);
-  border-radius: var(--radius-lg);
-  border: 1.5px solid var(--color-border);
+  width: 288px;
+  overflow: hidden;
+  color: var(--color-gray-800);
+  background: #fff9f7;
+  border: 0;
+  border-radius: 24px;
   font-family: var(--font-sans);
-  width: 100%;
-  height: fit-content;
 }
 
 .filter-panel__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1.5px solid var(--color-border);
-  padding-bottom: var(--space-sm);
-  margin-bottom: var(--space-xs);
+  display: grid;
+  place-items: center;
+  min-height: 86px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--color-gray-100);
 }
 
 .filter-panel__title {
-  font-size: var(--font-size-md);
-  font-weight: var(--weight-bold);
-  color: var(--color-purple-900);
-}
-
-.filter-panel__clear-btn {
-  font-size: var(--font-size-2xs);
-  color: var(--color-purple-700);
+  margin: 0;
+  color: var(--color-gray-800);
+  font-size: 21px;
   font-weight: var(--weight-semibold);
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  transition: color var(--transition-fast);
-}
-
-.filter-panel__clear-btn:hover {
-  color: var(--color-orange-500);
+  line-height: 1.2;
+  text-align: center;
 }
 
 .filter-panel__form-content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xl);
+  display: grid;
+  gap: 24px;
+  padding: 27px 26px 35px;
 }
 
-.filter-panel__form-content .dux-text-input {
-  width: 100%;
-}
-
-/* Sub-sections of filter panel */
 .filter-section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
+  display: grid;
+  gap: 24px;
 }
 
-.filter-section__title {
-  font-size: 10px;
-  font-weight: var(--weight-bold);
+.filter-section--activity {
+  gap: 22px;
+}
+
+.filter-section--price {
+  gap: 20px;
+}
+
+.filter-section-toggle {
+  display: grid;
+  grid-template-columns: 24px 1fr 18px;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  color: var(--color-gray-800);
+  font: inherit;
+  font-size: var(--font-size-md);
+  font-weight: var(--weight-normal);
+  line-height: 1.2;
+  text-align: left;
+  background: transparent;
+  border: 0;
+}
+
+.filter-section-toggle--expanded {
   color: var(--color-orange-700);
-  letter-spacing: 0.05em;
+  font-weight: var(--weight-semibold);
+}
+
+.filter-section-toggle__chevron {
+  justify-self: end;
+  width: 18px;
+  height: 18px;
 }
 
 .filter-section__list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
+  display: grid;
+  gap: 21px;
+  padding-left: 20px;
 }
 
-/* Custom check boxes */
 .filter-checkbox-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 20px auto 14px 1fr;
+  gap: 11px;
   align-items: center;
-  gap: var(--space-sm);
+  min-height: 20px;
+  color: var(--color-gray-800);
   cursor: pointer;
   user-select: none;
 }
 
 .filter-checkbox-input {
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border: 1.5px solid var(--color-border);
-  border-radius: var(--radius-xs);
-  background-color: white;
   display: inline-grid;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  appearance: none;
   place-items: center;
+  background: transparent;
+  border: 1.5px solid var(--color-purple-700);
+  border-radius: 2px;
   cursor: pointer;
-  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .filter-checkbox-input:checked {
-  background-color: var(--color-orange-500);
-  border-color: var(--color-orange-500);
+  background: var(--color-orange-500);
+  border-color: var(--color-purple-700);
 }
 
 .filter-checkbox-input:checked::after {
   content: "";
-  width: 10px;
-  height: 6px;
-  border-left: 2px solid white;
-  border-bottom: 2px solid white;
+  width: 9px;
+  height: 5px;
+  border-bottom: 2px solid var(--color-purple-700);
+  border-left: 2px solid var(--color-purple-700);
   transform: rotate(-45deg) translate(1px, -1px);
 }
 
 .filter-checkbox-input:focus-visible {
-  outline: 3px solid var(--color-border-focus);
+  outline: 3px solid rgba(255, 143, 80, 0.32);
   outline-offset: 2px;
 }
 
 .filter-checkbox-label {
-  font-size: var(--font-size-xs);
-  color: var(--color-purple-900);
-  font-weight: var(--weight-medium);
+  color: var(--color-gray-800);
+  font-size: 15px;
+  font-weight: var(--weight-normal);
+  line-height: 1.2;
 }
 
-/* ==========================================================================
-   DIALOG OVERLAY / DIALOG COMPONENT MODE
-   ========================================================================== */
-dialog.filter-dialog {
-  border: none;
+.filter-checkbox-info {
+  display: inline-grid;
+  width: 13px;
+  height: 13px;
+  place-items: center;
+  color: var(--color-gray-800);
+  font-size: 9px;
+  font-weight: var(--weight-bold);
+  line-height: 1;
+  border: 1.5px solid currentColor;
+  border-radius: var(--radius-full);
+}
+
+.filter-section__more {
+  justify-self: start;
+  margin-left: 18px;
+  color: var(--color-purple-700);
+  font-size: 14px;
+  line-height: 1.2;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.filter-price-fields {
+  display: grid;
+  gap: 18px;
+}
+
+.filter-price-field {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 12px;
+  align-items: center;
+  height: 52px;
+  padding: 0 20px;
+  color: var(--color-purple-700);
+  background: #fff;
+  border: 1.5px solid var(--color-purple-700);
+  border-radius: var(--radius-full);
+}
+
+.filter-price-field input {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  color: var(--color-gray-800);
+  font: inherit;
+  font-size: 15px;
+  line-height: 1;
   background: transparent;
+  border: 0;
+  outline: 0;
+}
+
+.filter-price-field input::placeholder {
+  color: var(--color-gray-500);
+}
+
+.filter-story {
+  width: 100%;
+  min-width: 798px;
+  min-height: 1204px;
+  color: #000;
+  background: #fff;
+  font-family: var(--font-sans);
+}
+
+.filter-story__title {
+  margin: 0;
+  padding: 18px 18px 52px;
+  font-size: 34px;
+  font-weight: var(--weight-bold);
+  line-height: 1;
+}
+
+.filter-story__surface {
+  display: grid;
+  min-height: 1100px;
+  padding: 110px 95px 22px 18px;
+  background: #f4f4f4;
+}
+
+.filter-story__frame {
+  display: grid;
+  justify-content: end;
+  padding: 21px 80px 22px 0;
+  border: 1.5px dashed #a855ff;
+  border-radius: 6px;
+}
+
+dialog.filter-dialog {
+  width: calc(100% - var(--space-xl));
+  max-width: 360px;
+  max-height: 90vh;
   padding: 0;
   margin: auto;
-  width: calc(100% - var(--space-xl));
-  max-width: 480px;
-  max-height: 90vh;
+  background: transparent;
+  border: 0;
   outline: none;
 }
 
 dialog.filter-dialog::backdrop {
-  background-color: rgba(25, 10, 49, 0.6);
+  background: rgba(25, 10, 49, 0.6);
   backdrop-filter: blur(4px);
-  transition: opacity var(--transition-base);
 }
 
 .filter-dialog__content {
-  background-color: var(--color-bg-card);
-  border-radius: var(--radius-lg);
-  padding: var(--space-xl);
-  box-shadow: var(--shadow-xl);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
-  overflow-y: auto;
+  display: grid;
+  gap: 22px;
   max-height: 85vh;
+  overflow-y: auto;
+  padding: var(--space-xl);
+  background: #fff9f7;
+  border-radius: 24px;
+  box-shadow: var(--shadow-xl);
 }
 
 .filter-dialog__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1.5px solid var(--color-border);
   padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-gray-100);
 }
 
 .filter-dialog__title {
+  color: var(--color-gray-800);
   font-size: var(--font-size-lg);
-  font-weight: var(--weight-bold);
-  color: var(--color-purple-900);
+  font-weight: var(--weight-semibold);
 }
 
 .filter-dialog__close-btn {
   min-width: 36px !important;
   height: 36px !important;
   padding: 0 !important;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--color-border) !important;
   color: var(--color-purple-700) !important;
   background: white !important;
-  justify-content: center;
-  align-items: center;
-}
-
-.filter-dialog__close-btn:hover {
-  border-color: var(--color-orange-500) !important;
-  color: var(--color-orange-500) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: var(--radius-full);
 }
 
 body.no-scroll {
   overflow: hidden;
-}
-
-/* Custom Price Slider styling */
-.filter-price-slider {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-}
-
-.filter-price-input {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 6px;
-  border-radius: var(--radius-full);
-  background: var(--color-gray-200);
-  outline: none;
-  transition: background var(--transition-fast);
-}
-
-.filter-price-input::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: var(--radius-full);
-  background: var(--color-orange-500);
-  cursor: pointer;
-  box-shadow: var(--shadow-sm);
-  transition: transform var(--transition-fast), background var(--transition-fast);
-}
-
-.filter-price-input::-webkit-slider-thumb:hover {
-  transform: scale(1.1);
-  background: var(--color-orange-600);
-}
-
-.filter-price-display {
-  font-size: var(--font-size-xs);
-  color: var(--color-purple-900);
-  font-weight: var(--weight-medium);
 }

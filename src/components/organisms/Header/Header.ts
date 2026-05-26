@@ -1,13 +1,21 @@
 import "./Header.css";
 import { createButton } from "../../atoms/Button";
-import { createIcon } from "../../atoms/Icon";
+import { createIcon, type IconName } from "../../atoms/Icon";
 import logoLight from "../../../assets/logo-light.svg";
 import logoDark from "../../../assets/logo-dark.svg";
 
+export type HeaderNavLink = {
+  label: string;
+  href: string;
+  icon?: IconName;
+  active?: boolean;
+};
+
 export interface HeaderProps {
-  navLinks?: Array<{ label: string; href: string }>;
+  navLinks?: HeaderNavLink[];
   onLinkClick?: (href: string) => void;
   theme?: "light" | "dark";
+  ctaLabel?: string;
 }
 
 /**
@@ -15,13 +23,14 @@ export interface HeaderProps {
  */
 export function createHeader({
   navLinks = [
-    { label: "Aventura", href: "#" },
-    { label: "Destinos", href: "#" },
-    { label: "Alojamientos", href: "#" },
-    { label: "Todos los viajes", href: "#" },
+    { label: "Aventura", href: "#aventura", icon: "landscape", active: true },
+    { label: "Destinos", href: "#destinos", icon: "globe" },
+    { label: "Alojamiento", href: "#alojamiento", icon: "home" },
+    { label: "Sobre nosotros", href: "#sobre-nosotros" },
   ],
   onLinkClick,
   theme = "light",
+  ctaLabel = "Reserva",
 }: HeaderProps = {}): HTMLElement {
   const header = document.createElement("header");
   header.className = `header header--${theme}`;
@@ -47,14 +56,22 @@ export function createHeader({
   nav.className = "header__nav";
   
   const navList = document.createElement("ul");
-  navList.className = "header__nav-list";
+  navList.className = "header__nav-list dux-tabs";
   
   navLinks.forEach((link) => {
     const item = document.createElement("li");
     const a = document.createElement("a");
-    a.className = "header__nav-link";
+    a.className = `header__nav-link dux-tabs__tab${link.active ? " header__nav-link--active dux-tabs__tab--active" : ""}`;
     a.href = link.href;
-    a.textContent = link.label;
+    if (link.active) {
+      a.setAttribute("aria-current", "page");
+    }
+    if (link.icon) {
+      a.appendChild(createIcon({ name: link.icon, size: 18, color: "currentColor" }));
+    }
+    const label = document.createElement("span");
+    label.textContent = link.label;
+    a.appendChild(label);
     if (onLinkClick) {
       a.addEventListener("click", (e) => {
         e.preventDefault();
@@ -68,7 +85,7 @@ export function createHeader({
   // Reserva button
   const reservaLi = document.createElement("li");
   const reservaBtn = createButton({
-    label: "Reserva",
+    label: ctaLabel,
     variant: "plum",
     size: "sm",
   });
@@ -89,9 +106,17 @@ export function createHeader({
   navLinks.forEach((link) => {
     const item = document.createElement("li");
     const a = document.createElement("a");
-    a.className = "header__mobile-nav-link";
+    a.className = `header__mobile-nav-link${link.active ? " header__mobile-nav-link--active" : ""}`;
     a.href = link.href;
-    a.textContent = link.label;
+    if (link.active) {
+      a.setAttribute("aria-current", "page");
+    }
+    if (link.icon) {
+      a.appendChild(createIcon({ name: link.icon, size: 18, color: "currentColor" }));
+    }
+    const label = document.createElement("span");
+    label.textContent = link.label;
+    a.appendChild(label);
     
     // Auto-close menu when link is clicked
     a.addEventListener("click", (e) => {
@@ -115,7 +140,7 @@ export function createHeader({
   mobileCtaItem.style.marginTop = "var(--space-md)";
   mobileCtaItem.style.listStyle = "none";
   const mobileCtaBtn = createButton({
-    label: "Reserva",
+    label: ctaLabel,
     variant: "plum",
     size: "md",
   });

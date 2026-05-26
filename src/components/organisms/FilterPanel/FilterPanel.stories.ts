@@ -1,25 +1,47 @@
-import { createStoryShell } from "../../atoms/storyUtils";
 import { createFilterPanel } from "./FilterPanel";
 
 export default {
   title: "Organisms/FilterPanel",
   parameters: {
-    layout: "centered",
+    layout: "fullscreen",
   },
 };
 
 export const Sidebar = () => {
-  const container = createStoryShell("Organism / Filter Panel (Sidebar Mode)");
-  container.style.width = "300px";
-  const filterPanel = createFilterPanel();
-  container.append(filterPanel);
-  return container;
+  const story = document.createElement("section");
+  story.className = "filter-story";
+
+  const title = document.createElement("h1");
+  title.className = "filter-story__title";
+  title.textContent = "Filters";
+
+  const surface = document.createElement("div");
+  surface.className = "filter-story__surface";
+
+  const frame = document.createElement("div");
+  frame.className = "filter-story__frame";
+  frame.append(
+    createFilterPanel({
+      initialState: {
+        search: "",
+        destinations: [],
+        activities: ["Parapente", "Explora"],
+        maxPrice: 700,
+        ratings: [],
+      },
+    })
+  );
+
+  surface.append(frame);
+  story.append(title, surface);
+  return story;
 };
 
 export const Default = Sidebar;
 
 export const DialogMobile = () => {
-  const container = createStoryShell("Organism / Filter Panel (Mobile Dialog Modal)");
+  const container = document.createElement("section");
+  container.className = "atom-story";
   
   const openBtn = document.createElement("button");
   openBtn.className = "dux-button dux-button--orange";

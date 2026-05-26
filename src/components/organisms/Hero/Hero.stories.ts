@@ -1,4 +1,3 @@
-import { createStoryShell } from "../../atoms/storyUtils";
 import { createHero } from "./Hero";
 
 export default {
@@ -9,8 +8,18 @@ export default {
 };
 
 export const Default = () => {
-  const container = createStoryShell("Organism / Hero Banner (Fluid Typography)");
-  const hero = createHero();
-  container.append(hero);
-  return container;
+  const board = document.createElement("div");
+  board.className = "hero-story-board";
+
+  const desktop = createHero();
+  desktop.classList.add("hero-story-board__desktop");
+
+  const tablet = createHero();
+  tablet.classList.add("hero-story-board__tablet");
+
+  const mobile = createHero();
+  mobile.classList.add("hero-story-board__mobile");
+
+  board.append(desktop, tablet, mobile);
+  return board;
 };

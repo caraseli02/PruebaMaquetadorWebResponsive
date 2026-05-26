@@ -13,6 +13,7 @@ import { createCardsGrid } from "./components/organisms/CardsGrid/CardsGrid";
 import { createFooter } from "./components/organisms/Footer/Footer";
 import { createButton } from "./components/atoms/Button";
 import { createIcon } from "./components/atoms/Icon";
+import { createPricingPopover } from "./components/molecules/Popover";
 import { mockCards } from "./data/cards";
 import type { CardData } from "./types";
 
@@ -40,42 +41,27 @@ function initApp() {
   // ==========================================================================
   
   // 0.1. Pricing Popover floating container
-  const popover = document.createElement("div");
-  popover.className = "pricing-popover";
+  let popover = createPricingPopover();
   popover.style.display = "none";
   popover.style.position = "absolute";
   document.body.appendChild(popover);
   
   function showPricingPopover(card: CardData, triggerEl: HTMLElement) {
-    const rawPrice = parseFloat(card.price.replace(/[^\d,]/g, "").replace(",", "."));
-    const base = (rawPrice * 0.79).toFixed(2);
-    const tax = (rawPrice * 0.15).toFixed(2);
-    const fees = (rawPrice * 0.06).toFixed(2);
-    
-    popover.innerHTML = `
-      <div class="pricing-popover__header">
-        <h4 class="pricing-popover__title">Desglose de precio</h4>
-        <button class="pricing-popover__close" aria-label="Cerrar desglose">×</button>
-      </div>
-      <ul class="pricing-popover__details">
-        <li><span>Precio base:</span> <strong>${base} €</strong></li>
-        <li><span>Impuestos (IVA 21%):</span> <strong>${tax} €</strong></li>
-        <li><span>Gastos de gestión:</span> <strong>${fees} €</strong></li>
-        <li class="pricing-popover__total"><span>Total estimado:</span> <strong>${card.price}</strong></li>
-      </ul>
-    `;
+    const nextPopover = createPricingPopover({
+      price: card.price,
+      onClose: () => {
+        popover.style.display = "none";
+      },
+    });
+    nextPopover.style.position = "absolute";
+    popover.replaceWith(nextPopover);
+    popover = nextPopover;
     popover.style.display = "block";
     
     // Position popover relative to the trigger element
     const rect = triggerEl.getBoundingClientRect();
     popover.style.top = `${rect.bottom + window.scrollY + 8}px`;
     popover.style.left = `${Math.min(rect.left + window.scrollX, window.innerWidth - 300)}px`;
-    
-    // Close button
-    const closeBtn = popover.querySelector(".pricing-popover__close");
-    closeBtn?.addEventListener("click", () => {
-      popover.style.display = "none";
-    });
     
     // Close on outside click
     const outsideClick = (e: MouseEvent) => {

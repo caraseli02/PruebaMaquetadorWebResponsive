@@ -24,11 +24,11 @@ export interface HeroProps {
  * Premium Hero banner organism utilizing fluid typography and the figma background asset.
  */
 export function createHero({
-  titleHtml = "Ruta por <span>Australia</span>",
-  description = "Si lo que te va es la aventura, no te lo puedes perder.",
+  titleHtml = "Ruta por Australia",
+  description = "Si te va la aventura, no te lo puedes perder",
   slides,
-  primaryCtaLabel = "Ver viaje",
-  secondaryCtaLabel = "Saber Más",
+  primaryCtaLabel = "Más información",
+  secondaryCtaLabel,
   onPrimaryClick,
   onSecondaryClick,
 }: HeroProps = {}): HTMLElement {
@@ -81,19 +81,21 @@ export function createHero({
     primaryBtn.addEventListener("click", onPrimaryClick);
   }
   
-  const secondaryBtn = createButton({
-    label: secondaryCtaLabel,
-    variant: "outline",
-    size: "lg",
-  });
-  // Apply premium adjustments for outline button over dark backdrop
-  secondaryBtn.classList.add("hero__btn-secondary");
-  if (onSecondaryClick) {
-    secondaryBtn.addEventListener("click", onSecondaryClick);
-  }
-  
   actions.appendChild(primaryBtn);
-  actions.appendChild(secondaryBtn);
+
+  if (secondaryCtaLabel) {
+    const secondaryBtn = createButton({
+      label: secondaryCtaLabel,
+      variant: "outline",
+      size: "lg",
+    });
+    secondaryBtn.classList.add("hero__btn-secondary");
+    if (onSecondaryClick) {
+      secondaryBtn.addEventListener("click", onSecondaryClick);
+    }
+    actions.appendChild(secondaryBtn);
+  }
+
   content.appendChild(actions);
 
   const sliderSlot = document.createElement("div");
@@ -114,7 +116,7 @@ export function createHero({
 
   const renderSlide = () => {
     const activeSlide = heroSlides[activeIndex];
-    section.style.backgroundImage = `linear-gradient(to right, rgba(25, 10, 49, 0.85) 0%, rgba(25, 10, 49, 0.4) 100%), url(${activeSlide.imageSrc ?? fondoImage})`;
+    section.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.48), rgba(0, 0, 0, 0.58)), url(${activeSlide.imageSrc ?? fondoImage})`;
     title.innerHTML = activeSlide.titleHtml;
     desc.textContent = activeSlide.description;
 
