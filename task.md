@@ -40,25 +40,33 @@
     - [ ] Botón Ghost / Icon-Button (sin fondo, solo icono, ej. para el cierre de filtros)
   - [ ] Maquetar todos los estados interactivos: `:hover`, `:active`, `:disabled` y anillo `:focus-visible` accesible
   - [ ] Crear historias en Storybook con controles interactivos para probar cada estado y variante
-- [ ] **TextInput & SearchInput (Campos de Entrada)**
-  - [ ] Crear componente `TextInput` estándar con soporte para placeholders y estados de foco
-  - [ ] Crear componente `SearchInput` que integre el icono de lupa (`Search`) a la izquierda y un botón de cruz (`Close`) a la derecha para limpiar el texto
-  - [ ] Asegurar accesibilidad total (etiquetas para lectores de pantalla y foco visual `:focus-visible`)
+- [ ] **Tabs (Pestañas Segmentadas / Toggles)**
+  - [ ] Crear componente `Tabs` para representar controles de selección de rango (ej. "Price Range" / "Narrow Range")
+  - [ ] Diseñar variantes de estilo Figma:
+    - [ ] Variant `underline`/`outline` (estilo con borde, como "Price Range" con icono de bookmark)
+    - [ ] Variant `pill` (estilo pastilla sólida con fondo azul/naranja activo, como "Narrow Range" con icono de bookmark)
+  - [ ] Añadir soporte para etiquetas de texto e iconos vectoriales (`Bookmark`) y estados interactivos al hacer clic
+  - [ ] Crear historias detalladas en Storybook
+- [ ] **Tag (Etiquetas de Metadatos)**
+  - [ ] Crear componente `Tag` estático para representar categorías y metadatos pequeños (ej. etiquetas decorativas de tarjetas)
+  - [ ] Configurar variantes de color BEM según la escala de Figma
+  - [ ] Crear historias en Storybook
+- [ ] **TextInput (Campo de Entrada de Texto)**
+  - [ ] Crear componente `TextInput` estándar con soporte para placeholders e integración con iconos
+  - [ ] Maquetar estados por defecto, foco (`:focus-visible`) y deshabilitado
   - [ ] Crear historias interactivas en Storybook
-- [ ] **Checkbox & Radio (Selectores de Lista)**
-  - [ ] Crear componentes de control `Checkbox` y `Radio` personalizados en CSS puro (reemplazando los selectores nativos por cajas decoradas de Figma)
-  - [ ] Asegurar que respondan dinámicamente al estado `:checked` y tengan anillo de foco `:focus-visible`
-  - [ ] Crear historias detalladas en Storybook para estados marcados/no-marcados
-- [ ] **Chip & Tag (Etiquetas y Chips de Filtro Seleccionables)**
-  - [ ] Crear componente `Tag` estático para metadatos (ej. tags de tarjetas)
-  - [ ] Crear componente `Chip` interactivo y seleccionable (ej. "Price Range" con icono de bookmark y fondo transparente/borde; "Narrow Range" con icono de bookmark y fondo sólido azul/naranja activo)
-  - [ ] Crear componente `Chip` descartable (con un botón de cruz a la derecha para quitar filtros activos)
-  - [ ] Documentar en Storybook todos los estados: por defecto, seleccionado, hover y descartable
-- [ ] **Rating (Calificador por Estrellas)**
-  - [ ] Crear componente `Rating` para renderizar estrellas (vacías/llenas) según una puntuación numérica (ej. 4.5 estrellas)
-  - [ ] Documentar en Storybook
+- [ ] **Checkbox (Casilla de Selección Personalizada)**
+  - [ ] Crear componente `Checkbox` utilizando estilos CSS puros para reemplazar el control nativo del navegador
+  - [ ] Añadir checkmark vectorial interno y configurar estados `:checked` e indicador `:focus-visible`
+  - [ ] Crear historias en Storybook
+- [ ] **Tooltip (Burbuja y Tarjeta de Desglose de Precios)**
+  - [ ] Crear componente `Tooltip` con dos modos de interacción:
+    - [ ] Burbuja informativa estándar al pasar el cursor (hover)
+    - [ ] Tarjeta de desglose de precios interactiva al hacer clic (popover con botón de cierre)
+  - [ ] Asegurar accesibilidad (roles de tooltip, cierre con tecla Escape y foco visible)
+  - [ ] Crear historias en Storybook
 - [ ] **Auditoría de Accesibilidad Inicial**
-  - [ ] Correr auditoría automatizada `addon-a11y` en Storybook para garantizar que todos los Atoms cumplen con la semántica básica de colores y focos antes de subir a Molecules
+  - [ ] Correr auditoría automatizada `addon-a11y` en Storybook en los 7 Atoms antes de estructurar Molecules
 
 ## Fase 3: Componentes Moleculares (Molecules)
 - [ ] Crear componente de tarjeta individual `Card`
