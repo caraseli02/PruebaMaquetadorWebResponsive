@@ -38,7 +38,6 @@ export const createTabs = ({
     tab.type = "button";
     tab.role = "tab";
     tab.id = `dux-tab-${index}`;
-    tab.setAttribute("aria-controls", `dux-tab-panel-${index}`);
 
     if (item.icon) {
       tab.append(createIcon({ name: item.icon, size: 20, color: "currentColor" }));

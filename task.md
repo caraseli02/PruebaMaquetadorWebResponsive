@@ -77,8 +77,9 @@
   - [x] Reproducir las dos columnas visuales del frame: filas con chevron y filas sin chevron
   - [x] Añadir estados de foco, disabled y validación sin cambiar tamaño, padding ni gaps
   - [x] Crear historia Storybook con la matriz completa de variantes del frame
-- [ ] **Auditoría de Accesibilidad Inicial**
-  - [ ] Correr `@storybook/addon-a11y` sobre los 8 atoms reales antes de pasar a Molecules
+- [x] **Auditoría de Accesibilidad Inicial**
+  - [x] Correr `@storybook/addon-a11y` sobre los 8 atoms reales antes de pasar a Molecules
+  - [x] Resultado: 0 violaciones en los 8 stories (`Tabs` queda con 1 resultado inconcluso de axe, sin violaciones)
 
 ## Fase 3: Componentes Moleculares (Molecules)
 - [ ] Crear componente de tarjeta individual `Card`
