@@ -154,6 +154,19 @@
   - [x] Realizar lógica de filtrado de datos local en TypeScript
   - [x] Disparar el re-renderizado eficiente de `CardsGrid`
 
+## Fase de Refactorización Arquitectónica: Módulos Profundos
+- [x] **Módulo Profundo: TravelFilterState**
+  - [x] Crear archivo `src/components/organisms/FilterPanel/TravelFilterState.ts` con API reactiva en-process.
+  - [x] Adaptar `FilterPanel.ts` para consumir y actualizar de forma reactiva `TravelFilterState`.
+  - [x] Adaptar `SearchBar.ts` para emitir búsquedas de forma limpia a `TravelFilterState`.
+- [x] **Módulo Profundo: OverlayManager**
+  - [x] Crear archivo `src/components/molecules/OverlayManager.ts`.
+  - [x] Implementar soporte de posicionamiento absoluto, click-outside y ciclo de vida de Popover.
+  - [x] Implementar soporte de scroll-lock, trapping y diálogos nativos.
+- [x] **Orquestación e Integración**
+  - [x] Reescribir `main.ts` para eliminar queries imperativas de DOM e integrar ambos módulos.
+  - [x] Validar compilación, Storybook y verificar comportamiento responsivo y sincronización de filtros.
+
 ## Fase 6: Pruebas de Calidad, Accesibilidad y Verificación Final
 - [ ] Testear exhaustivamente el `<dialog>` nativo de filtros en móvil
   - [ ] Validar atrapado de foco (focus trap) en teclado

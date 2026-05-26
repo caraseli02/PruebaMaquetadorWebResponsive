@@ -1,8 +1,10 @@
 import "./SearchBar.css";
 import { createTextInput } from "../../atoms/TextInput";
 import { createButton } from "../../atoms/Button";
+import { TravelFilterState } from "../FilterPanel/TravelFilterState";
 
 export interface SearchBarProps {
+  filterState?: TravelFilterState;
   onSearch?: (searchState: {
     destination: string;
     checkIn: string;
@@ -14,8 +16,9 @@ export interface SearchBarProps {
 /**
  * High-fidelity, responsive SearchBar organism featuring iconized input fields,
  * chevron drop triggers, a main search CTA button, and a visual summary banner.
+ * Integra de forma reactiva el estado compartido a través del módulo TravelFilterState.
  */
-export function createSearchBar({ onSearch }: SearchBarProps = {}): HTMLElement {
+export function createSearchBar({ filterState, onSearch }: SearchBarProps = {}): HTMLElement {
   const container = document.createElement("section");
   container.className = "search-bar";
   container.setAttribute("aria-label", "Barra de búsqueda de viajes");
@@ -91,17 +94,33 @@ export function createSearchBar({ onSearch }: SearchBarProps = {}): HTMLElement 
   `;
   container.appendChild(summaryPanel);
 
+  // SUSCRIPCIÓN REACTIVA AL ESTADO PARA SINCRONIZACIÓN DE LA BÚSQUEDA
+  if (filterState) {
+    filterState.subscribe((state) => {
+      const field = destInput.querySelector(".dux-text-input__field") as HTMLInputElement;
+      if (field && document.activeElement !== field) {
+        field.value = state.search;
+      }
+    });
+  }
+
   // Wire search action
   searchBtn.addEventListener("click", (e) => {
     e.preventDefault();
+    const destField = destInput.querySelector(".dux-text-input__field") as HTMLInputElement;
+    const destination = destField ? destField.value : "";
+
+    if (filterState) {
+      filterState.setSearch(destination);
+    }
+
     if (onSearch) {
-      const destField = destInput.querySelector(".dux-text-input__field") as HTMLInputElement;
       const ciField = checkInInput.querySelector(".dux-text-input__field") as HTMLInputElement;
       const coField = checkOutInput.querySelector(".dux-text-input__field") as HTMLInputElement;
       const gField = guestsInput.querySelector(".dux-text-input__field") as HTMLInputElement;
 
       onSearch({
-        destination: destField ? destField.value : "",
+        destination,
         checkIn: ciField ? ciField.value : "",
         checkOut: coField ? coField.value : "",
         guests: gField ? gField.value : "",

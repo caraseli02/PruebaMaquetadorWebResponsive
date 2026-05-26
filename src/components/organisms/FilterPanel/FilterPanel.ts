@@ -1,18 +1,11 @@
 import "./FilterPanel.css";
 import { createButton } from "../../atoms/Button";
 import { createIcon, type IconName } from "../../atoms/Icon";
-
-export interface FilterState {
-  search: string;
-  destinations: string[];
-  activities: string[];
-  maxPrice: number;
-  ratings: string[];
-}
+import { TravelFilterState, type FilterState } from "./TravelFilterState";
 
 export interface FilterPanelProps {
+  filterState?: TravelFilterState;
   initialState?: FilterState;
-  onFilterChange?: (state: FilterState) => void;
   dialogMode?: boolean;
   onCloseDialog?: () => void;
 }
@@ -30,48 +23,21 @@ const activityOptions = [
   "Surf",
 ];
 
-const updateGroup = (state: FilterState, group: FilterGroup, value: string, checked: boolean) => {
-  const current = new Set(state[group]);
-  if (checked) {
-    current.add(value);
-  } else {
-    current.delete(value);
-  }
-  state[group] = [...current];
-};
-
 const parsePrice = (value: string, fallback: number) => {
   const number = Number(value.replace(/[^\d]/g, ""));
   return Number.isFinite(number) && number > 0 ? number : fallback;
 };
 
-/**
- * Filter Panel organism matching the Figma sidebar composition.
- */
 export function createFilterPanel({
-  initialState = { search: "", destinations: [], activities: [], maxPrice: 700, ratings: [] },
-  onFilterChange,
+  filterState: _filterState,
+  initialState,
   dialogMode = false,
   onCloseDialog,
 }: FilterPanelProps = {}): HTMLElement {
-  const state: FilterState = {
-    search: initialState.search,
-    destinations: [...initialState.destinations],
-    activities: [...initialState.activities],
-    maxPrice: initialState.maxPrice,
-    ratings: [...initialState.ratings],
-  };
+  const filterState = _filterState ?? new TravelFilterState(initialState);
 
-  const triggerChange = () => {
-    onFilterChange?.({
-      search: state.search,
-      destinations: [...state.destinations],
-      activities: [...state.activities],
-      maxPrice: state.maxPrice,
-      ratings: [...state.ratings],
-    });
-  };
 
+  
   const createSectionToggle = ({
     icon,
     label,
@@ -103,7 +69,6 @@ export function createFilterPanel({
   const createCheckboxRow = (
     label: string,
     value: string,
-    checked: boolean,
     group: FilterGroup
   ): HTMLElement => {
     const labelEl = document.createElement("label");
@@ -112,11 +77,17 @@ export function createFilterPanel({
     const input = document.createElement("input");
     input.type = "checkbox";
     input.className = "filter-checkbox-input";
+    input.dataset.group = group;
     input.value = value;
-    input.checked = checked;
+    
     input.addEventListener("change", () => {
-      updateGroup(state, group, value, input.checked);
-      triggerChange();
+      if (group === "activities") {
+        filterState.toggleActivity(value);
+      } else if (group === "destinations") {
+        filterState.toggleDestination(value);
+      } else if (group === "ratings") {
+        filterState.toggleRating(value);
+      }
     });
 
     const textSpan = document.createElement("span");
@@ -133,7 +104,7 @@ export function createFilterPanel({
     return labelEl;
   };
 
-  const createPriceInput = (placeholder: string, value = "") => {
+  const createPriceInput = (placeholder: string) => {
     const wrapper = document.createElement("label");
     wrapper.className = "filter-price-field";
     wrapper.appendChild(createIcon({ name: "tag", size: 22, color: "currentColor" }));
@@ -142,12 +113,11 @@ export function createFilterPanel({
     input.type = "text";
     input.inputMode = "numeric";
     input.placeholder = placeholder;
-    input.value = value;
     if (placeholder === "Máximo") {
       input.className = "filter-price-input";
       input.addEventListener("input", () => {
-        state.maxPrice = parsePrice(input.value, state.maxPrice);
-        triggerChange();
+        const val = parsePrice(input.value, filterState.getState().maxPrice);
+        filterState.setMaxPrice(val);
       });
     }
 
@@ -168,7 +138,7 @@ export function createFilterPanel({
   activityList.className = "filter-section__list";
   activityOptions.forEach((activity) => {
     activityList.append(
-      createCheckboxRow(activity, activity, state.activities.includes(activity), "activities")
+      createCheckboxRow(activity, activity, "activities")
     );
   });
   activitySection.append(activityList);
@@ -192,6 +162,8 @@ export function createFilterPanel({
   priceFields.append(createPriceInput("Mínimo"), createPriceInput("Máximo"));
   priceSection.append(priceFields);
   formContent.append(priceSection);
+
+  let container: HTMLElement;
 
   if (dialogMode) {
     const dialog = document.createElement("dialog");
@@ -229,22 +201,47 @@ export function createFilterPanel({
 
     wrapper.append(dialogHeader, formContent, applyBtn);
     dialog.appendChild(wrapper);
-    dialog.addEventListener("close", () => document.body.classList.remove("no-scroll"));
-    return dialog;
+    container = dialog;
+  } else {
+    const panel = document.createElement("aside");
+    panel.className = "filter-panel";
+    panel.setAttribute("aria-label", "Panel de filtros y búsqueda");
+
+    const header = document.createElement("div");
+    header.className = "filter-panel__header";
+
+    const title = document.createElement("h3");
+    title.className = "filter-panel__title";
+    title.textContent = "Filtrar mi búsqueda";
+
+    header.appendChild(title);
+    panel.append(header, formContent);
+    container = panel;
   }
 
-  const panel = document.createElement("aside");
-  panel.className = "filter-panel";
-  panel.setAttribute("aria-label", "Panel de filtros y búsqueda");
+  // SUSCRIPCIÓN REACTIVA AL ESTADO DE FILTRADO PARA RENDERIZACIÓN INTERNA COHERENTE
+  filterState.subscribe((state) => {
+    // Sincronizar Checkboxes de Actividades, Destinos y Ratings
+    const checkboxes = container.querySelectorAll(".filter-checkbox-input") as NodeListOf<HTMLInputElement>;
+    checkboxes.forEach((cb) => {
+      const val = cb.value;
+      const group = cb.dataset.group as FilterGroup;
+      if (group === "activities") {
+        cb.checked = state.activities.includes(val);
+      } else if (group === "destinations") {
+        cb.checked = state.destinations.includes(val);
+      } else if (group === "ratings") {
+        cb.checked = state.ratings.includes(val);
+      }
+    });
 
-  const header = document.createElement("div");
-  header.className = "filter-panel__header";
+    // Sincronizar campo de precio máximo
+    const maxPriceInput = container.querySelector(".filter-price-input") as HTMLInputElement;
+    if (maxPriceInput && document.activeElement !== maxPriceInput) {
+      maxPriceInput.value = state.maxPrice > 0 ? String(state.maxPrice) : "";
+    }
+  });
 
-  const title = document.createElement("h3");
-  title.className = "filter-panel__title";
-  title.textContent = "Filtrar mi búsqueda";
-
-  header.appendChild(title);
-  panel.append(header, formContent);
-  return panel;
+  return container;
 }
+export type { FilterState };

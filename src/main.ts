@@ -8,17 +8,18 @@ import { createHeader } from "./components/organisms/Header/Header";
 import { createHero } from "./components/organisms/Hero/Hero";
 import { createSearchBar } from "./components/organisms/SearchBar/SearchBar";
 import { createFilterPanel } from "./components/organisms/FilterPanel/FilterPanel";
-import type { FilterState } from "./components/organisms/FilterPanel/FilterPanel";
+import { TravelFilterState } from "./components/organisms/FilterPanel/TravelFilterState";
 import { createCardsGrid } from "./components/organisms/CardsGrid/CardsGrid";
 import { createFooter } from "./components/organisms/Footer/Footer";
 import { createButton } from "./components/atoms/Button";
 import { createIcon } from "./components/atoms/Icon";
 import { createPricingPopover } from "./components/molecules/Popover";
-import { mockCards } from "./data/cards";
+import { OverlayManager } from "./components/molecules/OverlayManager";
 import type { CardData } from "./types";
 
 /**
  * Main application coordinator and reactive state manager.
+ * Limpio y libre de queries invasivas sobre el DOM externo de los componentes.
  */
 function initApp() {
   const app = document.getElementById("app");
@@ -27,17 +28,11 @@ function initApp() {
   // Clear base container
   app.innerHTML = "";
   
-  // Initial state representing travel criteria
-  let currentFilters: FilterState = {
-    search: "",
-    destinations: [],
-    activities: [],
-    maxPrice: 700,
-    ratings: [],
-  };
+  // Inicialización del Módulo Profundo: TravelFilterState
+  const filterState = new TravelFilterState();
   
   // ==========================================================================
-  // PRICING POPOVER & CHECKOUT DIALOG INITIALIZATION
+  // PRICING POPOVER & CHECKOUT DIALOG INITIALIZATION (Mediated by OverlayManager)
   // ==========================================================================
   
   // 0.1. Pricing Popover floating container
@@ -50,27 +45,14 @@ function initApp() {
     const nextPopover = createPricingPopover({
       price: card.price,
       onClose: () => {
-        popover.style.display = "none";
+        OverlayManager.closePopover();
       },
     });
-    nextPopover.style.position = "absolute";
+    
     popover.replaceWith(nextPopover);
     popover = nextPopover;
-    popover.style.display = "block";
     
-    // Position popover relative to the trigger element
-    const rect = triggerEl.getBoundingClientRect();
-    popover.style.top = `${rect.bottom + window.scrollY + 8}px`;
-    popover.style.left = `${Math.min(rect.left + window.scrollX, window.innerWidth - 300)}px`;
-    
-    // Close on outside click
-    const outsideClick = (e: MouseEvent) => {
-      if (!popover.contains(e.target as Node) && !triggerEl.contains(e.target as Node)) {
-        popover.style.display = "none";
-        document.removeEventListener("click", outsideClick);
-      }
-    };
-    setTimeout(() => document.addEventListener("click", outsideClick), 0);
+    OverlayManager.openPopover(popover, triggerEl);
   }
   
   // 0.2. Booking modal Dialog
@@ -112,8 +94,8 @@ function initApp() {
         </div>
       </div>
     `;
-    bookingDialog.showModal();
-    document.body.classList.add("no-scroll");
+    
+    OverlayManager.openModal(bookingDialog);
     
     // Close triggers
     const closeBtn = bookingDialog.querySelector(".booking-dialog__close");
@@ -121,15 +103,11 @@ function initApp() {
     const form = bookingDialog.querySelector(".booking-dialog__form") as HTMLFormElement;
     
     const closeModal = () => {
-      bookingDialog.close();
-      document.body.classList.remove("no-scroll");
+      OverlayManager.closeModal(bookingDialog);
     };
     
     closeBtn?.addEventListener("click", closeModal);
     cancelBtn?.addEventListener("click", closeModal);
-    bookingDialog.addEventListener("close", () => {
-      document.body.classList.remove("no-scroll");
-    });
     
     form?.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -152,10 +130,7 @@ function initApp() {
   
   // 2.2. SearchBar (Horizontal card stacked responsive)
   const searchBarEl = createSearchBar({
-    onSearch: (searchState) => {
-      currentFilters.search = searchState.destination;
-      updateState(currentFilters, "search-bar");
-    }
+    filterState,
   });
   searchBarEl.classList.add("search-bar--overlap");
   app.appendChild(searchBarEl);
@@ -185,10 +160,7 @@ function initApp() {
   sidebarContainer.className = "desktop-sidebar-filters";
   
   const inlineFilters = createFilterPanel({
-    initialState: currentFilters,
-    onFilterChange: (newState) => {
-      updateState(newState, "inline");
-    },
+    filterState,
   });
   sidebarContainer.appendChild(inlineFilters);
   mainWrapper.appendChild(sidebarContainer);
@@ -196,17 +168,6 @@ function initApp() {
   // Main Grid Results panel
   const contentContainer = document.createElement("div");
   contentContainer.className = "grid-content-panel";
-  
-  const gridEl = createCardsGrid({ 
-    cards: mockCards,
-    onDetailsClick: (card, event) => {
-      showPricingPopover(card, event.currentTarget as HTMLElement);
-    },
-    onBookClick: (card) => {
-      showBookingModal(card);
-    }
-  });
-  contentContainer.appendChild(gridEl);
   mainWrapper.appendChild(contentContainer);
   
   app.appendChild(mainWrapper);
@@ -217,13 +178,10 @@ function initApp() {
   
   // 5. Mobile modal filters dialog
   const dialogFilters = createFilterPanel({
-    initialState: currentFilters,
+    filterState,
     dialogMode: true,
-    onFilterChange: (newState) => {
-      updateState(newState, "dialog");
-    },
     onCloseDialog: () => {
-      document.body.classList.remove("no-scroll");
+      OverlayManager.closeModal(dialogFilters);
     },
   }) as HTMLDialogElement;
   app.appendChild(dialogFilters);
@@ -239,8 +197,7 @@ function initApp() {
   mobileFab.setAttribute("aria-label", "Abrir filtros de búsqueda");
   
   mobileFab.addEventListener("click", () => {
-    dialogFilters.showModal();
-    document.body.classList.add("no-scroll");
+    OverlayManager.openModal(dialogFilters);
   });
   
   app.appendChild(mobileFab);
@@ -249,99 +206,8 @@ function initApp() {
   // REACTIVE STATE UPDATER & RENDERING SYNC
   // ==========================================================================
   
-  function updateState(newState: FilterState, origin: "inline" | "dialog" | "search-bar") {
-    currentFilters = { ...newState };
-    
-    // 1. Synchronize inputs bidirectionally
-    if (origin === "inline" || origin === "search-bar") {
-      // Sync dialog search field
-      const dialogSearch = dialogFilters.querySelector(".dux-text-input__field") as HTMLInputElement;
-      if (dialogSearch) dialogSearch.value = currentFilters.search;
-      
-      // Sync dialog price slider
-      const dialogSlider = dialogFilters.querySelector(".filter-price-input") as HTMLInputElement;
-      if (dialogSlider) {
-        dialogSlider.value = String(currentFilters.maxPrice);
-        const display = dialogFilters.querySelector(".filter-price-display");
-        if (display) display.innerHTML = `Hasta: <strong>${currentFilters.maxPrice} €</strong>`;
-      }
-      
-      // Sync dialog checkboxes
-      const dialogCheckboxes = dialogFilters.querySelectorAll(".filter-checkbox-input") as NodeListOf<HTMLInputElement>;
-      dialogCheckboxes.forEach((cb) => {
-        const val = cb.value;
-        cb.checked = 
-          currentFilters.destinations.includes(val) || 
-          currentFilters.activities.includes(val) || 
-          currentFilters.ratings.includes(val);
-      });
-    }
-    
-    if (origin === "dialog" || origin === "search-bar") {
-      // Sync inline search field
-      const inlineSearch = inlineFilters.querySelector(".dux-text-input__field") as HTMLInputElement;
-      if (inlineSearch) inlineSearch.value = currentFilters.search;
-      
-      // Sync inline price slider
-      const inlineSlider = inlineFilters.querySelector(".filter-price-input") as HTMLInputElement;
-      if (inlineSlider) {
-        inlineSlider.value = String(currentFilters.maxPrice);
-        const display = inlineFilters.querySelector(".filter-price-display");
-        if (display) display.innerHTML = `Hasta: <strong>${currentFilters.maxPrice} €</strong>`;
-      }
-      
-      // Sync inline checkboxes
-      const inlineCheckboxes = inlineFilters.querySelectorAll(".filter-checkbox-input") as NodeListOf<HTMLInputElement>;
-      inlineCheckboxes.forEach((cb) => {
-        const val = cb.value;
-        cb.checked = 
-          currentFilters.destinations.includes(val) || 
-          currentFilters.activities.includes(val) || 
-          currentFilters.ratings.includes(val);
-      });
-    }
-    
-    // Sync SearchBar input if search changes
-    const searchBarInput = searchBarEl.querySelector(".dux-text-input__field") as HTMLInputElement;
-    if (searchBarInput && origin !== "search-bar") {
-      searchBarInput.value = currentFilters.search;
-    }
-    
-    // 2. Perform client-side filter computation
-    const filteredCards = mockCards.filter((card) => {
-      // A. Text Search (title and meta description match)
-      const matchesSearch =
-        currentFilters.search === "" ||
-        card.title.toLowerCase().includes(currentFilters.search.toLowerCase()) ||
-        card.meta.toLowerCase().includes(currentFilters.search.toLowerCase());
-        
-      // B. Destinations matching
-      const matchesDestination =
-        currentFilters.destinations.length === 0 ||
-        currentFilters.destinations.some((d) => card.meta.toLowerCase().includes(d.toLowerCase()));
-        
-      // C. Activities matching
-      const matchesActivity =
-        currentFilters.activities.length === 0 ||
-        currentFilters.activities.includes(card.tag);
-        
-      // D. Price limit matching
-      const cardPriceNum = parseFloat(card.price.replace(/[^\d,]/g, "").replace(",", "."));
-      const matchesPrice = cardPriceNum <= currentFilters.maxPrice;
-      
-      // E. Ratings matching
-      let matchesRating = true;
-      if (currentFilters.ratings.length > 0) {
-        matchesRating = currentFilters.ratings.some((ratingStr) => {
-          if (ratingStr.includes("4.5+")) return card.rating >= 4.5;
-          return true;
-        });
-      }
-      
-      return matchesSearch && matchesDestination && matchesActivity && matchesPrice && matchesRating;
-    });
-    
-    // 3. Redraw cards grid
+  // Suscribirse a los cambios de estado en TravelFilterState para redibujar la grilla de tarjetas
+  filterState.subscribe((_state, filteredCards) => {
     const oldGridContainer = contentContainer.querySelector("#cards-grid-container-el");
     if (oldGridContainer) {
       oldGridContainer.remove();
@@ -357,7 +223,7 @@ function initApp() {
       }
     });
     contentContainer.appendChild(newGridEl);
-  }
+  });
 }
 
 // Start application
