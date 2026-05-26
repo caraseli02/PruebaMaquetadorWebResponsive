@@ -1,0 +1,133 @@
+/* ==========================================================================
+   DUAL RANGE SLIDER ATOM STYLES
+   ========================================================================== */
+
+.slider-container {
+  width: 100%;
+  user-select: none;
+}
+
+.slider-header {
+  margin-bottom: var(--space-2xs);
+}
+
+.slider-title {
+  font-family: var(--font-sans);
+  color: var(--color-text-main);
+}
+
+.slider-value-display {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums; /* prevents numerical jumping while sliding */
+}
+
+.slider-range-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Base overlay input properties */
+.slider-input {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  background: none;
+  pointer-events: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  z-index: 3;
+}
+
+/* Focus states for keyboards */
+.slider-input:focus {
+  outline: none;
+}
+
+/* Chrome, Safari, Opera, Edge Thumbs styling */
+.slider-input::-webkit-slider-thumb {
+  position: relative;
+  pointer-events: auto;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-bg-card);
+  border: 2.5px solid var(--color-primary);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  z-index: 10;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.slider-input::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  border-color: var(--color-primary-hover);
+  background-color: var(--color-gray-50);
+}
+
+.slider-input::-webkit-slider-thumb:active {
+  transform: scale(1.2);
+  border-color: var(--color-primary-active);
+  background-color: #ffffff;
+}
+
+.slider-input:focus-visible::-webkit-slider-thumb {
+  outline: 3px solid var(--color-orange-200);
+  outline-offset: 1px;
+}
+
+/* Firefox Thumbs styling */
+.slider-input::-moz-range-thumb {
+  pointer-events: auto;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-bg-card);
+  border: 2.5px solid var(--color-primary);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  z-index: 10;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.slider-input::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  border-color: var(--color-primary-hover);
+  background-color: var(--color-gray-50);
+}
+
+.slider-input::-moz-range-thumb:active {
+  transform: scale(1.2);
+  border-color: var(--color-primary-active);
+  background-color: #ffffff;
+}
+
+.slider-input:focus-visible::-moz-range-thumb {
+  outline: 3px solid var(--color-orange-200);
+  outline-offset: 1px;
+}
+
+/* Hide standard track element in Firefox and Chrome */
+.slider-input::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+}
+
+.slider-input::-moz-range-track {
+  background: none;
+  border: none;
+}
+
+/* Bottom limit numbers styling */
+.slider-limit-label {
+  font-family: var(--font-sans);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.02em;
+}
