@@ -31,5 +31,14 @@ El componente individual de información visual que representa un elemento del c
 _Avoid_: Item, Product Card, Content Box
 
 **Footer**:
-La sección de cierre inferior del sitio que incluye enlaces institucionales, datos de contacto, copyright e identidad visual secundaria.
+El componente de cierre inferior de la página, que consolida la información institucional, enlaces de navegación secundarios y el bloque de contacto.
 _Avoid_: Bottom Bar, Footer Section
+
+**PricingPopover**:
+El componente molecular flotante de posicionamiento absoluto que se despliega dinámicamente para mostrar el desglose estimado del coste de un circuito de viaje (Base, Impuestos y Gastos de gestión).
+_Avoid_: Price Breakdown, Price Tooltip, Desglose flotante, Detalle de precio
+
+**BookingDialog**:
+El componente de interacción modal nativo accesible que permite al usuario ingresar sus datos personales y de contacto para formalizar una solicitud de reserva sobre un circuito específico.
+_Avoid_: Checkout Form, Modal de Pago, Formulario de Reserva, Checkout Modal
+

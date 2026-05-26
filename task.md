@@ -168,12 +168,13 @@
   - [x] Validar compilación, Storybook y verificar comportamiento responsivo y sincronización de filtros.
 
 ## Fase 6: Pruebas de Calidad, Accesibilidad y Verificación Final
-- [ ] Testear exhaustivamente el `<dialog>` nativo de filtros en móvil
-  - [ ] Validar atrapado de foco (focus trap) en teclado
-  - [ ] Validar cierre rápido con la tecla `Escape`
-  - [ ] Validar que se bloquea el scroll de fondo
-- [ ] Auditar accesibilidad completa (a11y)
-  - [ ] Revisar contrastes y semántica con Storybook a11y
-  - [ ] Probar navegación por teclado con `:focus-visible` de todos los botones y selectores
-- [ ] Validar rendering responsivo y ausencia de desbordamiento horizontal en el navegador
+- [x] Testear exhaustivamente el `<dialog>` nativo de filtros en móvil
+  - [x] Validar atrapado de foco (focus trap) en teclado
+  - [x] Validar cierre rápido con la tecla `Escape`
+  - [x] Validar que se bloquea el scroll de fondo
+- [x] Auditar accesibilidad completa (a11y)
+  - [x] Revisar contrastes y semántica con Storybook a11y
+  - [x] Probar navegación por teclado con `:focus-visible` de todos los botones y selectores
+- [x] Validar rendering responsivo y ausencia de desbordamiento horizontal en el navegador
 - [x] Compilar producción (`npm run build`) y verificar que no hay errores de TypeScript o empaquetado
+
