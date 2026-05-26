@@ -9,6 +9,8 @@ export type BottomBarCircuitCardOptions = {
   detailsLabel?: string;
   buttonLabel?: string;
   layout?: BottomBarCircuitCardLayout;
+  onDetailsClick?: (e: MouseEvent) => void;
+  onBookClick?: (e: MouseEvent) => void;
 };
 
 export const createBottomBarCircuitCard = ({
@@ -17,6 +19,8 @@ export const createBottomBarCircuitCard = ({
   detailsLabel = "Ver desglose",
   buttonLabel = "Reservar",
   layout = "inline",
+  onDetailsClick,
+  onBookClick,
 }: BottomBarCircuitCardOptions = {}): HTMLElement => {
   const footer = document.createElement("footer");
   footer.className = `bottom-bar-circuit-card bottom-bar-circuit-card--${layout}`;
@@ -39,6 +43,9 @@ export const createBottomBarCircuitCard = ({
 
   const action = createButton({ label: buttonLabel, variant: "outline" });
   action.classList.add("bottom-bar-circuit-card__button");
+  if (onBookClick) {
+    action.addEventListener("click", onBookClick);
+  }
 
   if (detailsLabel) {
     const details = document.createElement("a");
@@ -48,6 +55,12 @@ export const createBottomBarCircuitCard = ({
       document.createTextNode(detailsLabel), 
       createIcon({ name: "chevronDownCompact", size: 16, color: "currentColor" })
     );
+    if (onDetailsClick) {
+      details.addEventListener("click", (e) => {
+        e.preventDefault();
+        onDetailsClick(e);
+      });
+    }
     footer.append(priceBlock, details, action);
   } else {
     footer.append(priceBlock, action);

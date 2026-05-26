@@ -26,9 +26,19 @@
 /* Elastic grid layout using CSS Grid fractional columns */
 .cards-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 360px));
   gap: var(--space-xl) var(--space-lg);
+  justify-content: center;
   width: 100%;
+}
+
+.cards-grid > [role="listitem"] {
+  display: flex;
+  min-width: 0;
+}
+
+.cards-grid .circuit-card {
+  height: 100%;
 }
 
 /* Empty State Styles */
@@ -61,22 +71,9 @@
   max-width: 360px;
 }
 
-/* Responsive columns breakpoints */
-@media (min-width: 480px) {
-  .cards-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (min-width: 768px) {
-  .cards-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
 @media (min-width: 1024px) {
   .cards-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-xl) var(--space-xl);
+    justify-content: start;
   }
 }

@@ -80,6 +80,13 @@ Each organism should have Storybook stories for relevant responsive states befor
 
 Use container queries for section internals and media queries only when the full page composition needs to change by viewport.
 
+Current implementation status:
+
+- Header, Hero, SearchBar, FilterPanel, CardsGrid, Footer, pricing popover, and booking dialog are implemented.
+- Hero now includes functional slider controls and active indicator state rather than static dots only.
+- CardsGrid stories use fullscreen responsive review and card dimensions are aligned to the Figma card reference of `360 x 404` on desktop.
+- FilterPanel has a default Storybook route in addition to sidebar and mobile dialog examples.
+
 ## 6. Full Page Figma Extraction
 
 Use the primary home frames from `docs/figma-investigation.md`:
@@ -165,6 +172,9 @@ Potential interactions:
 - Mobile menu toggle
 - Filter panel toggle
 - Filter state display
+- Hero slider navigation
+- Price breakdown popover
+- Booking dialog
 
 All interactions must be accessible by keyboard and expose the correct ARIA state when applicable.
 
@@ -186,6 +196,13 @@ Check:
 - Production build
 - Storybook stories for component states
 - Storybook accessibility checks where configured
+
+Latest verification checkpoint:
+
+- `npm run typecheck`
+- `npm run build`
+- Codex in-app browser review of organism Storybook routes at `390px`, `744px`, `1023px`, and `1440px`
+- CardsGrid confirmed without horizontal overflow and with consistent card/footer baselines after the phase-4 review fixes
 
 ## 12. README
 

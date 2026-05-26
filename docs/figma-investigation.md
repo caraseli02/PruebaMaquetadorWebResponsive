@@ -42,3 +42,16 @@ The same page also includes these frames, which may represent viewport captures,
 - The presence of large and small tablet frames suggests two tablet breakpoints should be considered, not a single tablet width.
 - The filter-state frames likely indicate expected interactive behavior or a visual state that should be reviewed before deciding the JavaScript scope.
 - Before implementation, capture screenshots and design context for the primary home frames, then inspect the filter-state frames enough to decide whether they are required deliverables or references only.
+
+## Phase 4 Visual Review Notes
+
+The organism review was performed with the Figma file open in the Codex in-app browser and Storybook running locally. The Figma MCP structured metadata endpoint was unavailable during the review because the file reached the Starter plan MCP call limit.
+
+Review findings fixed in the implementation:
+
+- Hero slider controls were added so the Storybook organism exposes real carousel behavior, not just static dots.
+- CardsGrid card sizing was adjusted to match the visible Figma card reference of `360 x 404` on desktop.
+- Card footers now align consistently across rows even when card title text wraps differently.
+- CardsGrid Storybook no longer forces a fixed `900px` width, so responsive checks at `390px` and `744px` do not create false horizontal overflow.
+- SearchBar standalone Storybook no longer inherits the negative overlap used only in page composition.
+- FilterPanel now has a valid default Storybook story route.

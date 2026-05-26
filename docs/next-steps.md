@@ -2,16 +2,17 @@
 
 ## Current Status
 
-Project setup is complete. The repository now has:
+Project setup and the main visual implementation are complete through the organism and local filtering layers. The repository now has:
 
 - Vite + TypeScript
 - Storybook with the HTML/Vite framework
 - Storybook accessibility addon
-- CSS file structure
-- Component folders for atoms, molecules, and organisms
+- CSS tokens, base styles, layout styles, responsive styles, and component styles
+- Implemented atoms, molecules, and organisms with Storybook stories
+- Full home composition in `src/main.ts`
+- Mock card data and typed local filtering
+- Interactive Header, Hero slider, SearchBar, FilterPanel, CardsGrid, price popover, booking dialog, and Footer
 - Planning docs for goal, Figma investigation, technical approach, and implementation plan
-
-The visual implementation has not started.
 
 ## Verified Commands
 
@@ -20,51 +21,18 @@ These commands pass:
 ```bash
 npm run typecheck
 npm run build
-npm run build:storybook
 ```
 
-Storybook currently warns that no story files exist. This is expected until the first component slice is implemented.
+The latest browser review used the Codex in-app browser with Storybook at `390px`, `744px`, `1023px`, and `1440px`.
 
-## Tomorrow's Figma Work
+## Current Follow-Up Work
 
-Continue with targeted Figma MCP calls once the rate limit resets.
-
-Recommended extraction order:
-
-1. `🏳️ Brand`
-   - Colors
-   - Typography
-   - Logo assets
-   - Spacing/radius/shadow conventions
-
-2. `🔬 Atoms`
-   - Buttons
-   - Icons
-   - Tags
-   - Titles
-   - Tabs
-   - Text inputs
-   - Checkboxes
-   - Slider indicators
-
-3. `🧬 Molecules`
-   - Footer content
-   - Card content
-   - Tag bar
-   - Card row
-
-4. `🌱 Organisms`
-   - Navigation
-   - Hero
-   - Search/filter surfaces
-   - Content sections
-   - Footer
-
-5. `🖥️ 📱 Desktop, tablet & mobile`
-   - Compose the final responsive page after the lower-level components are built in Storybook.
+1. Run the full accessibility pass for the composed page and dialogs.
+2. Validate mobile dialog focus behavior: focus trap, Escape close, and background scroll lock.
+3. Run or rebuild Storybook when needed for a static artifact review.
+4. Re-check Figma through MCP when the plan limit resets, especially for exact organism node measurements.
+5. Tighten any remaining pixel differences found during the final full-page pass.
 
 ## Implementation Rule
 
-Do not start full-page implementation before the Brand, Atoms, Molecules, and Organisms slices have been inspected and the first component plan is clear.
-
-Use container queries for reusable component responsiveness and media queries for page-level composition.
+Keep future changes aligned with the existing atomic structure. Use container queries for reusable card/component responsiveness and media queries for page-level composition.

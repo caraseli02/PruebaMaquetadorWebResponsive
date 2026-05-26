@@ -6,6 +6,7 @@ import "./styles/responsive.css";
 
 import { createHeader } from "./components/organisms/Header/Header";
 import { createHero } from "./components/organisms/Hero/Hero";
+import { createSearchBar } from "./components/organisms/SearchBar/SearchBar";
 import { createFilterPanel } from "./components/organisms/FilterPanel/FilterPanel";
 import type { FilterState } from "./components/organisms/FilterPanel/FilterPanel";
 import { createCardsGrid } from "./components/organisms/CardsGrid/CardsGrid";
@@ -13,6 +14,7 @@ import { createFooter } from "./components/organisms/Footer/Footer";
 import { createButton } from "./components/atoms/Button";
 import { createIcon } from "./components/atoms/Icon";
 import { mockCards } from "./data/cards";
+import type { CardData } from "./types";
 
 /**
  * Main application coordinator and reactive state manager.
@@ -27,9 +29,128 @@ function initApp() {
   // Initial state representing travel criteria
   let currentFilters: FilterState = {
     search: "",
-    categories: [],
+    destinations: [],
+    activities: [],
+    maxPrice: 700,
     ratings: [],
   };
+  
+  // ==========================================================================
+  // PRICING POPOVER & CHECKOUT DIALOG INITIALIZATION
+  // ==========================================================================
+  
+  // 0.1. Pricing Popover floating container
+  const popover = document.createElement("div");
+  popover.className = "pricing-popover";
+  popover.style.display = "none";
+  popover.style.position = "absolute";
+  document.body.appendChild(popover);
+  
+  function showPricingPopover(card: CardData, triggerEl: HTMLElement) {
+    const rawPrice = parseFloat(card.price.replace(/[^\d,]/g, "").replace(",", "."));
+    const base = (rawPrice * 0.79).toFixed(2);
+    const tax = (rawPrice * 0.15).toFixed(2);
+    const fees = (rawPrice * 0.06).toFixed(2);
+    
+    popover.innerHTML = `
+      <div class="pricing-popover__header">
+        <h4 class="pricing-popover__title">Desglose de precio</h4>
+        <button class="pricing-popover__close" aria-label="Cerrar desglose">×</button>
+      </div>
+      <ul class="pricing-popover__details">
+        <li><span>Precio base:</span> <strong>${base} €</strong></li>
+        <li><span>Impuestos (IVA 21%):</span> <strong>${tax} €</strong></li>
+        <li><span>Gastos de gestión:</span> <strong>${fees} €</strong></li>
+        <li class="pricing-popover__total"><span>Total estimado:</span> <strong>${card.price}</strong></li>
+      </ul>
+    `;
+    popover.style.display = "block";
+    
+    // Position popover relative to the trigger element
+    const rect = triggerEl.getBoundingClientRect();
+    popover.style.top = `${rect.bottom + window.scrollY + 8}px`;
+    popover.style.left = `${Math.min(rect.left + window.scrollX, window.innerWidth - 300)}px`;
+    
+    // Close button
+    const closeBtn = popover.querySelector(".pricing-popover__close");
+    closeBtn?.addEventListener("click", () => {
+      popover.style.display = "none";
+    });
+    
+    // Close on outside click
+    const outsideClick = (e: MouseEvent) => {
+      if (!popover.contains(e.target as Node) && !triggerEl.contains(e.target as Node)) {
+        popover.style.display = "none";
+        document.removeEventListener("click", outsideClick);
+      }
+    };
+    setTimeout(() => document.addEventListener("click", outsideClick), 0);
+  }
+  
+  // 0.2. Booking modal Dialog
+  const bookingDialog = document.createElement("dialog");
+  bookingDialog.className = "booking-dialog";
+  document.body.appendChild(bookingDialog);
+  
+  function showBookingModal(card: CardData) {
+    bookingDialog.innerHTML = `
+      <div class="booking-dialog__content">
+        <div class="booking-dialog__header">
+          <h3 class="booking-dialog__title">Reserva tu Aventura</h3>
+          <button class="booking-dialog__close" aria-label="Cerrar modal">×</button>
+        </div>
+        <div class="booking-dialog__body">
+          <div class="booking-dialog__summary">
+            <h4>${card.title}</h4>
+            <p>${card.meta.replace(/<[^>]*>/g, "")}</p>
+            <p class="booking-dialog__price">Precio por persona: <strong>${card.price}</strong></p>
+          </div>
+          <form class="booking-dialog__form">
+            <div class="booking-form-field">
+              <label for="booking-name">Nombre completo</label>
+              <input type="text" id="booking-name" required placeholder="Tu nombre..." class="booking-input" />
+            </div>
+            <div class="booking-form-field">
+              <label for="booking-email">Correo electrónico</label>
+              <input type="email" id="booking-email" required placeholder="Tu correo..." class="booking-input" />
+            </div>
+            <div class="booking-form-field">
+              <label for="booking-phone">Teléfono de contacto</label>
+              <input type="tel" id="booking-phone" required placeholder="Tu teléfono..." class="booking-input" />
+            </div>
+            <div class="booking-actions">
+              <button type="submit" class="dux-button dux-button--orange dux-button--lg booking-submit-btn">Confirmar Reserva</button>
+              <button type="button" class="dux-button dux-button--outline dux-button--lg booking-cancel-btn">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    `;
+    bookingDialog.showModal();
+    document.body.classList.add("no-scroll");
+    
+    // Close triggers
+    const closeBtn = bookingDialog.querySelector(".booking-dialog__close");
+    const cancelBtn = bookingDialog.querySelector(".booking-cancel-btn");
+    const form = bookingDialog.querySelector(".booking-dialog__form") as HTMLFormElement;
+    
+    const closeModal = () => {
+      bookingDialog.close();
+      document.body.classList.remove("no-scroll");
+    };
+    
+    closeBtn?.addEventListener("click", closeModal);
+    cancelBtn?.addEventListener("click", closeModal);
+    bookingDialog.addEventListener("close", () => {
+      document.body.classList.remove("no-scroll");
+    });
+    
+    form?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert(`¡Reserva confirmada con éxito para "${card.title}"! Nos pondremos en contacto contigo en breve.`);
+      closeModal();
+    });
+  }
   
   // ==========================================================================
   // RENDER SECTIONS
@@ -42,6 +163,16 @@ function initApp() {
   // 2. Hero ("Ruta por Australia")
   const heroEl = createHero();
   app.appendChild(heroEl);
+  
+  // 2.2. SearchBar (Horizontal card stacked responsive)
+  const searchBarEl = createSearchBar({
+    onSearch: (searchState) => {
+      currentFilters.search = searchState.destination;
+      updateState(currentFilters, "search-bar");
+    }
+  });
+  searchBarEl.classList.add("search-bar--overlap");
+  app.appendChild(searchBarEl);
   
   // 2.5. Section Header Title and Subtitle ("Vive tus propias aventuras")
   const sectionHeader = document.createElement("section");
@@ -80,7 +211,15 @@ function initApp() {
   const contentContainer = document.createElement("div");
   contentContainer.className = "grid-content-panel";
   
-  const gridEl = createCardsGrid({ cards: mockCards });
+  const gridEl = createCardsGrid({ 
+    cards: mockCards,
+    onDetailsClick: (card, event) => {
+      showPricingPopover(card, event.currentTarget as HTMLElement);
+    },
+    onBookClick: (card) => {
+      showBookingModal(card);
+    }
+  });
   contentContainer.appendChild(gridEl);
   mainWrapper.appendChild(contentContainer);
   
@@ -124,47 +263,87 @@ function initApp() {
   // REACTIVE STATE UPDATER & RENDERING SYNC
   // ==========================================================================
   
-  function updateState(newState: FilterState, origin: "inline" | "dialog") {
+  function updateState(newState: FilterState, origin: "inline" | "dialog" | "search-bar") {
     currentFilters = { ...newState };
     
     // 1. Synchronize inputs bidirectionally
-    if (origin === "inline") {
-      // Sync search field
+    if (origin === "inline" || origin === "search-bar") {
+      // Sync dialog search field
       const dialogSearch = dialogFilters.querySelector(".dux-text-input__field") as HTMLInputElement;
       if (dialogSearch) dialogSearch.value = currentFilters.search;
       
-      // Sync checkboxes
+      // Sync dialog price slider
+      const dialogSlider = dialogFilters.querySelector(".filter-price-input") as HTMLInputElement;
+      if (dialogSlider) {
+        dialogSlider.value = String(currentFilters.maxPrice);
+        const display = dialogFilters.querySelector(".filter-price-display");
+        if (display) display.innerHTML = `Hasta: <strong>${currentFilters.maxPrice} €</strong>`;
+      }
+      
+      // Sync dialog checkboxes
       const dialogCheckboxes = dialogFilters.querySelectorAll(".filter-checkbox-input") as NodeListOf<HTMLInputElement>;
       dialogCheckboxes.forEach((cb) => {
         const val = cb.value;
-        cb.checked = currentFilters.categories.includes(val) || currentFilters.ratings.includes(val);
+        cb.checked = 
+          currentFilters.destinations.includes(val) || 
+          currentFilters.activities.includes(val) || 
+          currentFilters.ratings.includes(val);
       });
-    } else {
-      // Sync search field
+    }
+    
+    if (origin === "dialog" || origin === "search-bar") {
+      // Sync inline search field
       const inlineSearch = inlineFilters.querySelector(".dux-text-input__field") as HTMLInputElement;
       if (inlineSearch) inlineSearch.value = currentFilters.search;
       
-      // Sync checkboxes
+      // Sync inline price slider
+      const inlineSlider = inlineFilters.querySelector(".filter-price-input") as HTMLInputElement;
+      if (inlineSlider) {
+        inlineSlider.value = String(currentFilters.maxPrice);
+        const display = inlineFilters.querySelector(".filter-price-display");
+        if (display) display.innerHTML = `Hasta: <strong>${currentFilters.maxPrice} €</strong>`;
+      }
+      
+      // Sync inline checkboxes
       const inlineCheckboxes = inlineFilters.querySelectorAll(".filter-checkbox-input") as NodeListOf<HTMLInputElement>;
       inlineCheckboxes.forEach((cb) => {
         const val = cb.value;
-        cb.checked = currentFilters.categories.includes(val) || currentFilters.ratings.includes(val);
+        cb.checked = 
+          currentFilters.destinations.includes(val) || 
+          currentFilters.activities.includes(val) || 
+          currentFilters.ratings.includes(val);
       });
+    }
+    
+    // Sync SearchBar input if search changes
+    const searchBarInput = searchBarEl.querySelector(".dux-text-input__field") as HTMLInputElement;
+    if (searchBarInput && origin !== "search-bar") {
+      searchBarInput.value = currentFilters.search;
     }
     
     // 2. Perform client-side filter computation
     const filteredCards = mockCards.filter((card) => {
-      // A. Text Search (title match)
+      // A. Text Search (title and meta description match)
       const matchesSearch =
         currentFilters.search === "" ||
-        card.title.toLowerCase().includes(currentFilters.search.toLowerCase());
+        card.title.toLowerCase().includes(currentFilters.search.toLowerCase()) ||
+        card.meta.toLowerCase().includes(currentFilters.search.toLowerCase());
         
-      // B. Categories matching
-      const matchesCategory =
-        currentFilters.categories.length === 0 ||
-        currentFilters.categories.includes(card.tag);
+      // B. Destinations matching
+      const matchesDestination =
+        currentFilters.destinations.length === 0 ||
+        currentFilters.destinations.some((d) => card.meta.toLowerCase().includes(d.toLowerCase()));
         
-      // C. Ratings matching (4.5+ estrellas)
+      // C. Activities matching
+      const matchesActivity =
+        currentFilters.activities.length === 0 ||
+        currentFilters.activities.includes(card.tag);
+        
+      // D. Price limit matching
+      const cardPriceNum = parseFloat(card.price.replace(/[^\d,]/g, "").replace(",", "."));
+      const matchesPrice = cardPriceNum <= currentFilters.maxPrice;
+      
+      // E. Ratings matching
       let matchesRating = true;
       if (currentFilters.ratings.length > 0) {
         matchesRating = currentFilters.ratings.some((ratingStr) => {
@@ -173,7 +352,7 @@ function initApp() {
         });
       }
       
-      return matchesSearch && matchesCategory && matchesRating;
+      return matchesSearch && matchesDestination && matchesActivity && matchesPrice && matchesRating;
     });
     
     // 3. Redraw cards grid
@@ -182,7 +361,15 @@ function initApp() {
       oldGridContainer.remove();
     }
     
-    const newGridEl = createCardsGrid({ cards: filteredCards });
+    const newGridEl = createCardsGrid({ 
+      cards: filteredCards,
+      onDetailsClick: (card, event) => {
+        showPricingPopover(card, event.currentTarget as HTMLElement);
+      },
+      onBookClick: (card) => {
+        showBookingModal(card);
+      }
+    });
     contentContainer.appendChild(newGridEl);
   }
 }

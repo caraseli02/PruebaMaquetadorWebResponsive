@@ -5,7 +5,9 @@ import { createIcon } from "../../atoms/Icon";
 
 export interface FilterState {
   search: string;
-  categories: string[];
+  destinations: string[];
+  activities: string[];
+  maxPrice: number;
   ratings: string[];
 }
 
@@ -20,7 +22,7 @@ export interface FilterPanelProps {
  * Filter Panel organism supporting both inline sidebar and accessible modal dialog rendering modes.
  */
 export function createFilterPanel({
-  initialState = { search: "", categories: [], ratings: [] },
+  initialState = { search: "", destinations: [], activities: [], maxPrice: 700, ratings: [] },
   onFilterChange,
   dialogMode = false,
   onCloseDialog,
@@ -29,7 +31,9 @@ export function createFilterPanel({
   // Local state reference
   const state: FilterState = {
     search: initialState.search,
-    categories: [...initialState.categories],
+    destinations: [...initialState.destinations],
+    activities: [...initialState.activities],
+    maxPrice: initialState.maxPrice,
     ratings: [...initialState.ratings],
   };
   
@@ -37,7 +41,9 @@ export function createFilterPanel({
     if (onFilterChange) {
       onFilterChange({
         search: state.search,
-        categories: [...state.categories],
+        destinations: [...state.destinations],
+        activities: [...state.activities],
+        maxPrice: state.maxPrice,
         ratings: [...state.ratings],
       });
     }
@@ -48,7 +54,7 @@ export function createFilterPanel({
     label: string,
     value: string,
     checked: boolean,
-    group: "categories" | "ratings"
+    group: "destinations" | "activities" | "ratings"
   ): HTMLElement => {
     const labelEl = document.createElement("label");
     labelEl.className = "filter-checkbox-row";
@@ -60,11 +66,17 @@ export function createFilterPanel({
     input.checked = checked;
     
     input.addEventListener("change", () => {
-      if (group === "categories") {
+      if (group === "destinations") {
         if (input.checked) {
-          state.categories.push(value);
+          state.destinations.push(value);
         } else {
-          state.categories = state.categories.filter((c) => c !== value);
+          state.destinations = state.destinations.filter((d) => d !== value);
+        }
+      } else if (group === "activities") {
+        if (input.checked) {
+          state.activities.push(value);
+        } else {
+          state.activities = state.activities.filter((a) => a !== value);
         }
       } else {
         if (input.checked) {
@@ -91,7 +103,7 @@ export function createFilterPanel({
   // 1. Search Box
   const searchInput = createTextInput({
     label: "BÚSQUEDA",
-    placeholder: "Buscar curso...",
+    placeholder: "Buscar viaje...",
     value: state.search,
     icon: "compass",
   });
@@ -105,27 +117,81 @@ export function createFilterPanel({
   }
   formContent.appendChild(searchInput);
   
-  // 2. Categories checkbox section
-  const catSection = document.createElement("section");
-  catSection.className = "filter-section";
+  // 2. Destinos checkbox section
+  const destSection = document.createElement("section");
+  destSection.className = "filter-section";
   
-  const catTitle = document.createElement("h4");
-  catTitle.className = "filter-section__title";
-  catTitle.textContent = "CATEGORÍAS";
-  catSection.appendChild(catTitle);
+  const destTitle = document.createElement("h4");
+  destTitle.className = "filter-section__title";
+  destTitle.textContent = "DESTINOS";
+  destSection.appendChild(destTitle);
   
-  const catList = document.createElement("div");
-  catList.className = "filter-section__list";
+  const destList = document.createElement("div");
+  destList.className = "filter-section__list";
   
-  const categories = ["Frontend", "Backend", "Accesibilidad", "UX/UI"];
-  categories.forEach((cat) => {
-    const isChecked = state.categories.includes(cat);
-    catList.appendChild(createCheckboxRow(cat, cat, isChecked, "categories"));
+  const destinations = ["Tailandia", "Marruecos", "España", "Kenia"];
+  destinations.forEach((dest) => {
+    const isChecked = state.destinations.includes(dest);
+    destList.appendChild(createCheckboxRow(dest, dest, isChecked, "destinations"));
   });
-  catSection.appendChild(catList);
-  formContent.appendChild(catSection);
+  destSection.appendChild(destList);
+  formContent.appendChild(destSection);
   
-  // 3. Ratings checkbox section
+  // 3. Actividades checkbox section
+  const actSection = document.createElement("section");
+  actSection.className = "filter-section";
+  
+  const actTitle = document.createElement("h4");
+  actTitle.className = "filter-section__title";
+  actTitle.textContent = "ACTIVIDADES";
+  actSection.appendChild(actTitle);
+  
+  const actList = document.createElement("div");
+  actList.className = "filter-section__list";
+  
+  const activities = ["Cultura", "Quads", "Senderismo", "Surf", "Safari", "Crucero"];
+  activities.forEach((act) => {
+    const isChecked = state.activities.includes(act);
+    actList.appendChild(createCheckboxRow(act, act, isChecked, "activities"));
+  });
+  actSection.appendChild(actList);
+  formContent.appendChild(actSection);
+  
+  // 4. Precio Range Slider section
+  const priceSection = document.createElement("section");
+  priceSection.className = "filter-section";
+  
+  const priceTitle = document.createElement("h4");
+  priceTitle.className = "filter-section__title";
+  priceTitle.textContent = "PRECIO MÁXIMO";
+  priceSection.appendChild(priceTitle);
+  
+  const priceSliderWrapper = document.createElement("div");
+  priceSliderWrapper.className = "filter-price-slider";
+  
+  const slider = document.createElement("input");
+  slider.type = "range";
+  slider.min = "100";
+  slider.max = "700";
+  slider.step = "10";
+  slider.value = String(state.maxPrice);
+  slider.className = "filter-price-input";
+  
+  const priceDisplay = document.createElement("div");
+  priceDisplay.className = "filter-price-display";
+  priceDisplay.innerHTML = `Hasta: <strong>${state.maxPrice} €</strong>`;
+  
+  slider.addEventListener("input", () => {
+    state.maxPrice = Number(slider.value);
+    priceDisplay.innerHTML = `Hasta: <strong>${state.maxPrice} €</strong>`;
+    triggerChange();
+  });
+  
+  priceSliderWrapper.append(slider, priceDisplay);
+  priceSection.appendChild(priceSliderWrapper);
+  formContent.appendChild(priceSection);
+  
+  // 5. Ratings checkbox section
   const ratingSection = document.createElement("section");
   ratingSection.className = "filter-section";
   
@@ -228,11 +294,15 @@ export function createFilterPanel({
   clearBtn.addEventListener("click", () => {
     // Reset state inputs
     state.search = "";
-    state.categories = [];
+    state.destinations = [];
+    state.activities = [];
+    state.maxPrice = 700;
     state.ratings = [];
     
     // Clear DOM input values
     if (searchField) searchField.value = "";
+    slider.value = "700";
+    priceDisplay.innerHTML = `Hasta: <strong>700 €</strong>`;
     
     const checkboxes = formContent.querySelectorAll(".filter-checkbox-input") as NodeListOf<HTMLInputElement>;
     checkboxes.forEach((cb) => {

@@ -16,6 +16,8 @@ export const Sidebar = () => {
   return container;
 };
 
+export const Default = Sidebar;
+
 export const DialogMobile = () => {
   const container = createStoryShell("Organism / Filter Panel (Mobile Dialog Modal)");
   

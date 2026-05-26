@@ -121,6 +121,9 @@ export function createFooter({
   const contactCol = document.createElement("div");
   contactCol.className = "footer__contact-col";
   const footerContact = createFooterContent({
+    phone: "918 46 00 48",
+    schedule: "Lunes a Viernes 09:30h a 19:30h",
+    email: "reservas@waveless.com",
     socialLayout: "inline",
   });
   

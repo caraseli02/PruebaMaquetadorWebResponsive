@@ -1,6 +1,7 @@
 .hero {
   position: relative;
   width: 100%;
+  min-height: 360px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -14,6 +15,7 @@
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
+  min-height: inherit;
   position: relative;
   z-index: 2;
 }
@@ -33,7 +35,6 @@
   line-height: 1.1;
   color: var(--color-text-light);
   margin-bottom: var(--space-md);
-  text-transform: capitalize;
 }
 
 .hero__title span {
@@ -66,27 +67,104 @@
   background-color: rgba(255, 255, 255, 0.08) !important;
 }
 
+.hero__slider-slot {
+  display: flex;
+  width: 100%;
+}
+
+.hero__slider {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-xl);
+  width: 100%;
+}
+
+.hero__slider-control {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  display: inline-grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  color: var(--color-orange-500);
+  background: rgba(255, 255, 255, 0.92);
+  border: 0;
+  border-radius: var(--radius-xs);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-50%);
+  transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.hero__slider-control:hover {
+  color: var(--color-orange-700);
+  background: #fff;
+  transform: translateY(-50%) scale(1.04);
+}
+
+.hero__slider-control--prev {
+  left: var(--space-md);
+}
+
+.hero__slider-control--next {
+  right: var(--space-md);
+}
+
 /* ==========================================================================
    BREAKPOINTS OVERRIDES
    ========================================================================== */
-@media (max-width: 480px) {
+@media (max-width: 743px) {
   .hero {
+    min-height: 420px;
     padding: var(--space-3xl) 0 var(--space-4xl) 0;
+  }
+
+  .hero__content {
+    align-items: center;
+    padding-inline: var(--space-3xl);
+    text-align: center;
+  }
+  
+  .hero__btn-secondary {
+    display: none !important;
   }
   
   .hero__actions .dux-button {
     width: 100%;
   }
+
+  .hero__slider-control {
+    width: 32px;
+    height: 32px;
+  }
+
+  .hero__slider-control--prev {
+    left: var(--space-xs);
+  }
+
+  .hero__slider-control--next {
+    right: var(--space-xs);
+  }
 }
 
 @media (min-width: 744px) {
   .hero {
+    min-height: 390px;
     padding: 80px 0;
+  }
+
+  .hero__content {
+    padding-inline: var(--space-3xl);
   }
 }
 
 @media (min-width: 1024px) {
   .hero {
+    min-height: 440px;
     padding: 120px 0;
+  }
+
+  .hero__content {
+    padding-inline: 0;
   }
 }

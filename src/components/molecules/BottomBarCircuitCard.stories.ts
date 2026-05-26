@@ -1,5 +1,5 @@
 import { createStoryShell } from "../atoms/storyUtils";
-import { createBottomBarCircuitCard, type BottomBarCircuitCardLayout } from "./BottomBarCircuitCard";
+import { createBottomBarCircuitCard } from "./BottomBarCircuitCard";
 
 export default {
   title: "Molecules/BottomBarCircuitCard",
@@ -8,7 +8,7 @@ export default {
   },
 };
 
-const layouts: BottomBarCircuitCardLayout[] = ["inline", "inline", "wide", "stacked"];
+
 
 export const FigmaVariants = () => {
   const container = createStoryShell("Card content / bottom bar");

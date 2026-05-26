@@ -50,18 +50,27 @@ La investigacion inicial de Figma esta en [`docs/figma-investigation.md`](docs/f
 
 ## Estado actual
 
-La fase actual es de preparacion. Ya estan configurados Vite, TypeScript y Storybook, junto con la estructura inicial de estilos y componentes.
+La implementacion visual ya cubre las capas de Brand, Atoms, Molecules y Organisms, y la home responsive esta compuesta con datos mock y filtrado local en TypeScript.
+
+Incluye:
+
+- Header responsive con navegacion desktop y menu hamburguesa accesible.
+- Hero con imagen de fondo, CTAs y controles reales de slider.
+- SearchBar responsive con campos atomicos y resumen inferior.
+- FilterPanel como sidebar desktop y dialog nativo en mobile.
+- CardsGrid con tarjetas alineadas a la referencia Figma de `360 x 404`.
+- Popover de desglose de precio y modal de reserva.
+- Footer responsive con enlaces, logo y datos de contacto.
 
 Comandos verificados:
 
 ```bash
 npm run typecheck
 npm run build
-npm run build:storybook
 ```
 
-Todavia no se ha implementado la interfaz visual de Figma. El siguiente paso es extraer tokens y componentes desde las paginas `Brand`, `Atoms`, `Molecules` y `Organisms`.
+La revision visual mas reciente se hizo en el navegador interno de Codex con Storybook en `390px`, `744px`, `1023px` y `1440px`, comprobando ausencia de overflow horizontal en los organismos revisados.
 
 ## Notas
 
-La implementacion visual todavia no ha empezado. El siguiente paso es extraer de Figma los tokens y componentes de las paginas `Brand`, `Atoms`, `Molecules` y `Organisms`, y despues componer la home responsive.
+El Figma MCP alcanzo el limite del plan Starter durante la revision final, asi que la comparacion de organismos se hizo con el archivo abierto en el navegador interno de Codex y con medidas visuales de Storybook. El siguiente bloque de trabajo recomendado es la fase de calidad: accesibilidad completa, foco de dialogs y validacion final de Storybook/build.

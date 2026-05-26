@@ -11,15 +11,19 @@ El componente de navegación superior y de marca de la página, que contiene la 
 _Avoid_: Navbar, Navigation Bar, Top Bar
 
 **Hero**:
-La sección principal de impacto visual superior que comunica la proposición de valor central y el lema del portal.
+La sección principal de impacto visual superior que comunica la proposición de valor central y el lema del portal. Incluye imagen de fondo, CTAs, controles de slider y estado activo del carrusel.
 _Avoid_: Jumbotron, Banner, Welcome Section
+
+**SearchBar**:
+El organismo de búsqueda principal que combina campos de destino, fechas, viajeros, CTA de búsqueda y resumen visual de la consulta. En la home se superpone al Hero mediante un modificador explícito, pero como organismo standalone no debe depender de ese offset.
+_Avoid_: Filter Panel, Toolbar, Form Row
 
 **Filter Panel**:
 El componente interactivo que permite al usuario segmentar o filtrar los elementos mostrados en la cuadrícula de tarjetas, adaptando su comportamiento e interfaz según el tamaño de la pantalla (sidebar en escritorio/tablet, modal en móvil).
 _Avoid_: Filters, Search Bar, Filter Modal
 
 **Cards Grid**:
-El contenedor principal estructurado que muestra la colección de tarjetas de contenido de forma responsiva y adaptativa.
+El contenedor principal estructurado que muestra la colección de tarjetas de contenido de forma responsiva y adaptativa. En desktop usa tarjetas de referencia `360 x 404`; las alturas y footers deben mantenerse alineados por fila.
 _Avoid_: Item Feed, Product List, Content Grid
 
 **Card**:

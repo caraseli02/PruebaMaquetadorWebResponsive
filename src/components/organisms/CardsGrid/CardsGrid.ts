@@ -6,6 +6,8 @@ import type { CardData } from "../../../types";
 export interface CardsGridProps {
   cards?: CardData[];
   onCardClick?: (id: string) => void;
+  onDetailsClick?: (card: CardData, event: MouseEvent) => void;
+  onBookClick?: (card: CardData, event: MouseEvent) => void;
 }
 
 /**
@@ -14,6 +16,8 @@ export interface CardsGridProps {
 export function createCardsGrid({
   cards = [],
   onCardClick,
+  onDetailsClick,
+  onBookClick,
 }: CardsGridProps = {}): HTMLElement {
   const container = document.createElement("div");
   container.className = "cards-grid-container";
@@ -25,7 +29,7 @@ export function createCardsGrid({
   
   const count = document.createElement("span");
   count.className = "cards-grid__count";
-  count.innerHTML = `Mostrando <strong>${cards.length}</strong> curso${cards.length !== 1 ? "s" : ""}`;
+  count.innerHTML = `Mostrando <strong>${cards.length}</strong> viaje${cards.length !== 1 ? "s" : ""}`;
   header.appendChild(count);
   container.appendChild(header);
   
@@ -41,7 +45,7 @@ export function createCardsGrid({
     
     const title = document.createElement("h4");
     title.className = "cards-grid__empty-title";
-    title.textContent = "No se encontraron cursos";
+    title.textContent = "No se encontraron viajes";
     emptyState.appendChild(title);
     
     const desc = document.createElement("p");
@@ -70,6 +74,12 @@ export function createCardsGrid({
       title: cardData.title,
       bottomBar: {
         price: cardData.price,
+        onDetailsClick: (e) => {
+          if (onDetailsClick) onDetailsClick(cardData, e);
+        },
+        onBookClick: (e) => {
+          if (onBookClick) onBookClick(cardData, e);
+        }
       }
     });
     

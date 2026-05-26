@@ -107,26 +107,52 @@
   - [x] Crear historia Storybook con la fila/grilla completa y estado responsive
 
 ## Fase 4: Secciones de Página (Organisms)
-- [ ] Crear sección de cabecera `Header`
-  - [ ] Implementar maquetación con logo y navegación
-  - [ ] Implementar menú hamburguesa responsive táctil y accesible (teclado + `aria-expanded`)
-- [ ] Crear sección de impacto `Hero` con tipografía responsiva (`clamp()`)
-- [ ] Crear componente `FilterPanel` (Panel de Filtros)
-  - [ ] Implementar barra lateral fija (sidebar) para resolución Desktop (`>= 1024px`)
-  - [ ] Implementar modal móvil responsivo usando la etiqueta nativa `<dialog>`
-  - [ ] Asegurar botón flotante de apertura y cierre en pantallas pequeñas
-- [ ] Crear contenedor `CardsGrid` (Cuadrícula elástica)
-  - [ ] Grid responsiva usando columnas elásticas y fraccionales para evitar espacios vacíos huérfanos
-- [ ] Crear sección de pie de página `Footer` con enlaces y logos de Figma
-- [ ] Documentar e inspeccionar todos los Organisms en Storybook a `390px`, `744px`, `1023px`, `1440px`
+- [x] **Header (`Nav Bar` en Figma)**
+  - [x] Validar maquetación responsiva con el logo de `waveless` (`logo-light.svg` o `logo-dark.svg`)
+  - [x] Implementar navegación exacta con los enlaces: `Aventura`, `Destinos`, `Alojamientos` y `Todos los viajes`
+  - [x] Integrar atom `Button` variante plum en tamaño `sm` para botón `Reserva`
+  - [x] Implementar menú hamburguesa responsivo táctil y accesible (teclado + `aria-expanded` + `aria-controls="mobile-nav-menu"`)
+- [x] **Hero (`Hero` en Figma)**
+  - [x] Cargar imagen de fondo `fondo.png` con máscara de gradiente oscuro premium para asegurar legibilidad
+  - [x] Implementar título `Ruta por Australia` con tipografía responsiva (`clamp()`) y destaque en color naranja
+  - [x] Soportar subtítulo `Si lo que te va es la aventura, no te lo puedes perder.`
+  - [x] Incorporar botones de acción duales para desktop (`Ver viaje` y `Saber Más`) y simple para mobile
+  - [x] Integrar atom `SliderIndicator` y controles prev/next con actualización real del slide activo
+- [x] **SearchBar (`Search Bar` en Figma)**
+  - [x] Crear componente `SearchBar` horizontal compuesto por campos atómicos de búsqueda
+  - [x] Implementar inputs: `Destinos o experiencia` (Icono compass), `Fecha de ida` (Icono calendar), `Fecha de vuelta` (Icono calendar), `Número de viajeros` (Icono users)
+  - [x] Integrar botón solid plum `Buscar` al final de la barra
+  - [x] Diseñar el panel de resumen inferior de búsqueda con desglose de fechas, duración (9 días) y viajeros (2 personas)
+- [x] **FilterPanel (`Filters` en Figma)**
+  - [x] Implementar barra lateral fija (sidebar) en Desktop (`>= 1024px`) con botón `Limpiar todo`
+  - [x] Maquetar secciones de filtros: `Destinos` (checkboxes), `Actividades` (checkboxes), rango de `Precio` y `Valoración` por estrellas
+  - [x] Implementar modal móvil responsivo usando la etiqueta nativa `<dialog>` y backdrop overlay
+  - [x] Asegurar botón flotante de filtros para apertura en pantallas pequeñas
+- [x] **CardsGrid (`Card row` y `Card grid` en Figma)**
+  - [x] Grid responsiva usando columnas elásticas y fraccionales para evitar espacios vacíos huérfanos (`repeat(auto-fill, minmax(320px, 1fr))`)
+  - [x] Integrar colección de `CircuitCard`s y manejar la actualización dinámica tras filtrado
+  - [x] Ajustar tarjetas a referencia Figma desktop `360 x 404` y alinear footers por fila
+- [x] **Footer (`Footer` en Figma)**
+  - [x] Estructurar maquetación en cuatro columnas en desktop, colapsable en móvil
+  - [x] Incorporar logo light de `waveless` y descripción de marca
+  - [x] Incluir sub-navegaciones: `Cursos`, `Recursos` y `Compañía` con sus enlaces respectivos
+  - [x] Integrar `FooterContent` con teléfono (`918 46 00 48`), horario (`Lunes a Viernes 09:30h a 19:30h`) y email corregido (`reservas@waveless.com`)
+  - [x] Agregar barra de copyright y enlaces legales (`Privacidad`, `Términos`, `Cookies`) en el pie de página
+- [x] **Detalle y Desglose (`Popover` y `Modal` en Figma)**
+  - [x] Implementar popover flotante de desglose de precios al pulsar `Ver desglose` (neto, impuestos, cargos y total)
+  - [x] Crear modal de reserva con diálogo accesible nativo `<dialog>`, mostrando resumen del viaje y formulario
+- [x] **Revisión y Storybook**
+  - [x] Documentar e inspeccionar detalladamente todos los Organisms en Storybook a `390px`, `744px`, `1023px` y `1440px`
+  - [x] Asegurar que el diseño cumple los principios de diseño atómico y pixel perfection frame por frame
+
 
 ## Fase 5: Integración y Lógica TypeScript (Filtros en el Cliente)
-- [ ] Crear interfaces en `src/types/index.ts` (`CardData`, etc.)
-- [ ] Cargar mock data realista y completo en `src/data/cards.ts`
-- [ ] Programar controlador de estado e integrador en `src/main.ts`
-  - [ ] Escuchar cambios del `FilterPanel`
-  - [ ] Realizar lógica de filtrado de datos local en TypeScript
-  - [ ] Disparar el re-renderizado eficiente de `CardsGrid`
+- [x] Crear interfaces en `src/types/index.ts` (`CardData`, etc.)
+- [x] Cargar mock data realista y completo en `src/data/cards.ts`
+- [x] Programar controlador de estado e integrador en `src/main.ts`
+  - [x] Escuchar cambios del `FilterPanel`
+  - [x] Realizar lógica de filtrado de datos local en TypeScript
+  - [x] Disparar el re-renderizado eficiente de `CardsGrid`
 
 ## Fase 6: Pruebas de Calidad, Accesibilidad y Verificación Final
 - [ ] Testear exhaustivamente el `<dialog>` nativo de filtros en móvil
@@ -137,4 +163,4 @@
   - [ ] Revisar contrastes y semántica con Storybook a11y
   - [ ] Probar navegación por teclado con `:focus-visible` de todos los botones y selectores
 - [ ] Validar rendering responsivo y ausencia de desbordamiento horizontal en el navegador
-- [ ] Compilar producción (`npm run build`) y verificar que no hay errores de TypeScript o empaquetado
+- [x] Compilar producción (`npm run build`) y verificar que no hay errores de TypeScript o empaquetado

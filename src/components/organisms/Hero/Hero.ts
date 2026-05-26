@@ -1,10 +1,19 @@
 import "./Hero.css";
 import { createButton } from "../../atoms/Button";
+import { createIcon } from "../../atoms/Icon";
+import { createSliderIndicator } from "../../atoms/SliderIndicator";
 import fondoImage from "../../../assets/fondo.png";
+
+export interface HeroSlide {
+  titleHtml: string;
+  description: string;
+  imageSrc?: string;
+}
 
 export interface HeroProps {
   titleHtml?: string;
   description?: string;
+  slides?: HeroSlide[];
   primaryCtaLabel?: string;
   secondaryCtaLabel?: string;
   onPrimaryClick?: () => void;
@@ -16,15 +25,32 @@ export interface HeroProps {
  */
 export function createHero({
   titleHtml = "Ruta por <span>Australia</span>",
-  description = "Descubre los desiertos rojos, las costas vírgenes y las ciudades vibrantes del continente australiano. Un viaje inolvidable lleno de aventuras, naturaleza salvaje y experiencias únicas en grupo.",
+  description = "Si lo que te va es la aventura, no te lo puedes perder.",
+  slides,
   primaryCtaLabel = "Ver viaje",
   secondaryCtaLabel = "Saber Más",
   onPrimaryClick,
   onSecondaryClick,
 }: HeroProps = {}): HTMLElement {
+  const heroSlides = slides?.length
+    ? slides
+    : [
+        { titleHtml, description, imageSrc: fondoImage },
+        {
+          titleHtml: "Costa de <span>Australia</span>",
+          description: "Si te va la aventura, este viaje te lleva directo al mapa.",
+          imageSrc: fondoImage,
+        },
+        {
+          titleHtml: "Aventura en <span>Australia</span>",
+          description: "Naturaleza, carretera y grupo en una escapada lista para reservar.",
+          imageSrc: fondoImage,
+        },
+      ];
+  let activeIndex = 0;
+
   const section = document.createElement("section");
   section.className = "hero";
-  section.style.backgroundImage = `linear-gradient(to right, rgba(25, 10, 49, 0.85) 0%, rgba(25, 10, 49, 0.4) 100%), url(${fondoImage})`;
   
   const container = document.createElement("div");
   container.className = "hero__container container";
@@ -35,13 +61,11 @@ export function createHero({
   // Title
   const title = document.createElement("h1");
   title.className = "hero__title";
-  title.innerHTML = titleHtml;
   content.appendChild(title);
   
   // Description
   const desc = document.createElement("p");
   desc.className = "hero__desc";
-  desc.textContent = description;
   content.appendChild(desc);
   
   // CTA Action buttons
@@ -71,9 +95,53 @@ export function createHero({
   actions.appendChild(primaryBtn);
   actions.appendChild(secondaryBtn);
   content.appendChild(actions);
+
+  const sliderSlot = document.createElement("div");
+  sliderSlot.className = "hero__slider-slot";
+  content.appendChild(sliderSlot);
+
+  const prevButton = document.createElement("button");
+  prevButton.type = "button";
+  prevButton.className = "hero__slider-control hero__slider-control--prev";
+  prevButton.setAttribute("aria-label", "Ver aventura anterior");
+  prevButton.appendChild(createIcon({ name: "chevronLeft", size: 24, color: "currentColor" }));
+
+  const nextButton = document.createElement("button");
+  nextButton.type = "button";
+  nextButton.className = "hero__slider-control hero__slider-control--next";
+  nextButton.setAttribute("aria-label", "Ver siguiente aventura");
+  nextButton.appendChild(createIcon({ name: "chevronRight", size: 24, color: "currentColor" }));
+
+  const renderSlide = () => {
+    const activeSlide = heroSlides[activeIndex];
+    section.style.backgroundImage = `linear-gradient(to right, rgba(25, 10, 49, 0.85) 0%, rgba(25, 10, 49, 0.4) 100%), url(${activeSlide.imageSrc ?? fondoImage})`;
+    title.innerHTML = activeSlide.titleHtml;
+    desc.textContent = activeSlide.description;
+
+    sliderSlot.replaceChildren();
+    const slider = createSliderIndicator({
+      total: heroSlides.length,
+      activeIndex,
+      label: "Aventuras destacadas",
+    });
+    slider.classList.add("hero__slider");
+    sliderSlot.appendChild(slider);
+  };
+
+  const goToSlide = (direction: 1 | -1) => {
+    activeIndex = (activeIndex + direction + heroSlides.length) % heroSlides.length;
+    renderSlide();
+  };
+
+  prevButton.addEventListener("click", () => goToSlide(-1));
+  nextButton.addEventListener("click", () => goToSlide(1));
   
   container.appendChild(content);
   section.appendChild(container);
+  if (heroSlides.length > 1) {
+    section.append(prevButton, nextButton);
+  }
+  renderSlide();
   
   return section;
 }

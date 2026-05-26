@@ -8,3 +8,7 @@ skills-lock.json
 .env
 .env.*
 !.env.example
+
+# Local visual-review captures
+/figma*.png
+/zoom*.png

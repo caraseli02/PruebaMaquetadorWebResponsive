@@ -15,10 +15,10 @@ export interface HeaderProps {
  */
 export function createHeader({
   navLinks = [
-    { label: "Inicio", href: "#" },
-    { label: "Cursos", href: "#cursos" },
-    { label: "Nosotros", href: "#nosotros" },
-    { label: "Contacto", href: "#contacto" },
+    { label: "Aventura", href: "#" },
+    { label: "Destinos", href: "#" },
+    { label: "Alojamientos", href: "#" },
+    { label: "Todos los viajes", href: "#" },
   ],
   onLinkClick,
   theme = "light",
