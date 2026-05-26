@@ -1,0 +1,187 @@
+.filter-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  background-color: var(--color-bg-card);
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--color-border);
+  font-family: var(--font-sans);
+  width: 100%;
+  height: fit-content;
+}
+
+.filter-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1.5px solid var(--color-border);
+  padding-bottom: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+
+.filter-panel__title {
+  font-size: var(--font-size-md);
+  font-weight: var(--weight-bold);
+  color: var(--color-purple-900);
+}
+
+.filter-panel__clear-btn {
+  font-size: var(--font-size-2xs);
+  color: var(--color-purple-700);
+  font-weight: var(--weight-semibold);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--transition-fast);
+}
+
+.filter-panel__clear-btn:hover {
+  color: var(--color-orange-500);
+}
+
+.filter-panel__form-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.filter-panel__form-content .dux-text-input {
+  width: 100%;
+}
+
+/* Sub-sections of filter panel */
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.filter-section__title {
+  font-size: 10px;
+  font-weight: var(--weight-bold);
+  color: var(--color-orange-700);
+  letter-spacing: 0.05em;
+}
+
+.filter-section__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+/* Custom check boxes */
+.filter-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  cursor: pointer;
+  user-select: none;
+}
+
+.filter-checkbox-input {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-xs);
+  background-color: white;
+  display: inline-grid;
+  place-items: center;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.filter-checkbox-input:checked {
+  background-color: var(--color-orange-500);
+  border-color: var(--color-orange-500);
+}
+
+.filter-checkbox-input:checked::after {
+  content: "";
+  width: 10px;
+  height: 6px;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+
+.filter-checkbox-input:focus-visible {
+  outline: 3px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.filter-checkbox-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-purple-900);
+  font-weight: var(--weight-medium);
+}
+
+/* ==========================================================================
+   DIALOG OVERLAY / DIALOG COMPONENT MODE
+   ========================================================================== */
+dialog.filter-dialog {
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: auto;
+  width: calc(100% - var(--space-xl));
+  max-width: 480px;
+  max-height: 90vh;
+  outline: none;
+}
+
+dialog.filter-dialog::backdrop {
+  background-color: rgba(25, 10, 49, 0.6);
+  backdrop-filter: blur(4px);
+  transition: opacity var(--transition-base);
+}
+
+.filter-dialog__content {
+  background-color: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  overflow-y: auto;
+  max-height: 85vh;
+}
+
+.filter-dialog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1.5px solid var(--color-border);
+  padding-bottom: var(--space-sm);
+}
+
+.filter-dialog__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-purple-900);
+}
+
+.filter-dialog__close-btn {
+  min-width: 36px !important;
+  height: 36px !important;
+  padding: 0 !important;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border) !important;
+  color: var(--color-purple-700) !important;
+  background: white !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter-dialog__close-btn:hover {
+  border-color: var(--color-orange-500) !important;
+  color: var(--color-orange-500) !important;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}

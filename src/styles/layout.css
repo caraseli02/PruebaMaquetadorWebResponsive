@@ -1,1 +1,87 @@
-/* Page-level layout styles will live here. */
+/* Page-level layout styles */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+}
+
+.section-intro-header {
+  padding-top: var(--space-4xl);
+  padding-bottom: 0;
+  text-align: left;
+}
+
+.section-intro-header__title {
+  font-family: var(--font-sans);
+  font-size: clamp(var(--font-size-xl), 4vw, var(--font-size-3xl));
+  font-weight: var(--weight-bold);
+  color: var(--color-purple-900);
+  margin-bottom: var(--space-2xs);
+}
+
+.section-intro-header__sub {
+  font-family: var(--font-sans);
+  font-size: clamp(var(--font-size-2xs), 2vw, var(--font-size-md));
+  color: var(--color-gray-600);
+}
+
+/* Sidebar side-by-side workspace styling */
+.main-workspace {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3xl);
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-5xl);
+}
+
+.desktop-sidebar-filters {
+  display: none;
+}
+
+.grid-content-panel {
+  width: 100%;
+}
+
+/* Floating Action Button for mobile */
+.mobile-fab-btn {
+  position: fixed !important;
+  bottom: var(--space-lg);
+  right: var(--space-lg);
+  z-index: 50;
+  box-shadow: var(--shadow-xl);
+  min-width: 56px !important;
+  height: 56px !important;
+  padding: 0 !important;
+  border-radius: var(--radius-full);
+}
+
+.mobile-fab-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ==========================================================================
+   BREAKPOINTS RESPONSIBER OVERRIDES
+   ========================================================================== */
+@media (min-width: 1024px) {
+  .main-workspace {
+    grid-template-columns: 280px 1fr;
+    gap: var(--space-2xl);
+    padding-top: var(--space-2xl);
+  }
+  
+  .desktop-sidebar-filters {
+    display: block;
+    height: fit-content;
+    position: sticky;
+    top: 96px; /* Offset sticky position when header is active */
+  }
+  
+  .mobile-fab-btn {
+    display: none !important;
+  }
+}

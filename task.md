@@ -82,12 +82,29 @@
   - [x] Resultado: 0 violaciones en los 8 stories (`Tabs` queda con 1 resultado inconcluso de axe, sin violaciones)
 
 ## Fase 3: Componentes Moleculares (Molecules)
-- [ ] Crear componente de tarjeta individual `Card`
-  - [ ] Implementar marcado semántico (imagen, etiquetas, título, descripción)
-  - [ ] Configurar `@container (min-width: ...px)` en los estilos del componente para hacerlo adaptativo a su celda
-  - [ ] Crear historias de Storybook con diferentes anchos de contenedor para testear la interpolación elástica
-- [ ] Crear componentes auxiliares `FilterGroup` (agrupación de inputs y checkboxes de filtro)
-  - [ ] Documentar comportamiento en Storybook
+- [x] **Auditoría Figma de Molecules**
+  - [x] Revisar por navegador la página `🧬 Molecules` del archivo Figma `Prueba Acceso DUX (Copy)` en el nodo `1:1762`
+  - [x] Confirmar los frames reales de la página: `Footer content`, `Card content`, `Tag bar` y `Card row`
+  - [x] Eliminar del plan de molecules los componentes inferidos que no aparecen como frame molecular independiente en Figma (`FilterGroup`)
+  - [x] Dividir `Card content` en moléculas reutilizables: `BottomBarCircuitCard` y `CircuitCard`
+- [x] Crear componente `FooterContent`
+  - [x] Implementar bloque semántico de contacto con teléfono, horario, email y enlaces sociales
+  - [x] Soportar variante compacta y variante de iconos distribuidos como en el frame `Footer content`
+  - [x] Crear historia Storybook con las repeticiones visibles del frame
+- [x] Crear componente `BottomBarCircuitCard`
+  - [x] Reproducir las variantes del frame `Card content`: precio + enlace `Ver desglose` + botón `Reservar`
+  - [x] Reutilizar el atom `Button` para el CTA y conservar los estados de foco/accesibilidad
+  - [x] Crear historia Storybook con las cuatro disposiciones visibles
+- [x] Crear componente `CircuitCard`
+  - [x] Implementar marcado semántico con imagen, `Tag`, destino/duración, título, precio y CTA
+  - [x] Configurar `@container (min-width: ...px)` para adaptar espaciado y tamaño interno a su celda
+  - [x] Crear historias de Storybook con las imágenes y anchos de contenedor visibles en Figma
+- [x] Crear componente `TagBar`
+  - [x] Componer la barra horizontal de tags soft del frame `Tag bar`
+  - [x] Crear historia Storybook con la secuencia exacta de etiquetas de Figma
+- [x] Crear componente `CardRow`
+  - [x] Componer una grilla de seis `CircuitCard` en 3 columnas como el frame `Card row`
+  - [x] Crear historia Storybook con la fila/grilla completa y estado responsive
 
 ## Fase 4: Secciones de Página (Organisms)
 - [ ] Crear sección de cabecera `Header`
