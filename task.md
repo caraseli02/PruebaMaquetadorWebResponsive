@@ -12,61 +12,73 @@
   - [x] Configuración de barras de scroll premium y selección de texto customizada
 
 ## Fase 2: Componentes Atómicos (Atoms)
-- [ ] **Icon (Iconografía Vectorial)**
-  - [ ] Implementar recurso/componente de icono vectorial (SVG inline)
-  - [ ] Extraer y definir paths para los 15 iconos exactos de Figma (mostrados en la guía de átomos):
-    - [ ] `ChevronRight`: Flecha angular naranja hacia la derecha (`>`)
-    - [ ] `Menu`: Menú hamburguesa (3 líneas horizontales para navegación móvil)
-    - [ ] `Close`: Cruz de cierre o cancelación (`x`)
-    - [ ] `Heart`: Corazón de favoritos (outline)
-    - [ ] `Landscape` / `Mountain`: Montaña con sol (icono de paisaje/actividades de montaña)
-    - [ ] `Globe`: Globo terráqueo/planeta con meridianos (estilo línea)
-    - [ ] `Printer`: Impresora (icono de impresión/servicios)
-    - [ ] `Markers` / `Surfboards`: Dos marcadores/lápices alineados (o tablas de surf)
-    - [ ] `World`: Globo terráqueo simplificado con contorno circular
-    - [ ] `Home`: Casa/cabaña (icono de hogar/alojamiento)
-    - [ ] `ChevronLeft`: Flecha angular naranja hacia la izquierda (`<`)
-    - [ ] `TriangleDown`: Triángulo sólido naranja apuntando hacia abajo (`▼`, indicador de dropdown)
-    - [ ] `Calendar`: Calendario cuadriculado (fechas/agenda)
-    - [ ] `Users` / `People`: Dos siluetas de personas (usuarios/grupo/comunidad)
-    - [ ] `Tags` / `PriceTag`: Dos etiquetas de precio inclinadas una sobre otra
-    - [ ] `ChevronDown`: Flecha angular naranja apuntando hacia abajo (`v`, en versión delgada y gruesa)
-  - [ ] Crear historia en Storybook mostrando una cuadrícula/galería con todos los iconos de interfaz disponibles
-- [ ] **Button (Botones de Acción)**
-  - [ ] Implementar componente `Button` altamente reusable
-  - [ ] Configurar variantes de estilo BEM:
-    - [ ] Botón Primario (fondo de color sólido de marca naranja/púrpura)
-    - [ ] Botón Secundario (borde delineado / outline)
-    - [ ] Botón Ghost / Icon-Button (sin fondo, solo icono, ej. para el cierre de filtros)
-  - [ ] Maquetar todos los estados interactivos: `:hover`, `:active`, `:disabled` y anillo `:focus-visible` accesible
-  - [ ] Crear historias en Storybook con controles interactivos para probar cada estado y variante
-- [ ] **Tabs (Pestañas Segmentadas / Toggles)**
-  - [ ] Crear componente `Tabs` para representar controles de selección de rango (ej. "Price Range" / "Narrow Range")
-  - [ ] Diseñar variantes de estilo Figma:
-    - [ ] Variant `underline`/`outline` (estilo con borde, como "Price Range" con icono de bookmark)
-    - [ ] Variant `pill` (estilo pastilla sólida con fondo azul/naranja activo, como "Narrow Range" con icono de bookmark)
-  - [ ] Añadir soporte para etiquetas de texto e iconos vectoriales (`Bookmark`) y estados interactivos al hacer clic
-  - [ ] Crear historias detalladas en Storybook
-- [ ] **Tag (Etiquetas de Metadatos)**
-  - [ ] Crear componente `Tag` estático para representar categorías y metadatos pequeños (ej. etiquetas decorativas de tarjetas)
-  - [ ] Configurar variantes de color BEM según la escala de Figma
-  - [ ] Crear historias en Storybook
-- [ ] **TextInput (Campo de Entrada de Texto)**
-  - [ ] Crear componente `TextInput` estándar con soporte para placeholders e integración con iconos
-  - [ ] Maquetar estados por defecto, foco (`:focus-visible`) y deshabilitado
-  - [ ] Crear historias interactivas en Storybook
-- [ ] **Checkbox (Casilla de Selección Personalizada)**
-  - [ ] Crear componente `Checkbox` utilizando estilos CSS puros para reemplazar el control nativo del navegador
-  - [ ] Añadir checkmark vectorial interno y configurar estados `:checked` e indicador `:focus-visible`
-  - [ ] Crear historias en Storybook
-- [ ] **Tooltip (Burbuja y Tarjeta de Desglose de Precios)**
-  - [ ] Crear componente `Tooltip` con dos modos de interacción:
-    - [ ] Burbuja informativa estándar al pasar el cursor (hover)
-    - [ ] Tarjeta de desglose de precios interactiva al hacer clic (popover con botón de cierre)
-  - [ ] Asegurar accesibilidad (roles de tooltip, cierre con tecla Escape y foco visible)
-  - [ ] Crear historias en Storybook
+- [x] **Auditoría Figma de Atoms**
+  - [x] Revisar por navegador la página `🔬 Atoms` del archivo Figma `Prueba Acceso DUX (Copy)`
+  - [x] Confirmar los frames reales de la página: `Icons`, `Info tooltip`, `Buttons`, `Slider indicator`, `Tags`, `Titles`, `Tabs` y `Text inputs`
+  - [x] Eliminar del plan de atoms los componentes inferidos que no aparecen como frame atómico independiente en Figma (`Checkbox`, tabs de rango de precio, tooltips de desglose de precios)
+  - [x] Rehacer comparación visual en navegador frame por frame contra Storybook y ajustar diferencias de atom specs
+- [x] **Icon (`Icons`)**
+  - [x] Implementar un componente/recurso `Icon` con SVG inline y API por nombre/tamaño/color
+  - [x] Extraer desde Figma los iconos visibles del frame `Icons`:
+    - Nota: los paths y colores se actualizaron con el SVG del frame `Icons` proporcionado.
+    - [x] `ChevronRight`: flecha angular naranja hacia la derecha
+    - [x] `Menu`: menú hamburguesa de tres líneas
+    - [x] `Close`: cruz de cierre
+    - [x] `Heart`: corazón outline
+    - [x] `Landscape`: montaña/paisaje outline
+    - [x] `Compass`: círculo/brújula outline
+    - [x] `Printer`: impresora outline
+    - [x] `Activity`: icono de actividad/aventura con dos trazos orgánicos
+    - [x] `Globe`: globo terráqueo outline
+    - [x] `Home`: casa/cabaña outline
+    - [x] `ChevronLeft`: flecha angular naranja hacia la izquierda
+    - [x] `TriangleDown`: triángulo sólido naranja de dropdown
+    - [x] `Calendar`: calendario outline
+    - [x] `Users`: dos siluetas de personas
+    - [x] `Tag`: etiqueta outline, incluyendo las dos orientaciones visibles en Figma
+    - [x] `ChevronDown`: chevrons verticales naranjas en las dos variantes visibles
+  - [x] Crear historia Storybook `Atoms/Icons` con una galería exacta de la grilla de Figma
+- [x] **InfoTooltip (`Info tooltip`, `infoTooltip@1.0.0-rc.1`)**
+  - [x] Crear componente `InfoTooltip` con icono informativo, texto flotante `Lorem ipsum` y contenedor compacto como en Figma
+  - [x] Implementar comportamiento accesible para hover/focus, con `role="tooltip"` y asociación `aria-describedby`
+  - [x] Crear historia con estado cerrado, estado visible y foco por teclado
+- [x] **Button (`Buttons`, `button@1.0.0-rc.2`)**
+  - [x] Implementar componente `Button` reutilizable con clases BEM y soporte para `type`, `disabled` y contenido textual
+  - [x] Maquetar la matriz exacta del frame `Buttons`:
+    - [x] Variantes sólidas púrpura/ciruela en tres tamaños
+    - [x] Variantes sólidas naranja/terracota en tres tamaños
+    - [x] Estados deshabilitados grises en la tercera columna de la matriz Figma
+    - [x] Textos de ejemplo `Button` y `Reserva`
+  - [x] Añadir estados `:hover`, `:active`, `:disabled` y `:focus-visible` sin alterar las dimensiones del botón
+  - [x] Crear historia Storybook con la matriz completa de colores, tamaños y estados
+- [x] **SliderIndicator (`Slider indicator`, `sliderIndicator@1.0.0-rc.1`)**
+  - [x] Implementar componente `SliderIndicator` para grupos de puntos sobre panel gris
+  - [x] Soportar punto activo naranja y puntos inactivos claros, reproduciendo las seis filas visibles en Figma
+  - [x] Exponer props para `total`, `activeIndex` y etiqueta accesible del carrusel/sección
+  - [x] Crear historia con todas las filas/posiciones activas mostradas en el frame
+- [x] **Tag (`Tags`, `tag@1.0.0-rc.1`)**
+  - [x] Crear componente `Tag` compacto para etiquetas de categoría
+  - [x] Implementar las dos variantes visibles: rellena naranja y soft gris/clara
+  - [x] Usar el texto de ejemplo `Quads` y conservar padding, radio y altura de Figma
+  - [x] Crear historia con ambas variantes y controles de texto
+- [x] **Title (`Titles`, `circuitCardGridTitle@1.0.0-rc.1`)**
+  - [x] Crear componente `SectionTitle`/`CircuitCardGridTitle` para el título compacto de grilla
+  - [x] Reproducir el ejemplo `Asia`, con tipografía y espaciado del frame `Titles`
+  - [x] Crear historia con el caso base y texto largo para verificar que no desborda
+- [x] **Tabs (`Tabs`, `navBarTabLevel1@1.0.0-rc.1`)**
+  - [x] Crear componente `Tabs` para navegación horizontal de nivel 1
+  - [x] Implementar item con icono de actividad + texto `Aventura`
+  - [x] Reproducir estados inactivo y activo con subrayado/indicador triangular naranja bajo el item seleccionado
+  - [x] Añadir semántica accesible (`tablist`, `tab`, `aria-selected`) o navegación por enlaces si se usa como navbar
+  - [x] Crear historia con tres variantes `Aventura`, una activa y cambio de tab por teclado/click
+- [x] **TextInput (`Text inputs`, `textInput@1.0.0-rc.3`)**
+  - [x] Crear componente `TextInput` con label compacto `Entrada`, valor/placeholder `Lorem Ipsum` e icono inicial
+  - [x] Implementar variantes con y sin chevron de dropdown al final
+  - [x] Reproducir las dos columnas visuales del frame: filas con chevron y filas sin chevron
+  - [x] Añadir estados de foco, disabled y validación sin cambiar tamaño, padding ni gaps
+  - [x] Crear historia Storybook con la matriz completa de variantes del frame
 - [ ] **Auditoría de Accesibilidad Inicial**
-  - [ ] Correr auditoría automatizada `addon-a11y` en Storybook en los 7 Atoms antes de estructurar Molecules
+  - [ ] Correr `@storybook/addon-a11y` sobre los 8 atoms reales antes de pasar a Molecules
 
 ## Fase 3: Componentes Moleculares (Molecules)
 - [ ] Crear componente de tarjeta individual `Card`
