@@ -14,13 +14,23 @@
 ## Fase 2: Componentes Atómicos (Atoms)
 - [ ] **Icon (Iconografía Vectorial)**
   - [ ] Implementar recurso/componente de icono vectorial (SVG inline)
-  - [ ] Extraer y definir paths para los siguientes iconos de Figma:
-    - [ ] `Bookmark` (Marcador/guardado - mostrado en chips de "Price Range" / "Narrow Range")
-    - [ ] `Search` (Lupa de búsqueda)
-    - [ ] `Filter` (Icono de filtros/embudo)
-    - [ ] `Close` (Cruz para cerrar filtros y borrar búsquedas)
-    - [ ] `Chevron` (Flecha indicadora para desplegables)
-    - [ ] `Star` (Estrella para ratings de tarjetas)
+  - [ ] Extraer y definir paths para los 15 iconos exactos de Figma (mostrados en la guía de átomos):
+    - [ ] `ChevronRight`: Flecha angular naranja hacia la derecha (`>`)
+    - [ ] `Menu`: Menú hamburguesa (3 líneas horizontales para navegación móvil)
+    - [ ] `Close`: Cruz de cierre o cancelación (`x`)
+    - [ ] `Heart`: Corazón de favoritos (outline)
+    - [ ] `Landscape` / `Mountain`: Montaña con sol (icono de paisaje/actividades de montaña)
+    - [ ] `Globe`: Globo terráqueo/planeta con meridianos (estilo línea)
+    - [ ] `Printer`: Impresora (icono de impresión/servicios)
+    - [ ] `Markers` / `Surfboards`: Dos marcadores/lápices alineados (o tablas de surf)
+    - [ ] `World`: Globo terráqueo simplificado con contorno circular
+    - [ ] `Home`: Casa/cabaña (icono de hogar/alojamiento)
+    - [ ] `ChevronLeft`: Flecha angular naranja hacia la izquierda (`<`)
+    - [ ] `TriangleDown`: Triángulo sólido naranja apuntando hacia abajo (`▼`, indicador de dropdown)
+    - [ ] `Calendar`: Calendario cuadriculado (fechas/agenda)
+    - [ ] `Users` / `People`: Dos siluetas de personas (usuarios/grupo/comunidad)
+    - [ ] `Tags` / `PriceTag`: Dos etiquetas de precio inclinadas una sobre otra
+    - [ ] `ChevronDown`: Flecha angular naranja apuntando hacia abajo (`v`, en versión delgada y gruesa)
   - [ ] Crear historia en Storybook mostrando una cuadrícula/galería con todos los iconos de interfaz disponibles
 - [ ] **Button (Botones de Acción)**
   - [ ] Implementar componente `Button` altamente reusable
