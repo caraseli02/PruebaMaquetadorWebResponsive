@@ -17,6 +17,7 @@ export const iconNames = [
   "tagTilt",
   "chevronDown",
   "chevronDownCompact",
+  "filter",
 ] as const;
 
 export type IconName = (typeof iconNames)[number];
@@ -109,6 +110,11 @@ const icons: Record<IconName, IconDefinition> = {
   chevronDownCompact: {
     color: "#FF8F50",
     markup: `<path d="M8 10L12 14L16 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />`,
+  },
+  filter: {
+    color: "currentColor",
+    viewBox: "0 0 24 24",
+    markup: `<path d="M22 3H2L10 12.46V19L14 21V12.46L22 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`,
   },
 };
 

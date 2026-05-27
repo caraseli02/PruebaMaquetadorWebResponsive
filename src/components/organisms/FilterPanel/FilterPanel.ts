@@ -56,7 +56,7 @@ export function createFilterPanel({
     const labelEl = document.createElement("span");
     labelEl.textContent = label;
     const chevron = createIcon({
-      name: expanded ? "chevronDownCompact" : "chevronRight",
+      name: expanded ? "chevronDown" : "chevronRight",
       size: 18,
       color: "currentColor",
       className: "filter-section-toggle__chevron",
@@ -112,10 +112,13 @@ export function createFilterPanel({
     const input = document.createElement("input");
     input.type = "text";
     input.inputMode = "numeric";
-    input.placeholder = placeholder;
+    input.placeholder = placeholder === "Máximo" ? "700" : (placeholder === "Mínimo" ? "0" : placeholder);
+    input.id = `filter-price-${placeholder.toLowerCase()}`;
+    input.setAttribute("aria-label", `Precio ${placeholder}`);
+
     if (placeholder === "Máximo") {
       input.className = "filter-price-input";
-      input.addEventListener("input", () => {
+      input.addEventListener("change", () => {
         const val = parsePrice(input.value, filterState.getState().maxPrice);
         filterState.setMaxPrice(val);
       });
@@ -171,7 +174,7 @@ export function createFilterPanel({
     dialog.id = "filters-dialog-modal";
 
     const wrapper = document.createElement("div");
-    wrapper.className = "filter-dialog__content";
+    wrapper.className = "filter-dialog__wrapper";
 
     const dialogHeader = document.createElement("div");
     dialogHeader.className = "filter-dialog__header";
@@ -192,15 +195,21 @@ export function createFilterPanel({
     });
     dialogHeader.appendChild(closeBtn);
 
-    const applyBtn = createButton({ label: "Aplicar Filtros", variant: "plum", size: "lg" });
-    applyBtn.style.width = "100%";
-    applyBtn.addEventListener("click", () => {
-      dialog.close();
-      onCloseDialog?.();
+    const content = document.createElement("div");
+    content.className = "filter-dialog__content";
+    content.appendChild(formContent);
+
+    wrapper.append(dialogHeader, content);
+    dialog.appendChild(wrapper);
+
+    // Backdrop click dismiss for dialog
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) {
+        dialog.close();
+        onCloseDialog?.();
+      }
     });
 
-    wrapper.append(dialogHeader, formContent, applyBtn);
-    dialog.appendChild(wrapper);
     container = dialog;
   } else {
     const panel = document.createElement("aside");
@@ -238,7 +247,7 @@ export function createFilterPanel({
     // Sincronizar campo de precio máximo
     const maxPriceInput = container.querySelector(".filter-price-input") as HTMLInputElement;
     if (maxPriceInput && document.activeElement !== maxPriceInput) {
-      maxPriceInput.value = state.maxPrice > 0 ? String(state.maxPrice) : "";
+      maxPriceInput.value = (state.maxPrice > 0 && state.maxPrice !== 700) ? String(state.maxPrice) : "";
     }
   });
 

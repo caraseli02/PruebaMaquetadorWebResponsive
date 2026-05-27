@@ -2,12 +2,14 @@ export type SliderIndicatorOptions = {
   total?: number;
   activeIndex?: number;
   label?: string;
+  onDotClick?: (index: number) => void;
 };
 
 export const createSliderIndicator = ({
   total = 5,
   activeIndex = 0,
-  label = "Posicion del carrusel",
+  label = "Posición del carrusel",
+  onDotClick,
 }: SliderIndicatorOptions = {}): HTMLElement => {
   const indicator = document.createElement("div");
   indicator.className = "slider-indicator";
@@ -15,7 +17,19 @@ export const createSliderIndicator = ({
   indicator.setAttribute("aria-label", `${label}: ${activeIndex + 1} de ${total}`);
 
   Array.from({ length: total }, (_, index) => {
-    const dot = document.createElement("span");
+    const isButton = typeof onDotClick === "function";
+    const dot = document.createElement(isButton ? "button" : "span");
+
+    if (isButton) {
+      const btn = dot as HTMLButtonElement;
+      btn.type = "button";
+      btn.setAttribute("aria-label", `Ir a diapositiva ${index + 1}`);
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        onDotClick(index);
+      });
+    }
+
     dot.className = `slider-indicator__dot${index === activeIndex ? " slider-indicator__dot--active" : ""}`;
     indicator.append(dot);
     return dot;

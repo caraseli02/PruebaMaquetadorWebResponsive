@@ -5,6 +5,7 @@
  */
 export class OverlayManager {
   private static activePopover: HTMLElement | null = null;
+  private static activeAnchor: HTMLElement | null = null;
   private static popoverOutsideClickListener: ((e: MouseEvent) => void) | null = null;
 
   /**
@@ -21,12 +22,38 @@ export class OverlayManager {
     popover.style.display = "block";
     popover.style.position = "absolute";
 
-    // Calcular posición óptima debajo del elemento de ancla
+    // Medir dimensiones del popover y el ancla
+    const popoverWidth = popover.offsetWidth || 280;
+    const popoverHeight = popover.offsetHeight || 280;
     const rect = anchor.getBoundingClientRect();
-    popover.style.top = `${rect.bottom + window.scrollY + 8}px`;
-    popover.style.left = `${Math.min(rect.left + window.scrollX, window.innerWidth - 300)}px`;
 
+    // Posicionamiento Vertical con Clamping y Axis-Flipping
+    let top: number;
+    if (rect.bottom + popoverHeight + 8 <= window.innerHeight || rect.top - popoverHeight - 8 < 0) {
+      // Suficiente espacio abajo, o no hay espacio arriba tampoco: posicionar abajo
+      top = rect.bottom + 8;
+    } else {
+      // Escasez de espacio abajo pero hay espacio arriba: posicionar arriba
+      top = rect.top - popoverHeight - 8;
+    }
+
+    // Posicionamiento Horizontal con Clamping
+    let left = rect.left;
+    if (left + popoverWidth > window.innerWidth) {
+      // Si desborda por la derecha, alinear bordes derechos
+      left = rect.right - popoverWidth;
+    }
+    // Clamp horizontal para mantener el popover siempre en el viewport (8px de padding)
+    left = Math.max(8, Math.min(left, window.innerWidth - popoverWidth - 8));
+
+    // Convertir coordenadas del viewport a coordenadas de página
+    popover.style.top = `${top + window.scrollY}px`;
+    popover.style.left = `${left + window.scrollX}px`;
+
+    // Guardar referencia activa y rotar el chevron
     this.activePopover = popover;
+    this.activeAnchor = anchor;
+    this.activeAnchor.classList.add("bottom-bar-circuit-card__details--active");
 
     // Escucha de clic exterior para auto-cierre
     const outsideClick = (e: MouseEvent) => {
@@ -40,24 +67,46 @@ export class OverlayManager {
       }
     };
 
+    // Cierre mediante teclado (Escape)
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && this.activePopover) {
+        this.closePopover();
+        onClose?.();
+      }
+    };
+
     // Añadir el listener en el siguiente ciclo de eventos para evitar capturar el click de trigger original
     this.popoverOutsideClickListener = outsideClick;
+    // We attach the keydown listener directly to the document since it's safe to run immediately
+    document.addEventListener("keydown", onKeyDown);
+    
+    // Almacenamos el listener de teclado en una propiedad estática para poder removerlo luego
+    (this as any).popoverEscapeListener = onKeyDown;
+
     setTimeout(() => {
       document.addEventListener("click", outsideClick);
     }, 0);
   }
 
   /**
-   * Cierra el popover flotante activo si está visible en pantalla.
+   * Cierra el popover flotante activo si está visible en pantalla y restaura el chevron.
    */
   public static closePopover(): void {
     if (this.activePopover) {
       this.activePopover.style.display = "none";
       this.activePopover = null;
     }
+    if (this.activeAnchor) {
+      this.activeAnchor.classList.remove("bottom-bar-circuit-card__details--active");
+      this.activeAnchor = null;
+    }
     if (this.popoverOutsideClickListener) {
       document.removeEventListener("click", this.popoverOutsideClickListener);
       this.popoverOutsideClickListener = null;
+    }
+    if ((this as any).popoverEscapeListener) {
+      document.removeEventListener("keydown", (this as any).popoverEscapeListener);
+      (this as any).popoverEscapeListener = null;
     }
   }
 

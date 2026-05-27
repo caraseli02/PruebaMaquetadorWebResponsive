@@ -125,6 +125,10 @@ export function createHero({
       total: heroSlides.length,
       activeIndex,
       label: "Aventuras destacadas",
+      onDotClick: (index) => {
+        activeIndex = index;
+        renderSlide();
+      },
     });
     slider.classList.add("hero__slider");
     sliderSlot.appendChild(slider);

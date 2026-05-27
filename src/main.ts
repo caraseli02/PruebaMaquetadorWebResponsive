@@ -44,6 +44,7 @@ function initApp() {
   function showPricingPopover(card: CardData, triggerEl: HTMLElement) {
     const nextPopover = createPricingPopover({
       price: card.price,
+      subtitleHtml: card.meta.replace("·", "").trim(),
       onClose: () => {
         OverlayManager.closePopover();
       },
@@ -59,7 +60,14 @@ function initApp() {
   const bookingDialog = document.createElement("dialog");
   bookingDialog.className = "booking-dialog";
   document.body.appendChild(bookingDialog);
-  
+
+  // Backdrop click dismiss for Booking Dialog
+  bookingDialog.addEventListener("click", (e) => {
+    if (e.target === bookingDialog) {
+      OverlayManager.closeModal(bookingDialog);
+    }
+  });
+
   function showBookingModal(card: CardData) {
     bookingDialog.innerHTML = `
       <div class="booking-dialog__content">
@@ -73,18 +81,21 @@ function initApp() {
             <p>${card.meta.replace(/<[^>]*>/g, "")}</p>
             <p class="booking-dialog__price">Precio por persona: <strong>${card.price}</strong></p>
           </div>
-          <form class="booking-dialog__form">
+          <form class="booking-dialog__form" novalidate>
             <div class="booking-form-field">
               <label for="booking-name">Nombre completo</label>
-              <input type="text" id="booking-name" required placeholder="Tu nombre..." class="booking-input" />
+              <input type="text" id="booking-name" required pattern=".*\\S.*" placeholder="Tu nombre..." class="booking-input" />
+              <span class="booking-error-msg" aria-live="polite">Por favor, introduce tu nombre completo.</span>
             </div>
             <div class="booking-form-field">
               <label for="booking-email">Correo electrónico</label>
               <input type="email" id="booking-email" required placeholder="Tu correo..." class="booking-input" />
+              <span class="booking-error-msg" aria-live="polite">Por favor, introduce un correo electrónico válido.</span>
             </div>
             <div class="booking-form-field">
               <label for="booking-phone">Teléfono de contacto</label>
-              <input type="tel" id="booking-phone" required placeholder="Tu teléfono..." class="booking-input" />
+              <input type="tel" id="booking-phone" required pattern="[0-9\\s\\+\\-\\(\\)]{9,}" placeholder="Tu teléfono..." class="booking-input" />
+              <span class="booking-error-msg" aria-live="polite">Por favor, introduce un teléfono válido (mínimo 9 dígitos).</span>
             </div>
             <div class="booking-actions">
               <button type="submit" class="dux-button dux-button--orange dux-button--lg booking-submit-btn">Confirmar Reserva</button>
@@ -111,11 +122,33 @@ function initApp() {
     
     form?.addEventListener("submit", (e) => {
       e.preventDefault();
-      alert(`¡Reserva confirmada con éxito para "${card.title}"! Nos pondremos en contacto contigo en breve.`);
-      closeModal();
+
+      // Native validation triggers
+      if (!form.checkValidity()) {
+        form.classList.add("booking-dialog__form--submitted");
+        // Focus first invalid element
+        const firstInvalid = form.querySelector(":invalid") as HTMLInputElement;
+        firstInvalid?.focus();
+        return;
+      }
+
+      // Show beautiful success view
+      const body = bookingDialog.querySelector(".booking-dialog__body") as HTMLElement;
+      if (body) {
+        body.innerHTML = `
+          <div class="booking-dialog__success-state">
+            <div class="booking-dialog__success-icon">✓</div>
+            <h3 class="booking-dialog__success-title">¡Reserva Solicitada!</h3>
+            <p class="booking-dialog__success-message">Tu solicitud para <strong>${card.title}</strong> ha sido registrada con éxito. Nos pondremos en contacto contigo en breve.</p>
+            <button class="dux-button dux-button--plum dux-button--lg booking-success-close-btn" type="button">Entendido</button>
+          </div>
+        `;
+        const successCloseBtn = body.querySelector(".booking-success-close-btn");
+        successCloseBtn?.addEventListener("click", closeModal);
+      }
     });
   }
-  
+
   // ==========================================================================
   // RENDER SECTIONS
   // ==========================================================================
@@ -146,9 +179,22 @@ function initApp() {
   
   const sectionSub = document.createElement("p");
   sectionSub.className = "section-intro-header__sub";
-  sectionSub.textContent = "Filtra por tu próximo destino y comienza a explorar el mundo a tu manera";
+  sectionSub.textContent = "Para los que les gusta explorar y conocer mundo sin complejos";
   sectionHeader.appendChild(sectionSub);
+
+  // Mobile/Tablet Filter Trigger Button
+  const filterTriggerBtn = createButton({ label: "", variant: "outline", size: "md" });
+  filterTriggerBtn.className = "dux-button dux-button--outline mobile-filter-trigger";
+  filterTriggerBtn.appendChild(createIcon({ name: "filter", size: 18, color: "currentColor" }) || document.createTextNode(""));
+  filterTriggerBtn.appendChild(document.createTextNode(" Ver filtros"));
+  filterTriggerBtn.setAttribute("aria-label", "Abrir filtros de búsqueda");
+
+  filterTriggerBtn.addEventListener("click", () => {
+    const dialogFilters = document.querySelector(".filter-dialog") as HTMLDialogElement;
+    if (dialogFilters) OverlayManager.openModal(dialogFilters);
+  });
   
+  sectionHeader.appendChild(filterTriggerBtn);
   app.appendChild(sectionHeader);
   
   // 3. Main content workspace
@@ -185,22 +231,6 @@ function initApp() {
     },
   }) as HTMLDialogElement;
   app.appendChild(dialogFilters);
-  
-  // 6. Mobile floating action button to trigger dialog
-  const mobileFab = createButton({
-    variant: "orange",
-    size: "lg",
-  });
-  mobileFab.textContent = ""; // remove default label
-  mobileFab.className = "dux-button dux-button--orange mobile-fab-btn";
-  mobileFab.appendChild(createIcon({ name: "tag", size: 24, color: "var(--color-midnight-base)" }));
-  mobileFab.setAttribute("aria-label", "Abrir filtros de búsqueda");
-  
-  mobileFab.addEventListener("click", () => {
-    OverlayManager.openModal(dialogFilters);
-  });
-  
-  app.appendChild(mobileFab);
   
   // ==========================================================================
   // REACTIVE STATE UPDATER & RENDERING SYNC
