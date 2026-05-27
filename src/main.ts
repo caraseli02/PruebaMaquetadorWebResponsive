@@ -3,6 +3,7 @@ import "./styles/base.css";
 import "./styles/layout.css";
 import "./styles/components.css";
 import "./styles/responsive.css";
+import "./styles/skeleton.css";
 import "./components/organisms/Header/Header.css";
 import "./components/organisms/Hero/Hero.css";
 import "./components/organisms/SearchBar/SearchBar.css";
@@ -256,6 +257,23 @@ const initApp = () => {
 
     contentContainer.replaceChildren(grid);
   });
+
+  // Fade out and remove the global skeleton loader
+  const skeletonEl = document.getElementById("global-page-skeleton");
+  if (skeletonEl) {
+    // Deliberate small timeout (300ms) to let the page settle visually and showcase the shimmer
+    setTimeout(() => {
+      skeletonEl.classList.add("global-skeleton-loader--fade-out");
+      
+      const removeLoader = () => {
+        skeletonEl.remove();
+      };
+      
+      skeletonEl.addEventListener("transitionend", removeLoader, { once: true });
+      // Fallback removal after 600ms if transitionend doesn't fire
+      setTimeout(removeLoader, 600);
+    }, 300);
+  }
 };
 
 window.addEventListener("DOMContentLoaded", initApp);
