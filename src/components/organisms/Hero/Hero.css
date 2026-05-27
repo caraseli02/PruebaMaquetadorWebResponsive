@@ -218,6 +218,6 @@
   }
 
   .hero__slider-slot {
-    bottom: 90px; /* Kept elevated to avoid search overlap */
+    bottom: 65px; /* Kept elevated to avoid search overlap */
   }
 }
