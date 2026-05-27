@@ -3,7 +3,6 @@ import "./styles/base.css";
 import "./styles/layout.css";
 import "./styles/components.css";
 import "./styles/responsive.css";
-import "./styles/skeleton.css";
 import "./components/organisms/Header/Header.css";
 import "./components/organisms/Hero/Hero.css";
 import "./components/organisms/SearchBar/SearchBar.css";
