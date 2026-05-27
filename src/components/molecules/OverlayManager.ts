@@ -19,36 +19,46 @@ export class OverlayManager {
   ): void {
     this.closePopover();
 
+    const isMobile = window.innerWidth < 768;
+
     popover.style.display = "block";
-    popover.style.position = "absolute";
 
-    // Medir dimensiones del popover y el ancla
-    const popoverWidth = popover.offsetWidth || 280;
-    const popoverHeight = popover.offsetHeight || 280;
-    const rect = anchor.getBoundingClientRect();
-
-    // Posicionamiento Vertical con Clamping y Axis-Flipping
-    let top: number;
-    if (rect.bottom + popoverHeight + 8 <= window.innerHeight || rect.top - popoverHeight - 8 < 0) {
-      // Suficiente espacio abajo, o no hay espacio arriba tampoco: posicionar abajo
-      top = rect.bottom + 8;
+    if (isMobile) {
+      popover.style.position = "";
+      popover.style.top = "";
+      popover.style.left = "";
+      document.body.classList.add("no-scroll");
     } else {
-      // Escasez de espacio abajo pero hay espacio arriba: posicionar arriba
-      top = rect.top - popoverHeight - 8;
-    }
+      popover.style.position = "absolute";
 
-    // Posicionamiento Horizontal con Clamping
-    let left = rect.left;
-    if (left + popoverWidth > window.innerWidth) {
-      // Si desborda por la derecha, alinear bordes derechos
-      left = rect.right - popoverWidth;
-    }
-    // Clamp horizontal para mantener el popover siempre en el viewport (8px de padding)
-    left = Math.max(8, Math.min(left, window.innerWidth - popoverWidth - 8));
+      // Medir dimensiones del popover y el ancla
+      const popoverWidth = popover.offsetWidth || 280;
+      const popoverHeight = popover.offsetHeight || 280;
+      const rect = anchor.getBoundingClientRect();
 
-    // Convertir coordenadas del viewport a coordenadas de página
-    popover.style.top = `${top + window.scrollY}px`;
-    popover.style.left = `${left + window.scrollX}px`;
+      // Posicionamiento Vertical con Clamping y Axis-Flipping
+      let top: number;
+      if (rect.bottom + popoverHeight + 8 <= window.innerHeight || rect.top - popoverHeight - 8 < 0) {
+        // Suficiente espacio abajo, o no hay espacio arriba tampoco: posicionar abajo
+        top = rect.bottom + 8;
+      } else {
+        // Escasez de espacio abajo pero hay espacio arriba: posicionar arriba
+        top = rect.top - popoverHeight - 8;
+      }
+
+      // Posicionamiento Horizontal con Clamping
+      let left = rect.left;
+      if (left + popoverWidth > window.innerWidth) {
+        // Si desborda por la derecha, alinear bordes derechos
+        left = rect.right - popoverWidth;
+      }
+      // Clamp horizontal para mantener el popover siempre en el viewport (8px de padding)
+      left = Math.max(8, Math.min(left, window.innerWidth - popoverWidth - 8));
+
+      // Convertir coordenadas del viewport a coordenadas de página
+      popover.style.top = `${top + window.scrollY}px`;
+      popover.style.left = `${left + window.scrollX}px`;
+    }
 
     // Guardar referencia activa y rotar el chevron
     this.activePopover = popover;
@@ -96,6 +106,7 @@ export class OverlayManager {
       this.activePopover.style.display = "none";
       this.activePopover = null;
     }
+    document.body.classList.remove("no-scroll");
     if (this.activeAnchor) {
       this.activeAnchor.classList.remove("bottom-bar-circuit-card__details--active");
       this.activeAnchor = null;

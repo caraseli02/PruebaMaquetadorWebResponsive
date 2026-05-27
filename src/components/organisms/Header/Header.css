@@ -70,9 +70,7 @@
   color: var(--color-gray-900);
 }
 
-.header__nav-link.dux-tabs__tab::before {
-  width: 0;
-}
+
 
 /* Mobile Toggles */
 .header__toggle {

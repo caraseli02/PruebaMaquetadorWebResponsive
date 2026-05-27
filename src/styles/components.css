@@ -333,11 +333,11 @@
 }
 
 .dux-tabs__tab::after {
-  bottom: 5px;
-  width: 10px;
-  height: 10px;
+  bottom: 2px;
+  width: 12px;
+  height: 6px;
   background: var(--color-orange-500);
-  transform: translateX(-50%) rotate(45deg);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
 
 .dux-tabs__tab--active {
