@@ -33,11 +33,15 @@ const createSocialIcon = (name: FooterSocial): HTMLElement => {
   }
 
   if (name === "instagram") {
-    icon.innerHTML = '<span class="footer-content__camera"></span>';
+    const camera = document.createElement("span");
+    camera.className = "footer-content__camera";
+    icon.append(camera);
   }
 
   if (name === "youtube") {
-    icon.innerHTML = '<span class="footer-content__play"></span>';
+    const play = document.createElement("span");
+    play.className = "footer-content__play";
+    icon.append(play);
   }
 
   return icon;

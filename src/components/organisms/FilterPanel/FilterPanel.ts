@@ -52,12 +52,12 @@ export function createFilterPanel({
     button.type = "button";
     button.setAttribute("aria-expanded", String(expanded));
 
-    const iconEl = createIcon({ name: icon, size: 24, color: "currentColor" });
+    const iconEl = createIcon({ name: icon, size: 18, color: "currentColor" });
     const labelEl = document.createElement("span");
     labelEl.textContent = label;
     const chevron = createIcon({
       name: expanded ? "chevronDown" : "chevronRight",
-      size: 18,
+      size: 16,
       color: "currentColor",
       className: "filter-section-toggle__chevron",
     });
@@ -107,12 +107,12 @@ export function createFilterPanel({
   const createPriceInput = (placeholder: string) => {
     const wrapper = document.createElement("label");
     wrapper.className = "filter-price-field";
-    wrapper.appendChild(createIcon({ name: "tag", size: 22, color: "currentColor" }));
+    wrapper.appendChild(createIcon({ name: "tag", size: 18, color: "currentColor" }));
 
     const input = document.createElement("input");
     input.type = "text";
     input.inputMode = "numeric";
-    input.placeholder = placeholder === "Máximo" ? "700" : (placeholder === "Mínimo" ? "0" : placeholder);
+    input.placeholder = placeholder;
     input.id = `filter-price-${placeholder.toLowerCase()}`;
     input.setAttribute("aria-label", `Precio ${placeholder}`);
 
@@ -186,8 +186,7 @@ export function createFilterPanel({
 
     const closeBtn = createButton({ variant: "outline", size: "sm" });
     closeBtn.classList.add("filter-dialog__close-btn");
-    closeBtn.innerHTML = "";
-    closeBtn.appendChild(createIcon({ name: "close", size: 20 }));
+    closeBtn.replaceChildren(createIcon({ name: "close", size: 20 }));
     closeBtn.setAttribute("aria-label", "Cerrar filtros");
     closeBtn.addEventListener("click", () => {
       dialog.close();

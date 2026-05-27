@@ -80,6 +80,24 @@
   color: white;
 }
 
+.footer__contact-col .footer-content__title {
+  color: var(--color-text-light);
+}
+
+.footer__contact-col .footer-content__details dt {
+  color: var(--color-gray-300);
+  font-size: var(--font-size-xs);
+}
+
+.footer__contact-col .footer-content__details dd {
+  color: white;
+  font-size: var(--font-size-xs);
+}
+
+.footer__contact-col .footer-content__details a {
+  color: var(--color-orange-500);
+}
+
 /* Bottom copyright base row */
 .footer__bottom {
   border-top: 1.5px solid rgba(255, 255, 255, 0.1);

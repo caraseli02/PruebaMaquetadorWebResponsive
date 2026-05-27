@@ -10,7 +10,349 @@
     <title>Circuitos de Viaje | DUX Travel</title>
   </head>
   <body>
-    <main id="app"></main>
+    <header class="header header--light">
+      <div class="header__container container">
+        <a href="#" class="header__logo" aria-label="Página de inicio de waveless">
+          <img
+            class="header__logo-img"
+            src="/src/assets/logo-light.svg"
+            alt="waveless Logo"
+          />
+        </a>
+
+        <nav class="header__nav" aria-label="Navegación principal">
+          <ul class="header__nav-list dux-tabs">
+            <li>
+              <a
+                class="header__nav-link dux-tabs__tab header__nav-link--active dux-tabs__tab--active"
+                href="#aventura"
+                aria-current="page"
+              >
+                <span data-icon="landscape" data-icon-size="18"></span>
+                <span>Aventura</span>
+              </a>
+            </li>
+            <li>
+              <a class="header__nav-link dux-tabs__tab" href="#destinos">
+                <span data-icon="globe" data-icon-size="18"></span>
+                <span>Destinos</span>
+              </a>
+            </li>
+            <li>
+              <a class="header__nav-link dux-tabs__tab" href="#alojamiento">
+                <span data-icon="home" data-icon-size="18"></span>
+                <span>Alojamiento</span>
+              </a>
+            </li>
+            <li>
+              <a class="header__nav-link dux-tabs__tab" href="#sobre-nosotros">
+                <span>Sobre nosotros</span>
+              </a>
+            </li>
+            <li>
+              <button class="dux-button dux-button--plum dux-button--sm" type="button">
+                Reserva
+              </button>
+            </li>
+          </ul>
+        </nav>
+
+        <button
+          class="dux-button dux-button--outline dux-button--sm header__toggle"
+          type="button"
+          aria-label="Abrir menú de navegación móvil"
+          aria-expanded="false"
+          aria-controls="mobile-nav-menu"
+        >
+          <span data-icon="menu" data-icon-size="24"></span>
+        </button>
+      </div>
+
+      <nav class="header__mobile-menu" id="mobile-nav-menu" aria-label="Navegación móvil">
+        <ul class="header__mobile-nav-list">
+          <li>
+            <a
+              class="header__mobile-nav-link header__mobile-nav-link--active"
+              href="#aventura"
+              aria-current="page"
+            >
+              <span data-icon="landscape" data-icon-size="18"></span>
+              <span>Aventura</span>
+            </a>
+          </li>
+          <li>
+            <a class="header__mobile-nav-link" href="#destinos">
+              <span data-icon="globe" data-icon-size="18"></span>
+              <span>Destinos</span>
+            </a>
+          </li>
+          <li>
+            <a class="header__mobile-nav-link" href="#alojamiento">
+              <span data-icon="home" data-icon-size="18"></span>
+              <span>Alojamiento</span>
+            </a>
+          </li>
+          <li>
+            <a class="header__mobile-nav-link" href="#sobre-nosotros">
+              <span>Sobre nosotros</span>
+            </a>
+          </li>
+          <li class="header__mobile-cta">
+            <button class="dux-button dux-button--plum dux-button--md" type="button">
+              Reserva
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="hero" data-hero>
+      <div class="hero__container container">
+        <div class="hero__content">
+          <h1 class="hero__title">Ruta por Australia</h1>
+          <p class="hero__desc">Si te va la aventura, no te lo puedes perder</p>
+          <div class="hero__actions">
+            <button class="dux-button dux-button--orange dux-button--lg" type="button">
+              Más información
+            </button>
+          </div>
+          <div class="hero__slider-slot"></div>
+        </div>
+      </div>
+      <button
+        class="hero__slider-control hero__slider-control--prev"
+        type="button"
+        aria-label="Ver aventura anterior"
+      >
+        <span data-icon="chevronLeft" data-icon-size="24"></span>
+      </button>
+      <button
+        class="hero__slider-control hero__slider-control--next"
+        type="button"
+        aria-label="Ver siguiente aventura"
+      >
+        <span data-icon="chevronRight" data-icon-size="24"></span>
+      </button>
+    </section>
+
+    <section class="search-bar search-bar--overlap" aria-label="Barra de búsqueda de viajes">
+      <div class="search-bar__card">
+        <label class="dux-text-input dux-text-input--neutral" for="search-destination">
+          <span class="dux-text-input__control">
+            <span data-icon="compass" data-icon-size="24"></span>
+            <span class="dux-text-input__content">
+              <span class="dux-text-input__label">Destinos o experiencia</span>
+              <input
+                class="dux-text-input__field"
+                id="search-destination"
+                type="text"
+                placeholder="¿A dónde quieres ir?"
+                aria-label="Destino o experiencia"
+                aria-invalid="false"
+              />
+            </span>
+          </span>
+        </label>
+
+        <label class="dux-text-input dux-text-input--neutral" for="search-check-in">
+          <span class="dux-text-input__control">
+            <span data-icon="calendar" data-icon-size="24"></span>
+            <span class="dux-text-input__content">
+              <span class="dux-text-input__label">Fecha de ida</span>
+              <input
+                class="dux-text-input__field"
+                id="search-check-in"
+                type="text"
+                placeholder="Elige fecha"
+                aria-label="Fecha de ida"
+                aria-invalid="false"
+              />
+            </span>
+            <span
+              class="dux-text-input__chevron"
+              data-icon="chevronDownCompact"
+              data-icon-size="16"
+            ></span>
+          </span>
+        </label>
+
+        <label class="dux-text-input dux-text-input--neutral" for="search-check-out">
+          <span class="dux-text-input__control">
+            <span data-icon="calendar" data-icon-size="24"></span>
+            <span class="dux-text-input__content">
+              <span class="dux-text-input__label">Fecha de vuelta</span>
+              <input
+                class="dux-text-input__field"
+                id="search-check-out"
+                type="text"
+                placeholder="Elige fecha"
+                aria-label="Fecha de vuelta"
+                aria-invalid="false"
+              />
+            </span>
+            <span
+              class="dux-text-input__chevron"
+              data-icon="chevronDownCompact"
+              data-icon-size="16"
+            ></span>
+          </span>
+        </label>
+
+        <label class="dux-text-input dux-text-input--neutral" for="search-guests">
+          <span class="dux-text-input__control">
+            <span data-icon="users" data-icon-size="24"></span>
+            <span class="dux-text-input__content">
+              <span class="dux-text-input__label">Número de viajeros</span>
+              <input
+                class="dux-text-input__field"
+                id="search-guests"
+                type="text"
+                placeholder="2 personas"
+                aria-label="Número de viajeros"
+                aria-invalid="false"
+              />
+            </span>
+            <span
+              class="dux-text-input__chevron"
+              data-icon="chevronDownCompact"
+              data-icon-size="16"
+            ></span>
+          </span>
+        </label>
+
+        <button class="dux-button dux-button--plum dux-button--lg search-bar__btn" type="button">
+          Buscar
+        </button>
+      </div>
+
+      <div class="search-bar__summary">
+        <span class="search-bar__summary-item"><strong>Duración:</strong> 9 días</span>
+        <span class="search-bar__summary-divider" aria-hidden="true">|</span>
+        <span class="search-bar__summary-item"><strong>Viajeros:</strong> 2 personas</span>
+      </div>
+    </section>
+
+    <section class="container section-intro-header">
+      <h2 class="section-intro-header__title">Vive tus propias aventuras</h2>
+      <p class="section-intro-header__sub">
+        Para los que les gusta explorar y conocer mundo sin complejos
+      </p>
+      <button
+        class="dux-button dux-button--outline mobile-filter-trigger"
+        type="button"
+        aria-label="Abrir filtros de búsqueda"
+      >
+        <span data-icon="filter" data-icon-size="18"></span>
+        Ver filtros
+      </button>
+    </section>
+
+    <main class="container main-workspace">
+      <div class="desktop-sidebar-filters" data-inline-filters></div>
+      <div class="grid-content-panel" data-grid-content></div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__container container">
+        <div class="footer__brand-col">
+          <a href="#" class="footer__logo-link" aria-label="Página de inicio de waveless">
+            <img
+              class="footer__logo-img"
+              src="/src/assets/logo-dark.svg"
+              alt="waveless logo light"
+            />
+          </a>
+          <p class="footer__desc">
+            Plataforma de reservas de aventuras y viajes en grupo más grande de España y Europa.
+          </p>
+        </div>
+
+        <nav class="footer__nav-wrapper" aria-label="Pie de página navegación secundaria">
+          <div class="footer__nav-col">
+            <h4 class="footer__nav-title">Cursos</h4>
+            <ul class="footer__nav-list">
+              <li><a class="footer__nav-link" href="#">CSS Grid</a></li>
+              <li><a class="footer__nav-link" href="#">Flexbox</a></li>
+              <li><a class="footer__nav-link" href="#">Accesibilidad</a></li>
+              <li><a class="footer__nav-link" href="#">TypeScript</a></li>
+            </ul>
+          </div>
+          <div class="footer__nav-col">
+            <h4 class="footer__nav-title">Recursos</h4>
+            <ul class="footer__nav-list">
+              <li><a class="footer__nav-link" href="#">Blog</a></li>
+              <li><a class="footer__nav-link" href="#">Glosario</a></li>
+              <li><a class="footer__nav-link" href="#">Guía a11y</a></li>
+              <li><a class="footer__nav-link" href="#">Vite Config</a></li>
+            </ul>
+          </div>
+          <div class="footer__nav-col">
+            <h4 class="footer__nav-title">Compañía</h4>
+            <ul class="footer__nav-list">
+              <li><a class="footer__nav-link" href="#">Nosotros</a></li>
+              <li><a class="footer__nav-link" href="#">Trabaja con nosotros</a></li>
+              <li><a class="footer__nav-link" href="#">Contacto</a></li>
+              <li><a class="footer__nav-link" href="#">FAQ</a></li>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="footer__contact-col">
+          <section class="footer-content footer-content--inline" aria-labelledby="footer-contact-title">
+            <h3 class="footer-content__title footer__nav-title" id="footer-contact-title">
+              Contacta con nosotros
+            </h3>
+            <dl class="footer-content__details">
+              <dt>Llámanos al:</dt>
+              <dd><a href="tel:918460048">918 46 00 48</a></dd>
+              <dt>Nuevo horario:</dt>
+              <dd>Lunes a Viernes 09:30h a 19:30h</dd>
+              <dt>Email de atención al viajero:</dt>
+              <dd><a href="mailto:reservas@waveless.com">reservas@waveless.com</a></dd>
+            </dl>
+            <ul class="footer-content__socials" aria-label="Redes sociales">
+              <li>
+                <a class="footer-content__social" href="#" aria-label="Facebook">
+                  <span class="footer-content__social-icon" aria-hidden="true">f</span>
+                </a>
+              </li>
+              <li>
+                <a class="footer-content__social" href="#" aria-label="X">
+                  <span class="footer-content__social-icon" aria-hidden="true">X</span>
+                </a>
+              </li>
+              <li>
+                <a class="footer-content__social" href="#" aria-label="Instagram">
+                  <span class="footer-content__social-icon" aria-hidden="true">
+                    <span class="footer-content__camera"></span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a class="footer-content__social" href="#" aria-label="YouTube">
+                  <span class="footer-content__social-icon" aria-hidden="true">
+                    <span class="footer-content__play"></span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </section>
+        </div>
+      </div>
+
+      <div class="footer__bottom container">
+        <span class="footer__copyright">
+          © 2026 waveless. Todos los derechos reservados. Prueba maquetador web responsive.
+        </span>
+        <div class="footer__bottom-links">
+          <a class="footer__bottom-link" href="#">Privacidad</a>
+          <a class="footer__bottom-link" href="#">Términos</a>
+          <a class="footer__bottom-link" href="#">Cookies</a>
+        </div>
+      </div>
+    </footer>
+
+    <div id="app-overlays"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

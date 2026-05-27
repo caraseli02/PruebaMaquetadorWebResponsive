@@ -22,7 +22,7 @@
 }
 
 .section-intro-header__title {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-size: clamp(var(--font-size-xl), 4vw, var(--font-size-3xl));
   font-weight: var(--weight-bold);
   color: var(--color-purple-900);
@@ -30,7 +30,7 @@
 }
 
 .section-intro-header__sub {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: clamp(var(--font-size-2xs), 2vw, var(--font-size-md));
   color: var(--color-gray-600);
 }
@@ -75,8 +75,8 @@
    ========================================================================== */
 @media (min-width: 1024px) {
   .main-workspace {
-    grid-template-columns: 288px 1fr;
-    gap: var(--space-2xl);
+    grid-template-columns: 214px 1fr;
+    gap: var(--space-lg);
     padding-top: var(--space-2xl);
   }
   

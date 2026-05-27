@@ -34,6 +34,11 @@
   width: 100%;
 }
 
+.search-bar .dux-text-input {
+  width: 100%;
+  min-width: 0;
+}
+
 .search-bar__btn {
   width: 100%;
   height: 52px;
@@ -87,7 +92,7 @@
   }
 
   .search-bar__card {
-    grid-template-columns: repeat(4, 1.2fr) 0.8fr;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(124px, 0.5fr);
     gap: var(--space-sm);
     padding: var(--space-md) var(--space-xl);
     border-radius: 100px; /* pill shaped bar */

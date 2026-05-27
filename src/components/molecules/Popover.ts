@@ -1,3 +1,5 @@
+import "./Popover.css";
+
 export type PriceBreakdown = {
   base: string;
   tax: string;
@@ -7,7 +9,9 @@ export type PriceBreakdown = {
 export type PricingPopoverOptions = {
   title?: string;
   price?: string;
-  subtitleHtml?: string;
+  location?: string;
+  region?: string;
+  durationDays?: number;
   breakdown?: PriceBreakdown;
   onClose?: () => void;
 };
@@ -26,7 +30,9 @@ export const calculatePriceBreakdown = (price: string): PriceBreakdown => {
 export const createPricingPopover = ({
   title = "Desglose de precios",
   price = "248,00 €",
-  subtitleHtml = '<strong class="circuit-card__meta-location">Marruecos, África</strong> 9 días',
+  location = "Marruecos",
+  region = "África",
+  durationDays = 9,
   breakdown = calculatePriceBreakdown(price),
   onClose,
 }: PricingPopoverOptions = {}): HTMLElement => {
@@ -51,17 +57,18 @@ export const createPricingPopover = ({
 
   header.append(heading, close);
 
-  // Parse location and duration from subtitleHtml
   const subtitleEl = document.createElement("div");
   subtitleEl.className = "pricing-popover__subtitle";
-  const match = subtitleHtml.match(/<strong[^>]*>([^<]+)<\/strong>\s*(?:·|)\s*([^<]+)/);
-  if (match) {
-    const location = match[1].trim();
-    const duration = match[2].trim();
-    subtitleEl.innerHTML = `<span class="pricing-popover__location">${location}</span><span class="pricing-popover__duration">${duration}</span>`;
-  } else {
-    subtitleEl.innerHTML = subtitleHtml;
-    }
+
+  const locationEl = document.createElement("span");
+  locationEl.className = "pricing-popover__location";
+  locationEl.textContent = `${location}, ${region}`;
+
+  const durationEl = document.createElement("span");
+  durationEl.className = "pricing-popover__duration";
+  durationEl.textContent = `${durationDays} días`;
+
+  subtitleEl.append(locationEl, durationEl);
 
   // DESKTOP VIEW
   const desktopView = document.createElement("div");
@@ -75,12 +82,20 @@ export const createPricingPopover = ({
     ["Lorem Ipsum", `${breakdown.fees} €`],
   ].forEach(([label, value]) => {
     const row = document.createElement("li");
-    row.innerHTML = `<span>${label}</span> <span>${value}</span>`;
+    const labelEl = document.createElement("span");
+    labelEl.textContent = label;
+    const valueEl = document.createElement("span");
+    valueEl.textContent = value;
+    row.append(labelEl, valueEl);
     desktopDetails.append(row);
   });
   const desktopTotal = document.createElement("li");
   desktopTotal.className = "pricing-popover__total";
-  desktopTotal.innerHTML = `<span>Precio final</span> <strong>${price}</strong>`;
+  const totalLabel = document.createElement("span");
+  totalLabel.textContent = "Precio final";
+  const totalPrice = document.createElement("strong");
+  totalPrice.textContent = price;
+  desktopTotal.append(totalLabel, totalPrice);
   desktopDetails.append(desktopTotal);
   desktopView.append(desktopDetails);
 

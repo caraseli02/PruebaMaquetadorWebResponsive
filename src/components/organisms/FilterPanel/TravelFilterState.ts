@@ -125,12 +125,19 @@ export class TravelFilterState {
       const matchesSearch =
         this.state.search === "" ||
         card.title.toLowerCase().includes(this.state.search.toLowerCase()) ||
-        card.meta.toLowerCase().includes(this.state.search.toLowerCase());
+        card.location.toLowerCase().includes(this.state.search.toLowerCase()) ||
+        card.region.toLowerCase().includes(this.state.search.toLowerCase());
         
       // B. Destinos
       const matchesDestination =
         this.state.destinations.length === 0 ||
-        this.state.destinations.some((d) => card.meta.toLowerCase().includes(d.toLowerCase()));
+        this.state.destinations.some((d) => {
+          const destination = d.toLowerCase();
+          return (
+            card.location.toLowerCase().includes(destination) ||
+            card.region.toLowerCase().includes(destination)
+          );
+        });
         
       // C. Actividades / Aventura
       const matchesActivity =

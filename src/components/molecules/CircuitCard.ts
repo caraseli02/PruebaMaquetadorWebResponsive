@@ -8,7 +8,9 @@ export type CircuitCardOptions = {
   imageSrc?: string;
   imageAlt?: string;
   tag?: string;
-  meta?: string;
+  location?: string;
+  region?: string;
+  durationDays?: number;
   title?: string;
   bottomBar?: BottomBarCircuitCardOptions;
 };
@@ -23,7 +25,9 @@ export const createCircuitCard = ({
   imageSrc = bangkokImage,
   imageAlt = "Jardin y templo en Bangkok",
   tag = "Quads",
-  meta = '<strong class="circuit-card__meta-location">Marruecos, África</strong> 9 días',
+  location = "Marruecos",
+  region = "África",
+  durationDays = 9,
   title = "Descubre Bangkok con Iberojet",
   bottomBar = {},
 }: CircuitCardOptions = {}): HTMLElement => {
@@ -49,7 +53,11 @@ export const createCircuitCard = ({
 
   const metaElement = document.createElement("p");
   metaElement.className = "circuit-card__meta";
-  metaElement.innerHTML = meta;
+
+  const locationElement = document.createElement("strong");
+  locationElement.className = "circuit-card__meta-location";
+  locationElement.textContent = `${location}, ${region}`;
+  metaElement.append(locationElement, document.createTextNode(` · ${durationDays} días`));
 
   const heading = document.createElement("h3");
   heading.className = "circuit-card__title";

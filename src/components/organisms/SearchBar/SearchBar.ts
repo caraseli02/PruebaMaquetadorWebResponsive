@@ -83,15 +83,25 @@ export function createSearchBar({ filterState, onSearch }: SearchBarProps = {}):
   // Bottom Summary Panel
   const summaryPanel = document.createElement("div");
   summaryPanel.className = "search-bar__summary";
-  summaryPanel.innerHTML = `
-    <span class="search-bar__summary-item">
-      <strong>Duración:</strong> 9 días
-    </span>
-    <span class="search-bar__summary-divider" aria-hidden="true">|</span>
-    <span class="search-bar__summary-item">
-      <strong>Viajeros:</strong> 2 personas
-    </span>
-  `;
+
+  const durationSummary = document.createElement("span");
+  durationSummary.className = "search-bar__summary-item";
+  const durationLabel = document.createElement("strong");
+  durationLabel.textContent = "Duración:";
+  durationSummary.append(durationLabel, " 9 días");
+
+  const summaryDivider = document.createElement("span");
+  summaryDivider.className = "search-bar__summary-divider";
+  summaryDivider.setAttribute("aria-hidden", "true");
+  summaryDivider.textContent = "|";
+
+  const travelersSummary = document.createElement("span");
+  travelersSummary.className = "search-bar__summary-item";
+  const travelersLabel = document.createElement("strong");
+  travelersLabel.textContent = "Viajeros:";
+  travelersSummary.append(travelersLabel, " 2 personas");
+
+  summaryPanel.append(durationSummary, summaryDivider, travelersSummary);
   container.appendChild(summaryPanel);
 
   // SUSCRIPCIÓN REACTIVA AL ESTADO PARA SINCRONIZACIÓN DE LA BÚSQUEDA

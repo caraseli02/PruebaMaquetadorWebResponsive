@@ -5,13 +5,15 @@ import { createSliderIndicator } from "../../atoms/SliderIndicator";
 import fondoImage from "../../../assets/fondo.png";
 
 export interface HeroSlide {
-  titleHtml: string;
+  title: string;
+  highlightedTitle?: string;
   description: string;
   imageSrc?: string;
 }
 
 export interface HeroProps {
-  titleHtml?: string;
+  title?: string;
+  highlightedTitle?: string;
   description?: string;
   slides?: HeroSlide[];
   primaryCtaLabel?: string;
@@ -24,7 +26,8 @@ export interface HeroProps {
  * Premium Hero banner organism utilizing fluid typography and the figma background asset.
  */
 export function createHero({
-  titleHtml = "Ruta por Australia",
+  title = "Ruta por Australia",
+  highlightedTitle,
   description = "Si te va la aventura, no te lo puedes perder",
   slides,
   primaryCtaLabel = "Más información",
@@ -35,14 +38,16 @@ export function createHero({
   const heroSlides = slides?.length
     ? slides
     : [
-        { titleHtml, description, imageSrc: fondoImage },
+        { title, highlightedTitle, description, imageSrc: fondoImage },
         {
-          titleHtml: "Costa de <span>Australia</span>",
+          title: "Costa de",
+          highlightedTitle: "Australia",
           description: "Si te va la aventura, este viaje te lleva directo al mapa.",
           imageSrc: fondoImage,
         },
         {
-          titleHtml: "Aventura en <span>Australia</span>",
+          title: "Aventura en",
+          highlightedTitle: "Australia",
           description: "Naturaleza, carretera y grupo en una escapada lista para reservar.",
           imageSrc: fondoImage,
         },
@@ -59,9 +64,9 @@ export function createHero({
   content.className = "hero__content";
   
   // Title
-  const title = document.createElement("h1");
-  title.className = "hero__title";
-  content.appendChild(title);
+  const titleElement = document.createElement("h1");
+  titleElement.className = "hero__title";
+  content.appendChild(titleElement);
   
   // Description
   const desc = document.createElement("p");
@@ -117,7 +122,12 @@ export function createHero({
   const renderSlide = () => {
     const activeSlide = heroSlides[activeIndex];
     section.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.48), rgba(0, 0, 0, 0.58)), url(${activeSlide.imageSrc ?? fondoImage})`;
-    title.innerHTML = activeSlide.titleHtml;
+    titleElement.textContent = activeSlide.title;
+    if (activeSlide.highlightedTitle) {
+      const highlight = document.createElement("span");
+      highlight.textContent = activeSlide.highlightedTitle;
+      titleElement.append(" ", highlight);
+    }
     desc.textContent = activeSlide.description;
 
     sliderSlot.replaceChildren();

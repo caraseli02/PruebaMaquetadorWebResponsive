@@ -4,7 +4,7 @@
   min-height: 428px;
   color: var(--color-text-light);
   overflow: hidden;
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -30,6 +30,7 @@
 .hero__title {
   margin: 0 0 12px;
   color: #fff;
+  font-family: var(--font-display);
   font-size: 32px;
   font-weight: var(--weight-normal);
   line-height: 1.08;
@@ -42,6 +43,7 @@
 .hero__desc {
   margin: 0 0 52px;
   color: #fff;
+  font-family: var(--font-body);
   font-size: 20px;
   font-weight: var(--weight-normal);
   line-height: 1.2;

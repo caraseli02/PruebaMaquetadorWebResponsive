@@ -126,9 +126,7 @@ export function createHeader({
       }
       mobileMenu.classList.remove("header__mobile-menu--open");
       toggleBtn.setAttribute("aria-expanded", "false");
-      // Restore menu icon
-      toggleBtn.innerHTML = "";
-      toggleBtn.appendChild(createIcon({ name: "menu", size: 24 }));
+      toggleBtn.replaceChildren(createIcon({ name: "menu", size: 24 }));
     });
     
     item.appendChild(a);
@@ -156,8 +154,7 @@ export function createHeader({
     size: "sm",
   });
   toggleBtn.classList.add("header__toggle");
-  toggleBtn.innerHTML = ""; // clear label
-  toggleBtn.appendChild(createIcon({ name: "menu", size: 24 }));
+  toggleBtn.replaceChildren(createIcon({ name: "menu", size: 24 }));
   toggleBtn.setAttribute("aria-label", "Abrir menú de navegación móvil");
   toggleBtn.setAttribute("aria-expanded", "false");
   toggleBtn.setAttribute("aria-controls", "mobile-nav-menu");
@@ -168,11 +165,10 @@ export function createHeader({
     toggleBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
     toggleBtn.setAttribute("aria-label", isOpen ? "Cerrar menú de navegación móvil" : "Abrir menú de navegación móvil");
     
-    toggleBtn.innerHTML = "";
     if (isOpen) {
-      toggleBtn.appendChild(createIcon({ name: "close", size: 24 }));
+      toggleBtn.replaceChildren(createIcon({ name: "close", size: 24 }));
     } else {
-      toggleBtn.appendChild(createIcon({ name: "menu", size: 24 }));
+      toggleBtn.replaceChildren(createIcon({ name: "menu", size: 24 }));
     }
   });
   container.appendChild(toggleBtn);

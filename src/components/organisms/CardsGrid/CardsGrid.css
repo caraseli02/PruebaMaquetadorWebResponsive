@@ -1,26 +1,12 @@
 .cards-grid-container {
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+  gap: var(--space-sm);
   width: 100%;
 }
 
-.cards-grid__header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  min-height: 86px;
-  padding: 20px 0;
-}
-
-.cards-grid__count {
-  font-size: var(--font-size-xs);
-  color: var(--color-purple-900);
-}
-
-.cards-grid__count strong {
-  font-weight: var(--weight-bold);
-  color: var(--color-orange-700);
+.cards-grid-container .circuit-card-grid-title {
+  margin-bottom: var(--space-2xs);
 }
 
 /* Elastic grid layout using CSS Grid fractional columns */

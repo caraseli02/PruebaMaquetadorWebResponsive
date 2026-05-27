@@ -125,6 +125,7 @@
   height: var(--button-height, 44px);
   padding: 0 var(--button-padding-x, 20px);
   color: var(--button-color);
+  font-family: var(--font-body);
   font-size: var(--button-font-size, var(--font-size-md));
   font-weight: var(--weight-semibold);
   line-height: 1;
@@ -257,6 +258,7 @@
   min-width: 64px;
   height: 28px;
   padding: 0 var(--space-sm);
+  font-family: var(--font-body);
   font-size: var(--font-size-2xs);
   font-weight: var(--weight-semibold);
   line-height: 1;
@@ -282,6 +284,7 @@
   margin: 0;
   overflow-wrap: anywhere;
   color: var(--color-midnight-base);
+  font-family: var(--font-display);
   font-size: var(--font-size-xl);
   font-weight: var(--weight-semibold);
   line-height: var(--lh-tight);
@@ -351,6 +354,7 @@
   display: inline-grid;
   width: 268px;
   color: var(--text-input-color, var(--color-purple-700));
+  font-family: var(--font-body);
 }
 
 .dux-text-input__label {
@@ -459,9 +463,9 @@
   width: 100%;
   min-width: 0;
   background: var(--color-bg-card-bottom, #FBF6F4);
-  padding: var(--space-sm) var(--space-md) var(--space-md);
+  padding: var(--space-sm) var(--space-sm) var(--space-md);
   box-sizing: border-box;
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
 }
 
 .bottom-bar-circuit-card--inline {
@@ -471,7 +475,7 @@
     "details action";
   align-items: center;
   row-gap: 2px;
-  column-gap: var(--space-lg);
+  column-gap: var(--space-xs);
 }
 
 .bottom-bar-circuit-card__price {
@@ -525,8 +529,8 @@
 .bottom-bar-circuit-card__button {
   grid-area: action;
   --button-height: 40px;
-  --button-min-width: 113px;
-  --button-padding-x: var(--space-xl);
+  --button-min-width: 92px;
+  --button-padding-x: var(--space-md);
   --button-font-size: var(--font-size-md);
   --button-border: var(--color-purple-700);
   --button-color: var(--color-purple-700);
@@ -558,8 +562,8 @@
   row-gap: 12px;
 }
 
-/* Gracefully degrade to stacked layout when container is too narrow for inline */
-@container (max-width: 259px) {
+/* Gracefully degrade to stacked layout when the card is too narrow for inline */
+@container (max-width: 199px) {
   .bottom-bar-circuit-card--inline,
   .bottom-bar-circuit-card--wide {
     grid-template-columns: auto auto;
@@ -592,7 +596,7 @@
   display: grid;
   grid-template-rows: auto minmax(96px, 1fr) auto;
   width: 100%;
-  min-width: 264px;
+  min-width: 0;
   min-height: 404px;
   overflow: hidden;
   background: #fff;
@@ -638,7 +642,7 @@
 .circuit-card__meta {
   margin: 0;
   color: var(--color-gray-600);
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-size: var(--font-size-2xs);
   font-weight: var(--weight-medium);
   line-height: 1.1;
@@ -652,7 +656,7 @@
 .circuit-card__title {
   margin: 0;
   color: var(--color-midnight-base);
-  font-family: 'Nunito', sans-serif;
+  font-family: var(--font-body);
   font-size: var(--font-size-md);
   font-weight: var(--weight-bold);
   line-height: 1.25;
@@ -858,352 +862,4 @@
     width: 100%;
     overflow-x: auto;
   }
-}
-
-/* ==========================================================================
-   PRICING POPOVER & BOOKING DIALOG MODAL STYLING
-   ========================================================================== */
-
-/* 1. Pricing Popover */
-.pricing-popover {
-  background: var(--color-bg-card);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-lg);
-  padding: 0;
-  width: 280px;
-  z-index: 1000;
-  font-family: var(--font-sans);
-  animation: fadeIn 0.2s ease-out;
-  overflow: hidden;
-}
-
-.pricing-popover__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--color-border);
-  padding: 12px var(--space-md);
-  background-color: #FBF6F4;
-}
-
-.pricing-popover__title {
-  font-size: var(--font-size-xs);
-  font-weight: var(--weight-bold);
-  color: var(--color-purple-900);
-}
-
-.pricing-popover__close {
-  background: none;
-  border: none;
-  font-size: var(--font-size-lg);
-  color: var(--color-gray-500);
-  cursor: pointer;
-  line-height: 1;
-}
-
-.pricing-popover__close:hover {
-  color: var(--color-orange-500);
-}
-
-.pricing-popover__subtitle {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px var(--space-md) 0 var(--space-md);
-  margin-bottom: 0;
-  font-size: var(--font-size-sm);
-}
-
-.pricing-popover__location {
-  font-weight: var(--weight-bold);
-  color: var(--color-purple-900);
-}
-
-.pricing-popover__duration {
-  color: var(--color-gray-600);
-}
-
-.pricing-popover__desktop-view {
-  padding: 12px var(--space-md) var(--space-md) var(--space-md);
-}
-
-.pricing-popover__details {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  font-size: var(--font-size-sm);
-  color: var(--color-gray-600);
-}
-
-.pricing-popover__details li {
-  display: flex;
-  justify-content: space-between;
-}
-
-.pricing-popover__details li span:last-child {
-  color: var(--color-midnight-base);
-  font-weight: var(--weight-medium);
-}
-
-.pricing-popover__divider {
-  border: none;
-  border-top: 1px solid var(--color-gray-200);
-  margin: var(--space-md) 0;
-}
-
-.pricing-popover__desktop-view .pricing-popover__total {
-  border-top: 1px dashed var(--color-border);
-  padding-top: var(--space-xs);
-  margin-top: var(--space-xs);
-  font-size: var(--font-size-xs);
-  color: var(--color-midnight-base) !important;
-}
-
-.pricing-popover__desktop-view .pricing-popover__total strong {
-  color: var(--color-purple-900) !important;
-  font-size: var(--font-size-md);
-}
-
-.pricing-popover__total {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: var(--font-size-md);
-  font-weight: var(--weight-bold);
-  color: var(--color-midnight-base);
-}
-
-.pricing-popover__total strong {
-  font-size: var(--font-size-xl);
-}
-
-.pricing-popover__mobile-view {
-  display: none;
-}
-
-/* 2. Booking dialog */
-dialog.booking-dialog {
-  border: none;
-  background: transparent;
-  padding: 0;
-  margin: auto;
-  width: calc(100% - var(--space-xl));
-  max-width: 500px;
-  max-height: 90vh;
-  outline: none;
-}
-
-dialog.booking-dialog::backdrop {
-  background-color: rgba(25, 10, 49, 0.7);
-  backdrop-filter: blur(5px);
-}
-
-.booking-dialog__content {
-  background-color: var(--color-bg-card);
-  border-radius: var(--radius-xl);
-  padding: var(--space-xl);
-  box-shadow: var(--shadow-xl);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
-  overflow-y: auto;
-  max-height: 85vh;
-  font-family: var(--font-sans);
-}
-
-.booking-dialog__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1.5px solid var(--color-border);
-  padding-bottom: var(--space-sm);
-}
-
-.booking-dialog__title {
-  font-size: var(--font-size-lg);
-  font-weight: var(--weight-bold);
-  color: var(--color-purple-900);
-}
-
-.booking-dialog__close {
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: var(--color-gray-500);
-  cursor: pointer;
-  line-height: 1;
-}
-
-.booking-dialog__close:hover {
-  color: var(--color-orange-500);
-}
-
-.booking-dialog__body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
-}
-
-.booking-dialog__summary {
-  background-color: var(--color-gray-50);
-  padding: var(--space-md);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
-}
-
-.booking-dialog__summary h4 {
-  color: var(--color-purple-700);
-  margin-bottom: var(--space-2xs);
-}
-
-.booking-dialog__summary p {
-  font-size: var(--font-size-xs);
-  color: var(--color-gray-600);
-  margin: 0 0 var(--space-xs) 0;
-}
-
-.booking-dialog__price {
-  font-size: var(--font-size-sm) !important;
-  color: var(--color-midnight-base) !important;
-  margin: 0 !important;
-}
-
-.booking-dialog__price strong {
-  color: var(--color-orange-700);
-  font-size: var(--font-size-lg);
-}
-
-.booking-dialog__form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
-}
-
-.booking-form-field {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2xs);
-}
-
-.booking-form-field label {
-  font-size: var(--font-size-xs);
-  font-weight: var(--weight-semibold);
-  color: var(--color-purple-700);
-}
-
-.booking-input {
-  width: 100%;
-  height: 48px;
-  padding: 0 var(--space-md);
-  background: #fff;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-sm);
-  color: var(--color-gray-700);
-  outline: none;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.booking-input:focus {
-  border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 3px rgba(255, 143, 80, 0.18);
-}
-
-.booking-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-md);
-  margin-top: var(--space-md);
-}
-
-@media (max-width: 480px) {
-  .booking-actions {
-    grid-template-columns: 1fr;
-    gap: var(--space-sm);
-  }
-}
-
-.booking-actions .dux-button {
-  height: 48px;
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: var(--weight-bold);
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-
-/* 3. Booking Dialog Form Validation & Success States */
-.booking-error-msg {
-  display: none;
-  font-size: var(--font-size-2xs);
-  color: var(--color-orange-700);
-  font-weight: var(--weight-medium);
-  margin-top: 6px;
-  margin-bottom: 2px;
-}
-
-.booking-dialog__form--submitted .booking-input:invalid,
-.booking-input:user-invalid {
-  border-color: var(--color-orange-700) !important;
-  background-color: #fffaf8 !important;
-}
-
-.booking-dialog__form--submitted .booking-input:invalid ~ .booking-error-msg,
-.booking-input:user-invalid ~ .booking-error-msg {
-  display: block;
-}
-
-.booking-dialog__success-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: var(--space-xl) var(--space-md);
-  gap: var(--space-md);
-  animation: fadeIn 0.3s ease-out;
-}
-
-.booking-dialog__success-icon {
-  width: 64px;
-  height: 64px;
-  background-color: var(--color-orange-500);
-  color: var(--color-orange-950);
-  font-size: var(--font-size-3xl);
-  font-weight: var(--weight-bold);
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: var(--space-xs);
-  box-shadow: 0 4px 10px rgba(255, 143, 80, 0.3);
-}
-
-.booking-dialog__success-title {
-  font-size: var(--font-size-xl);
-  font-weight: var(--weight-bold);
-  color: var(--color-purple-900);
-  margin-top: var(--space-xs);
-}
-
-.booking-dialog__success-message {
-  font-size: var(--font-size-sm);
-  color: var(--color-gray-600);
-  max-width: 320px;
-  margin-bottom: var(--space-md) !important;
-}
-
-.booking-success-close-btn {
-  margin-top: var(--space-md);
-  width: 100%;
 }

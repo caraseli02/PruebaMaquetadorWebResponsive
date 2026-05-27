@@ -5,7 +5,9 @@
 export interface CardData {
   id: string;
   title: string;
-  meta: string;
+  location: string;
+  region: string;
+  durationDays: number;
   tag: string;
   price: string;
   imageUrl: string;

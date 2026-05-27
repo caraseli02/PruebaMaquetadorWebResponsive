@@ -143,6 +143,15 @@
   color: var(--color-orange-700);
 }
 
+.header__mobile-cta {
+  margin-top: var(--space-md);
+  list-style: none;
+}
+
+.header__mobile-cta .dux-button {
+  width: 100%;
+}
+
 .nav-bar-story {
   display: grid;
   gap: 98px;

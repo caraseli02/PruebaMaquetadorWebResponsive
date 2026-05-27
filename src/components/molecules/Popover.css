@@ -1,0 +1,120 @@
+/* Pricing Popover */
+.pricing-popover {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
+  padding: 0;
+  width: 280px;
+  z-index: 1000;
+  font-family: var(--font-sans);
+  animation: fadeIn 0.2s ease-out;
+  overflow: hidden;
+}
+
+.pricing-popover__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border);
+  padding: 12px var(--space-md);
+  background-color: #FBF6F4;
+}
+
+.pricing-popover__title {
+  font-size: var(--font-size-xs);
+  font-weight: var(--weight-bold);
+  color: var(--color-purple-900);
+}
+
+.pricing-popover__close {
+  background: none;
+  border: none;
+  font-size: var(--font-size-lg);
+  color: var(--color-gray-500);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.pricing-popover__close:hover {
+  color: var(--color-orange-500);
+}
+
+.pricing-popover__subtitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px var(--space-md) 0 var(--space-md);
+  margin-bottom: 0;
+  font-size: var(--font-size-sm);
+}
+
+.pricing-popover__location {
+  font-weight: var(--weight-bold);
+  color: var(--color-purple-900);
+}
+
+.pricing-popover__duration {
+  color: var(--color-gray-600);
+}
+
+.pricing-popover__desktop-view {
+  padding: 12px var(--space-md) var(--space-md) var(--space-md);
+}
+
+.pricing-popover__details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+}
+
+.pricing-popover__details li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pricing-popover__details li span:last-child {
+  color: var(--color-midnight-base);
+  font-weight: var(--weight-medium);
+}
+
+.pricing-popover__divider {
+  border: none;
+  border-top: 1px solid var(--color-gray-200);
+  margin: var(--space-md) 0;
+}
+
+.pricing-popover__desktop-view .pricing-popover__total {
+  border-top: 1px dashed var(--color-border);
+  padding-top: var(--space-xs);
+  margin-top: var(--space-xs);
+  font-size: var(--font-size-xs);
+  color: var(--color-midnight-base) !important;
+}
+
+.pricing-popover__desktop-view .pricing-popover__total strong {
+  color: var(--color-purple-900) !important;
+  font-size: var(--font-size-md);
+}
+
+.pricing-popover__total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-md);
+  font-weight: var(--weight-bold);
+  color: var(--color-midnight-base);
+}
+
+.pricing-popover__total strong {
+  font-size: var(--font-size-xl);
+}
+
+.pricing-popover__mobile-view {
+  display: none;
+}

@@ -1,4 +1,5 @@
 import "./CardsGrid.css";
+import { createCircuitCardGridTitle } from "../../atoms/CircuitCardGridTitle";
 import { createCircuitCard } from "../../molecules/CircuitCard";
 import { createIcon } from "../../atoms/Icon";
 import type { CardData } from "../../../types";
@@ -22,16 +23,6 @@ export function createCardsGrid({
   const container = document.createElement("div");
   container.className = "cards-grid-container";
   container.id = "cards-grid-container-el";
-  
-  // Header with result counter
-  const header = document.createElement("div");
-  header.className = "cards-grid__header";
-  
-  const count = document.createElement("span");
-  count.className = "cards-grid__count";
-  count.innerHTML = `Mostrando <strong>${cards.length}</strong> viaje${cards.length !== 1 ? "s" : ""}`;
-  header.appendChild(count);
-  container.appendChild(header);
   
   // Empty State Rendering
   if (cards.length === 0) {
@@ -58,6 +49,8 @@ export function createCardsGrid({
   }
   
   // Reusable Grid elements mapping
+  container.appendChild(createCircuitCardGridTitle({ text: "Asia" }));
+
   const grid = document.createElement("div");
   grid.className = "cards-grid";
   grid.setAttribute("role", "list");
@@ -70,7 +63,9 @@ export function createCardsGrid({
       imageSrc: cardData.imageUrl,
       imageAlt: cardData.imageAlt,
       tag: cardData.tag,
-      meta: cardData.meta,
+      location: cardData.location,
+      region: cardData.region,
+      durationDays: cardData.durationDays,
       title: cardData.title,
       bottomBar: {
         price: cardData.price,
