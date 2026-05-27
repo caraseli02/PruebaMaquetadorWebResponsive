@@ -4,7 +4,7 @@
   z-index: 100;
   width: 100%;
   background-color: var(--color-bg-card);
-  border-bottom: 1.5px solid var(--color-orange-500);
+  border-bottom: none;
   font-family: var(--font-sans);
 }
 
@@ -206,7 +206,7 @@
 /* ==========================================================================
    BREAKPOINTS RESPONSIVE OVERRIDES
    ========================================================================== */
-@media (min-width: 744px) {
+@media (min-width: 900px) {
   .header__nav {
     display: block;
   }

@@ -1,5 +1,6 @@
 .filter-panel {
-  width: 288px;
+  width: 100%;
+  max-width: 288px;
   overflow: hidden;
   color: var(--color-gray-800);
   background: #fff9f7;
@@ -220,14 +221,22 @@
 }
 
 dialog.filter-dialog {
-  width: calc(100% - var(--space-xl));
+  width: 100%;
   max-width: 360px;
-  max-height: 90vh;
+  max-height: 100vh;
+  height: 100vh;
   padding: 0;
-  margin: auto;
-  background: transparent;
+  margin: 0; /* Align to left */
+  margin-right: auto;
+  background: #fff9f7;
   border: 0;
   outline: none;
+  animation: slideInLeft 0.3s ease-out;
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
 }
 
 dialog.filter-dialog::backdrop {
@@ -235,22 +244,26 @@ dialog.filter-dialog::backdrop {
   backdrop-filter: blur(4px);
 }
 
+.filter-dialog__wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .filter-dialog__content {
-  display: grid;
-  gap: 22px;
-  max-height: 85vh;
+  flex: 1 1 auto;
   overflow-y: auto;
-  padding: var(--space-xl);
+  padding: var(--space-md) var(--space-xl);
   background: #fff9f7;
-  border-radius: 24px;
-  box-shadow: var(--shadow-xl);
+  box-sizing: border-box;
 }
 
 .filter-dialog__header {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: var(--space-sm);
+  padding: var(--space-xl) var(--space-xl) var(--space-sm) var(--space-xl);
   border-bottom: 1px solid var(--color-gray-100);
 }
 
@@ -258,6 +271,7 @@ dialog.filter-dialog::backdrop {
   color: var(--color-gray-800);
   font-size: var(--font-size-lg);
   font-weight: var(--weight-semibold);
+  margin: 0;
 }
 
 .filter-dialog__close-btn {
@@ -267,7 +281,25 @@ dialog.filter-dialog::backdrop {
   color: var(--color-purple-700) !important;
   background: white !important;
   border: 1px solid var(--color-border) !important;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-full) !important;
+}
+
+.filter-dialog__footer {
+  flex: 0 0 auto;
+  padding: var(--space-md) var(--space-xl);
+  background: #fff9f7;
+  border-top: 1px solid var(--color-gray-100);
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+@media (max-width: 767px) {
+  dialog.filter-dialog {
+    max-width: 100%;
+    margin: 0;
+  }
 }
 
 body.no-scroll {

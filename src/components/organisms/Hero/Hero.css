@@ -70,7 +70,7 @@
 .hero__slider-slot {
   position: absolute;
   right: 0;
-  bottom: 30px;
+  bottom: 90px;
   left: 0;
   z-index: 3;
   display: flex;
@@ -170,6 +170,15 @@
   bottom: 31px;
 }
 
+@media (max-width: 1023px) {
+  .hero {
+    min-height: 500px;
+  }
+  .hero__slider-slot {
+    bottom: 90px;
+  }
+}
+
 @media (max-width: 900px) {
   .hero__title {
     font-size: 34px;
@@ -207,6 +216,6 @@
   }
 
   .hero__slider-slot {
-    bottom: 31px;
+    bottom: 90px; /* Kept elevated to avoid search overlap */
   }
 }

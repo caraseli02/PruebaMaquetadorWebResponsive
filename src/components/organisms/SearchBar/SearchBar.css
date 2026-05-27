@@ -99,3 +99,32 @@
     border-radius: 100px; /* pill shape */
   }
 }
+
+/* Elevate input field height to match Figma specifications [L2] */
+.search-bar .dux-text-input__control {
+  height: 52px;
+}
+
+@media (min-width: 1024px) {
+  .search-bar .dux-text-input__control {
+    height: 54px;
+  }
+}
+
+/* Mobile search summary tag responsive wrapping [L1] */
+@media (max-width: 600px) {
+  .search-bar__summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--font-size-2xs);
+    max-width: calc(100% - 2 * var(--space-md));
+    text-align: center;
+    justify-content: center;
+  }
+
+  .search-bar__summary-divider {
+    display: none; /* Hide solid bar divider and rely on layout gap on wrap */
+  }
+}
