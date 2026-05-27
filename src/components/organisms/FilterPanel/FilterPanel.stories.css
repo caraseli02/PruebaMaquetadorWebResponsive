@@ -1,0 +1,31 @@
+.filter-story {
+  width: 100%;
+  min-width: 798px;
+  min-height: 1204px;
+  color: #000;
+  background: #fff;
+  font-family: var(--font-sans);
+}
+
+.filter-story__title {
+  margin: 0;
+  padding: 18px 18px 52px;
+  font-size: 34px;
+  font-weight: var(--weight-bold);
+  line-height: 1;
+}
+
+.filter-story__surface {
+  display: grid;
+  min-height: 1100px;
+  padding: 110px 95px 22px 18px;
+  background: #f4f4f4;
+}
+
+.filter-story__frame {
+  display: grid;
+  justify-content: end;
+  padding: 21px 80px 22px 0;
+  border: 1.5px dashed #a855ff;
+  border-radius: 6px;
+}

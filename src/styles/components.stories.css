@@ -1,0 +1,78 @@
+/* ==========================================================================
+   STORYBOOK-SPECIFIC LAYOUT BOARDS FOR COMPONENT WORKSHOPS
+   ========================================================================== */
+
+.atom-story {
+  min-width: min(100%, 960px);
+  padding: var(--space-3xl);
+  font-family: var(--font-sans);
+  color: var(--color-text-main);
+  background: var(--color-bg-main);
+}
+
+.atom-story__title {
+  margin: 0 0 var(--space-xl);
+  font-size: var(--font-size-xl);
+  font-weight: var(--weight-semibold);
+}
+
+.atom-story__surface {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.info-tooltip-story {
+  display: grid;
+  width: 112px;
+  min-height: 112px;
+  place-items: center;
+  overflow: visible;
+}
+
+.bottom-bar-circuit-card-story {
+  display: grid;
+  width: 396px;
+  gap: 30px;
+  border: 1px dashed #9747ff;
+}
+
+.circuit-card-story {
+  display: grid;
+  width: 346px;
+  gap: var(--space-3xl);
+  border: 1px dashed #9747ff;
+}
+
+.tag-bar-story {
+  width: 560px;
+}
+
+.footer-content-story {
+  display: grid;
+  width: 680px;
+  min-height: 720px;
+  gap: var(--space-5xl);
+  border: 1px dashed #9747ff;
+}
+
+.card-row-story {
+  width: 928px;
+  border: 1px dashed #9747ff;
+}
+
+@media (max-width: 760px) {
+  .bottom-bar-circuit-card-story,
+  .tag-bar-story,
+  .footer-content-story,
+  .card-row-story {
+    width: min(100%, 100vw - 48px);
+  }
+}
+
+@media (max-width: 760px) {
+  .atom-story {
+    padding: var(--space-lg);
+  }
+}

@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   width: 100%;
-  min-height: 428px;
+  min-height: 500px;
   color: var(--color-text-light);
   overflow: hidden;
   font-family: var(--font-body);
@@ -17,21 +17,21 @@
   width: 100%;
   min-height: inherit;
   place-items: center;
-  padding: 56px 72px 58px;
+  padding: 54px 58px 44px;
 }
 
 .hero__content {
   display: grid;
   justify-items: center;
-  width: min(100%, 640px);
+  width: min(100%, 240px);
   text-align: center;
 }
 
 .hero__title {
-  margin: 0 0 12px;
-  color: #fff;
+  margin: 0 0 14px;
+  color: var(--color-text-light);
   font-family: var(--font-display);
-  font-size: 32px;
+  font-size: 34px;
   font-weight: var(--weight-normal);
   line-height: 1.08;
 }
@@ -42,11 +42,11 @@
 
 .hero__desc {
   margin: 0 0 52px;
-  color: #fff;
+  color: var(--color-text-light);
   font-family: var(--font-body);
-  font-size: 20px;
+  font-size: 24px;
   font-weight: var(--weight-normal);
-  line-height: 1.2;
+  line-height: 1.24;
 }
 
 .hero__actions {
@@ -56,7 +56,8 @@
 }
 
 .hero__actions .dux-button {
-  min-width: 214px;
+  width: 100%;
+  min-width: 0;
   height: 52px;
   padding-inline: 36px;
   color: var(--color-orange-950);
@@ -72,7 +73,7 @@
 .hero__slider-slot {
   position: absolute;
   right: 0;
-  bottom: 90px;
+  bottom: 65px;
   left: 0;
   z-index: 3;
   display: flex;
@@ -112,112 +113,53 @@
   right: 0;
 }
 
-.hero-story-board {
-  display: grid;
-  gap: 42px;
-  align-items: start;
-  padding: 49px 0 42px 49px;
-  background: #fff;
-}
+/* ==========================================================================
+   BREAKPOINTS RESPONSIVE OVERRIDES (MOBILE-FIRST)
+   ========================================================================== */
 
-.hero-story-board .hero {
-  flex: none;
-}
-
-.hero-story-board__desktop {
-  width: 1208px;
-}
-
-.hero-story-board__tablet {
-  width: 797px;
-}
-
-.hero-story-board__mobile {
-  width: 418px;
-}
-
-.hero-story-board__tablet .hero__title {
-  font-size: 34px;
-}
-
-.hero-story-board__tablet .hero__desc {
-  margin-bottom: 54px;
-  font-size: 24px;
-}
-.hero-story-board__mobile .hero__container {
-  padding: 54px 58px 44px;
-}
-
-.hero-story-board__mobile .hero__content {
-  width: min(100%, 240px);
-}
-
-.hero-story-board__mobile .hero__title {
-  margin-bottom: 14px;
-  font-size: 34px;
-}
-
-.hero-story-board__mobile .hero__desc {
-  margin-bottom: 52px;
-  font-size: 24px;
-  line-height: 1.24;
-}
-
-.hero-story-board__mobile .hero__actions .dux-button {
-  width: 100%;
-  min-width: 0;
-}
-
-.hero-story-board__mobile .hero__slider-slot {
-  bottom: 31px;
-}
-
-@media (max-width: 1023px) {
-  .hero {
-    min-height: 500px;
+/* Tablet Portrait Adaptation */
+@media (min-width: 481px) {
+  .hero__container {
+    padding: 56px 72px 58px;
   }
-  .hero__slider-slot {
-    bottom: 90px;
-  }
-}
 
-@media (max-width: 900px) {
+  .hero__content {
+    width: min(100%, 640px);
+  }
+
   .hero__title {
+    margin-bottom: 12px;
     font-size: 34px;
   }
 
   .hero__desc {
     margin-bottom: 54px;
     font-size: 24px;
+    line-height: 1.2;
+  }
+
+  .hero__actions .dux-button {
+    width: auto;
+    min-width: 214px;
+  }
+
+  .hero__slider-slot {
+    bottom: 90px;
   }
 }
 
-@media (max-width: 480px) {
-  .hero__container {
-    padding: 54px 58px 44px;
-  }
-
-  .hero__content {
-    width: min(100%, 240px);
+/* Desktop Adaptation */
+@media (min-width: 1024px) {
+  .hero {
+    min-height: 428px;
   }
 
   .hero__title {
-    margin-bottom: 14px;
-    font-size: 34px;
+    font-size: 32px;
   }
 
   .hero__desc {
     margin-bottom: 52px;
-    font-size: 24px;
-    line-height: 1.24;
-  }
-
-  .hero__actions .dux-button {
-    width: 100%;
-    min-width: 0;
-  }
-
-  .hero__slider-slot {
-    bottom: 65px; /* Kept elevated to avoid search overlap */
+    font-size: 20px;
   }
 }

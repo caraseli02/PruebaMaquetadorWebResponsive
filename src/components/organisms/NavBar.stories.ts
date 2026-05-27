@@ -1,4 +1,5 @@
 import { createHeader } from "./Header/Header";
+import "./Header/Header.stories.css";
 
 export default {
   title: "Organisms/Nav Bar",

@@ -7,6 +7,7 @@ export class OverlayManager {
   private static activePopover: HTMLElement | null = null;
   private static activeAnchor: HTMLElement | null = null;
   private static popoverOutsideClickListener: ((e: MouseEvent) => void) | null = null;
+  private static popoverEscapeListener: ((e: KeyboardEvent) => void) | null = null;
 
   /**
    * Abre un popover flotante posicionado de forma absoluta relativo a un elemento ancla.
@@ -93,7 +94,7 @@ export class OverlayManager {
     document.addEventListener("keydown", onKeyDown);
     
     // Almacenamos el listener de teclado en una propiedad estática para poder removerlo luego
-    (this as any).popoverEscapeListener = onKeyDown;
+    OverlayManager.popoverEscapeListener = onKeyDown;
 
     setTimeout(() => {
       document.addEventListener("click", outsideClick);
@@ -119,9 +120,9 @@ export class OverlayManager {
       document.removeEventListener("click", this.popoverOutsideClickListener);
       this.popoverOutsideClickListener = null;
     }
-    if ((this as any).popoverEscapeListener) {
-      document.removeEventListener("keydown", (this as any).popoverEscapeListener);
-      (this as any).popoverEscapeListener = null;
+    if (OverlayManager.popoverEscapeListener) {
+      document.removeEventListener("keydown", OverlayManager.popoverEscapeListener);
+      OverlayManager.popoverEscapeListener = null;
     }
   }
 

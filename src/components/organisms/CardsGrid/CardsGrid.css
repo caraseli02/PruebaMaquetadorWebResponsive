@@ -27,6 +27,8 @@
 @media (min-width: 1024px) {
   .cards-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-xl) var(--space-xl);
+    justify-content: start;
   }
 }
 
@@ -67,11 +69,4 @@
   font-size: var(--font-size-sm);
   color: var(--color-gray-600);
   max-width: 360px;
-}
-
-@media (min-width: 1024px) {
-  .cards-grid {
-    gap: var(--space-xl) var(--space-xl);
-    justify-content: start;
-  }
 }

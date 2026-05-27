@@ -2,6 +2,9 @@ import type { CardData } from "../types";
 import bangkokImage from "../assets/Rectangle 50.png";
 import desertImage from "../assets/Rectangle 50 (1).png";
 import mountainImage from "../assets/Rectangle 50 (2).png";
+import surfImage from "../assets/surf.png";
+import safariImage from "../assets/safari.png";
+import cruiseImage from "../assets/cruise.png";
 
 /**
  * Mock database representing high-fidelity catalog travel cards.
@@ -51,8 +54,8 @@ export const mockCards: CardData[] = [
     durationDays: 8,
     tag: "Surf",
     price: "410,00 €",
-    imageUrl: bangkokImage,
-    imageAlt: "Playas paradisíacas de Tailandia",
+    imageUrl: surfImage,
+    imageAlt: "Surfistas en una playa tropical paradisíaca en Tailandia",
     rating: 4.9,
   },
   {
@@ -63,8 +66,8 @@ export const mockCards: CardData[] = [
     durationDays: 10,
     tag: "Safari",
     price: "480,00 €",
-    imageUrl: desertImage,
-    imageAlt: "Safari en Kenia",
+    imageUrl: safariImage,
+    imageAlt: "Elefantes y jirafas caminando en la sabana de Kenia al atardecer",
     rating: 4.4,
   },
   {
@@ -75,8 +78,8 @@ export const mockCards: CardData[] = [
     durationDays: 4,
     tag: "Crucero",
     price: "299,00 €",
-    imageUrl: mountainImage,
-    imageAlt: "Crucero por río español",
+    imageUrl: cruiseImage,
+    imageAlt: "Un crucero fluvial moderno navegando por un río pintoresco en un valle verde",
     rating: 4.5,
   }
 ];

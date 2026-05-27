@@ -51,13 +51,11 @@ export const createCircuitCard = ({
   }
 
   // Fade in image smoothly on load to prevent blank/white flashes
-  image.style.opacity = "0";
-  image.style.transition = "opacity 0.3s ease-in-out";
   image.addEventListener("load", () => {
-    image.style.opacity = "1";
+    image.classList.add("circuit-card__image--loaded");
   });
   if (image.complete) {
-    image.style.opacity = "1";
+    image.classList.add("circuit-card__image--loaded");
   }
 
   const tagElement = createTag({ label: tag, variant: "filled" });

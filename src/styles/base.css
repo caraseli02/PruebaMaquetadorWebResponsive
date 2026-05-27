@@ -103,3 +103,7 @@ button {
   background-color: var(--color-purple-200);
   color: var(--color-midnight-base);
 }
+
+body.no-scroll {
+  overflow: hidden;
+}

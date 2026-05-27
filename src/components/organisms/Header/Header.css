@@ -73,22 +73,22 @@
 
 
 /* Mobile Toggles */
-.header__toggle {
+.header__toggle.dux-button {
   display: inline-flex;
-  min-width: 44px !important;
-  height: 44px !important;
-  padding: 0 !important;
+  min-width: 44px;
+  height: 44px;
+  padding: 0;
   border-radius: 0;
-  border: 0 !important;
-  color: var(--color-purple-700) !important;
-  background: transparent !important;
+  border: 0;
+  color: var(--color-purple-700);
+  background: transparent;
   justify-content: center;
   align-items: center;
 }
 
-.header__toggle:hover {
-  border-color: var(--color-orange-500) !important;
-  color: var(--color-orange-500) !important;
+.header__toggle.dux-button:hover {
+  border-color: var(--color-orange-500);
+  color: var(--color-orange-500);
 }
 
 /* Mobile dropdown navigation menu overlay */
@@ -150,67 +150,7 @@
   width: 100%;
 }
 
-.nav-bar-story {
-  display: grid;
-  gap: 98px;
-  align-content: start;
-  min-height: 820px;
-  padding: 28px 10px;
-  background: #f3f3f3;
-}
-
-.nav-bar-story .header {
-  position: relative;
-}
-
-.nav-bar-story .container {
-  max-width: none;
-}
-
-.nav-bar-story__desktop {
-  width: 1172px;
-}
-
-.nav-bar-story__tablet {
-  width: 834px;
-}
-
-.nav-bar-story__mobile {
-  width: 606px;
-}
-
-.nav-bar-story__compact {
-  width: 318px;
-}
-
-.nav-bar-story__tablet .header__container {
-  height: 66px;
-}
-
-.nav-bar-story__tablet .header__nav-list {
-  gap: 40px;
-}
-
-.nav-bar-story__mobile .header__container,
-.nav-bar-story__compact .header__container {
-  height: 64px;
-}
-
-.nav-bar-story__mobile .header__nav,
-.nav-bar-story__compact .header__nav {
-  display: none;
-}
-
-.nav-bar-story__mobile .header__toggle,
-.nav-bar-story__compact .header__toggle {
-  display: inline-flex;
-}
-
-.nav-bar-story__compact .header__logo-img {
-  height: 20px;
-}
-
-/* ==========================================================================
+/* ==========================================================================================================
    BREAKPOINTS RESPONSIVE OVERRIDES
    ========================================================================== */
 @media (min-width: 900px) {

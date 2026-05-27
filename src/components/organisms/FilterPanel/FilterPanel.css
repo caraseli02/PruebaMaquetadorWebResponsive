@@ -189,38 +189,6 @@
   color: var(--color-gray-500);
 }
 
-.filter-story {
-  width: 100%;
-  min-width: 798px;
-  min-height: 1204px;
-  color: #000;
-  background: #fff;
-  font-family: var(--font-sans);
-}
-
-.filter-story__title {
-  margin: 0;
-  padding: 18px 18px 52px;
-  font-size: 34px;
-  font-weight: var(--weight-bold);
-  line-height: 1;
-}
-
-.filter-story__surface {
-  display: grid;
-  min-height: 1100px;
-  padding: 110px 95px 22px 18px;
-  background: #f4f4f4;
-}
-
-.filter-story__frame {
-  display: grid;
-  justify-content: end;
-  padding: 21px 80px 22px 0;
-  border: 1.5px dashed #a855ff;
-  border-radius: 6px;
-}
-
 dialog.filter-dialog {
   width: 100%;
   max-width: 360px;
@@ -275,14 +243,14 @@ dialog.filter-dialog::backdrop {
   margin: 0;
 }
 
-.filter-dialog__close-btn {
-  min-width: 36px !important;
-  height: 36px !important;
-  padding: 0 !important;
-  color: var(--color-purple-700) !important;
-  background: white !important;
-  border: 1px solid var(--color-border) !important;
-  border-radius: var(--radius-full) !important;
+.filter-dialog__close-btn.dux-button {
+  min-width: 36px;
+  height: 36px;
+  padding: 0;
+  color: var(--color-purple-700);
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
 }
 
 .filter-dialog__footer {
@@ -301,8 +269,4 @@ dialog.filter-dialog::backdrop {
     max-width: 100%;
     margin: 0;
   }
-}
-
-body.no-scroll {
-  overflow: hidden;
 }

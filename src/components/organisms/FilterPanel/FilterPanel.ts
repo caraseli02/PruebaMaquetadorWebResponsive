@@ -5,7 +5,7 @@ import { TravelFilterState, type FilterState } from "./TravelFilterState";
 
 export interface FilterPanelProps {
   filterState?: TravelFilterState;
-  initialState?: FilterState;
+  initialState?: Partial<FilterState>;
   dialogMode?: boolean;
   onCloseDialog?: () => void;
 }
@@ -13,14 +13,12 @@ export interface FilterPanelProps {
 type FilterGroup = "destinations" | "activities" | "ratings";
 
 const activityOptions = [
+  "Cultura",
   "Quads",
-  "Parapente",
-  "Rafting",
-  "Explora",
-  "Buceo",
-  "Paracaídas",
-  "Snowboard",
+  "Senderismo",
   "Surf",
+  "Safari",
+  "Crucero",
 ];
 
 const parsePrice = (value: string, fallback: number) => {
@@ -95,14 +93,12 @@ export function createFilterPanel({
     textSpan.textContent = label;
 
     const descriptions: Record<string, string> = {
+      "Cultura": "Visitas guiadas a museos y monumentos históricos.",
       "Quads": "Excursión en cuatrimoto todoterreno por dunas.",
-      "Parapente": "Vuelo tándem con instructor y vistas panorámicas.",
-      "Rafting": "Descenso de ríos rápidos de montaña en balsa.",
-      "Explora": "Senderismo guiado por parajes naturales protegidos.",
-      "Buceo": "Inmersión submarina para observar arrecifes de coral.",
-      "Paracaídas": "Salto tándem de caída libre a 4000 metros.",
-      "Snowboard": "Descenso de pistas de esquí en tabla sobre nieve.",
-      "Surf": "Curso de iniciación para coger olas en playas de arena."
+      "Senderismo": "Rutas a pie por senderos y montañas de gran belleza.",
+      "Surf": "Curso de iniciación para coger olas en playas de arena.",
+      "Safari": "Avistamiento de fauna salvaje en vehículos todo terreno.",
+      "Crucero": "Viajes en barco por ríos y costas marítimas."
     };
 
     const info = document.createElement("span");
@@ -127,9 +123,14 @@ export function createFilterPanel({
     input.id = `filter-price-${placeholder.toLowerCase() === "mínimo" ? "min" : "max"}`;
     input.setAttribute("aria-label", `Precio ${placeholder}`);
     wrapper.htmlFor = input.id;
+    input.className = "filter-price-input";
 
-    if (placeholder === "Máximo") {
-      input.className = "filter-price-input";
+    if (placeholder === "Mínimo") {
+      input.addEventListener("change", () => {
+        const val = parsePrice(input.value, filterState.getState().minPrice);
+        filterState.setMinPrice(val);
+      });
+    } else if (placeholder === "Máximo") {
       input.addEventListener("change", () => {
         const val = parsePrice(input.value, filterState.getState().maxPrice);
         filterState.setMaxPrice(val);
@@ -158,9 +159,9 @@ export function createFilterPanel({
   });
   activitySection.append(activityList);
 
-  const moreLink = document.createElement("a");
+  const moreLink = document.createElement("button");
   moreLink.className = "filter-section__more";
-  moreLink.href = "#";
+  moreLink.type = "button";
   moreLink.textContent = "Ver 21 más";
   moreLink.addEventListener("click", (event) => event.preventDefault());
   activitySection.append(moreLink);
@@ -255,8 +256,14 @@ export function createFilterPanel({
       }
     });
 
+    // Sincronizar campo de precio mínimo
+    const minPriceInput = container.querySelector("#filter-price-min") as HTMLInputElement;
+    if (minPriceInput && document.activeElement !== minPriceInput) {
+      minPriceInput.value = state.minPrice > 0 ? String(state.minPrice) : "";
+    }
+
     // Sincronizar campo de precio máximo
-    const maxPriceInput = container.querySelector(".filter-price-input") as HTMLInputElement;
+    const maxPriceInput = container.querySelector("#filter-price-max") as HTMLInputElement;
     if (maxPriceInput && document.activeElement !== maxPriceInput) {
       maxPriceInput.value = (state.maxPrice > 0 && state.maxPrice !== 700) ? String(state.maxPrice) : "";
     }

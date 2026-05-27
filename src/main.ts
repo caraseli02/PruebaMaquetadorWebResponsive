@@ -2,14 +2,13 @@ import "./styles/tokens.css";
 import "./styles/base.css";
 import "./styles/layout.css";
 import "./styles/components.css";
-import "./styles/responsive.css";
 import "./components/organisms/Header/Header.css";
 import "./components/organisms/Hero/Hero.css";
 import "./components/organisms/SearchBar/SearchBar.css";
 import "./components/organisms/Footer/Footer.css";
 
 import fondoImage from "./assets/fondo.png";
-import { createIcon, type IconName } from "./components/atoms/Icon";
+import { createIcon, iconNames, type IconName } from "./components/atoms/Icon";
 import { createSliderIndicator } from "./components/atoms/SliderIndicator";
 import { createFilterPanel } from "./components/organisms/FilterPanel/FilterPanel";
 import { TravelFilterState } from "./components/organisms/FilterPanel/TravelFilterState";
@@ -46,27 +45,7 @@ const heroSlides: HeroSlide[] = [
   },
 ];
 
-const iconNames = new Set<IconName>([
-  "chevronRight",
-  "menu",
-  "close",
-  "heart",
-  "landscape",
-  "compass",
-  "printer",
-  "activity",
-  "globe",
-  "home",
-  "chevronLeft",
-  "triangleDown",
-  "calendar",
-  "users",
-  "tag",
-  "tagTilt",
-  "chevronDown",
-  "chevronDownCompact",
-  "filter",
-]);
+const iconNamesSet = new Set<IconName>(iconNames);
 
 const createSizedIcon = (name: IconName, size: number, className = ""): SVGSVGElement =>
   createIcon({ name, size, color: "currentColor", className });
@@ -74,7 +53,7 @@ const createSizedIcon = (name: IconName, size: number, className = ""): SVGSVGEl
 const hydrateIcons = (root: ParentNode = document): void => {
   root.querySelectorAll<HTMLElement>("[data-icon]").forEach((slot) => {
     const name = slot.dataset.icon;
-    if (!name || !iconNames.has(name as IconName)) return;
+    if (!name || !iconNamesSet.has(name as IconName)) return;
 
     const size = Number(slot.dataset.iconSize ?? 24);
     const icon = createSizedIcon(name as IconName, Number.isFinite(size) ? size : 24, slot.className);
@@ -243,9 +222,19 @@ const initApp = () => {
     OverlayManager.openModal(dialogFilters);
   });
 
-  filterState.subscribe((_state, filteredCards) => {
+  filterState.subscribe((state, filteredCards) => {
+    let gridTitle = "Asia";
+    if (state.search) {
+      gridTitle = `Resultados de: ${state.search}`;
+    } else if (state.destinations.length > 0) {
+      gridTitle = state.destinations.join(", ");
+    } else if (state.activities.length > 0) {
+      gridTitle = state.activities.join(", ");
+    }
+
     const grid = createCardsGrid({
       cards: filteredCards,
+      title: gridTitle,
       onDetailsClick: (card, event) => {
         showPricingPopover(card, event.currentTarget as HTMLElement);
       },

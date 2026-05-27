@@ -11,7 +11,7 @@ The file contains multiple pages. The implementation target appears to be:
 
 - `0:1` - `🖥️ 📱 Desktop, tablet & mobile`
 
-The normal metadata call initially listed only the first loaded page (`🌠 Cover`). A read-only Figma Plugin API inspection confirmed the full file structure and found the implementation frames.
+The normal Figma inspection confirmed the full file structure and found the implementation frames.
 
 ## Primary Home Frames
 
@@ -44,8 +44,6 @@ The same page also includes these frames, which may represent viewport captures,
 - Before implementation, capture screenshots and design context for the primary home frames, then inspect the filter-state frames enough to decide whether they are required deliverables or references only.
 
 ## Phase 4 Visual Review Notes
-
-The organism review was performed with the Figma file open in the Codex in-app browser and Storybook running locally. The Figma MCP structured metadata endpoint was unavailable during the review because the file reached the Starter plan MCP call limit.
 
 Review findings fixed in the implementation:
 

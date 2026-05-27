@@ -6,6 +6,7 @@ import type { CardData } from "../../../types";
 
 export interface CardsGridProps {
   cards?: CardData[];
+  title?: string;
   onCardClick?: (id: string) => void;
   onDetailsClick?: (card: CardData, event: MouseEvent) => void;
   onBookClick?: (card: CardData, event: MouseEvent) => void;
@@ -16,6 +17,7 @@ export interface CardsGridProps {
  */
 export function createCardsGrid({
   cards = [],
+  title = "Asia",
   onCardClick,
   onDetailsClick,
   onBookClick,
@@ -23,6 +25,7 @@ export function createCardsGrid({
   const container = document.createElement("div");
   container.className = "cards-grid-container";
   container.id = "cards-grid-container-el";
+  container.setAttribute("aria-live", "polite");
   
   // Empty State Rendering
   if (cards.length === 0) {
@@ -34,10 +37,10 @@ export function createCardsGrid({
     iconWrapper.appendChild(createIcon({ name: "compass", size: 48, color: "var(--color-orange-500)" }));
     emptyState.appendChild(iconWrapper);
     
-    const title = document.createElement("h4");
-    title.className = "cards-grid__empty-title";
-    title.textContent = "No se encontraron viajes";
-    emptyState.appendChild(title);
+    const titleEl = document.createElement("h4");
+    titleEl.className = "cards-grid__empty-title";
+    titleEl.textContent = "No se encontraron viajes";
+    emptyState.appendChild(titleEl);
     
     const desc = document.createElement("p");
     desc.className = "cards-grid__empty-desc";
@@ -49,7 +52,7 @@ export function createCardsGrid({
   }
   
   // Reusable Grid elements mapping
-  container.appendChild(createCircuitCardGridTitle({ text: "Asia" }));
+  container.appendChild(createCircuitCardGridTitle({ text: title }));
 
   const grid = document.createElement("div");
   grid.className = "cards-grid";

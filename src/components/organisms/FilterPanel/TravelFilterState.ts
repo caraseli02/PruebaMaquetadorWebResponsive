@@ -5,6 +5,7 @@ export interface FilterState {
   search: string;
   destinations: string[];
   activities: string[];
+  minPrice: number;
   maxPrice: number;
   ratings: string[];
 }
@@ -24,6 +25,7 @@ export class TravelFilterState {
       search: initialState.search ?? "",
       destinations: initialState.destinations ?? [],
       activities: initialState.activities ?? [],
+      minPrice: initialState.minPrice ?? 0,
       maxPrice: initialState.maxPrice ?? 700,
       ratings: initialState.ratings ?? [],
     };
@@ -53,6 +55,7 @@ export class TravelFilterState {
       search: this.state.search,
       destinations: [...this.state.destinations],
       activities: [...this.state.activities],
+      minPrice: this.state.minPrice,
       maxPrice: this.state.maxPrice,
       ratings: [...this.state.ratings],
     };
@@ -61,6 +64,13 @@ export class TravelFilterState {
   public setSearch(search: string): void {
     if (this.state.search !== search) {
       this.state.search = search;
+      this.notify();
+    }
+  }
+
+  public setMinPrice(minPrice: number): void {
+    if (this.state.minPrice !== minPrice) {
+      this.state.minPrice = minPrice;
       this.notify();
     }
   }
@@ -110,6 +120,7 @@ export class TravelFilterState {
       search: "",
       destinations: [],
       activities: [],
+      minPrice: 0,
       maxPrice: 700,
       ratings: [],
     };
@@ -144,9 +155,9 @@ export class TravelFilterState {
         this.state.activities.length === 0 ||
         this.state.activities.includes(card.tag);
         
-      // D. Límite de precio máximo
+      // D. Rango de precios (mínimo y máximo)
       const cardPriceNum = parseFloat(card.price.replace(/[^\d,]/g, "").replace(",", "."));
-      const matchesPrice = cardPriceNum <= this.state.maxPrice;
+      const matchesPrice = cardPriceNum >= this.state.minPrice && cardPriceNum <= this.state.maxPrice;
       
       // E. Valoraciones (Rating >= 4.5)
       let matchesRating = true;

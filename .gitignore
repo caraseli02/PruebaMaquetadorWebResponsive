@@ -12,3 +12,12 @@ skills-lock.json
 # Local visual-review captures
 /figma*.png
 /zoom*.png
+
+# AI and Agent artifacts ignored locally
+.impeccable/
+CONTEXT.md
+docs/prd.md
+docs/implementation-plan.md
+docs/goal.md
+docs/next-steps.md
+docs/technical-approach.md

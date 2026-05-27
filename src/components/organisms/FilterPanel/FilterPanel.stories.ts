@@ -1,4 +1,5 @@
 import { createFilterPanel } from "./FilterPanel";
+import "./FilterPanel.stories.css";
 
 export default {
   title: "Organisms/FilterPanel",

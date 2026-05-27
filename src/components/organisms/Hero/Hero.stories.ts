@@ -1,4 +1,5 @@
 import { createHero } from "./Hero";
+import "./Hero.stories.css";
 
 export default {
   title: "Organisms/Hero",

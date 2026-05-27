@@ -103,17 +103,15 @@
     height: 54px;
     border-radius: 100px; /* pill shape */
   }
+
+  .search-bar .dux-text-input__control {
+    height: 54px;
+  }
 }
 
 /* Elevate input field height to match Figma specifications [L2] */
 .search-bar .dux-text-input__control {
   height: 52px;
-}
-
-@media (min-width: 1024px) {
-  .search-bar .dux-text-input__control {
-    height: 54px;
-  }
 }
 
 /* Mobile search summary tag responsive wrapping [L1] */

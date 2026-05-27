@@ -1,0 +1,59 @@
+.hero-story-board {
+  display: grid;
+  gap: 42px;
+  align-items: start;
+  padding: 49px 0 42px 49px;
+  background: #fff;
+}
+
+.hero-story-board .hero {
+  flex: none;
+}
+
+.hero-story-board__desktop {
+  width: 1208px;
+}
+
+.hero-story-board__tablet {
+  width: 797px;
+}
+
+.hero-story-board__mobile {
+  width: 418px;
+}
+
+.hero-story-board__tablet .hero__title {
+  font-size: 34px;
+}
+
+.hero-story-board__tablet .hero__desc {
+  margin-bottom: 54px;
+  font-size: 24px;
+}
+.hero-story-board__mobile .hero__container {
+  padding: 54px 58px 44px;
+}
+
+.hero-story-board__mobile .hero__content {
+  width: min(100%, 240px);
+}
+
+.hero-story-board__mobile .hero__title {
+  margin-bottom: 14px;
+  font-size: 34px;
+}
+
+.hero-story-board__mobile .hero__desc {
+  margin-bottom: 52px;
+  font-size: 24px;
+  line-height: 1.24;
+}
+
+.hero-story-board__mobile .hero__actions .dux-button {
+  width: 100%;
+  min-width: 0;
+}
+
+.hero-story-board__mobile .hero__slider-slot {
+  bottom: 31px;
+}
