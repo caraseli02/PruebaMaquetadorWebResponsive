@@ -94,10 +94,21 @@ export function createFilterPanel({
     textSpan.className = "filter-checkbox-label";
     textSpan.textContent = label;
 
+    const descriptions: Record<string, string> = {
+      "Quads": "Excursión en cuatrimoto todoterreno por dunas.",
+      "Parapente": "Vuelo tándem con instructor y vistas panorámicas.",
+      "Rafting": "Descenso de ríos rápidos de montaña en balsa.",
+      "Explora": "Senderismo guiado por parajes naturales protegidos.",
+      "Buceo": "Inmersión submarina para observar arrecifes de coral.",
+      "Paracaídas": "Salto tándem de caída libre a 4000 metros.",
+      "Snowboard": "Descenso de pistas de esquí en tabla sobre nieve.",
+      "Surf": "Curso de iniciación para coger olas en playas de arena."
+    };
+
     const info = document.createElement("span");
     info.className = "filter-checkbox-info";
     info.textContent = "i";
-    info.title = "Lorem ipsum";
+    info.title = descriptions[value] ?? "Más detalles sobre esta experiencia de aventura.";
     info.setAttribute("aria-label", `Más información sobre ${label}`);
 
     labelEl.append(input, textSpan, info);
@@ -113,8 +124,9 @@ export function createFilterPanel({
     input.type = "text";
     input.inputMode = "numeric";
     input.placeholder = placeholder;
-    input.id = `filter-price-${placeholder.toLowerCase()}`;
+    input.id = `filter-price-${placeholder.toLowerCase() === "mínimo" ? "min" : "max"}`;
     input.setAttribute("aria-label", `Precio ${placeholder}`);
+    wrapper.htmlFor = input.id;
 
     if (placeholder === "Máximo") {
       input.className = "filter-price-input";

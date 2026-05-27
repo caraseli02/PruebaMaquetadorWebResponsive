@@ -48,9 +48,11 @@ export const createBottomBarCircuitCard = ({
   }
 
   if (detailsLabel) {
-    const details = document.createElement("a");
+    const details = document.createElement("button");
+    details.type = "button";
     details.className = "bottom-bar-circuit-card__details";
-    details.href = "#";
+    details.setAttribute("aria-haspopup", "dialog");
+    details.setAttribute("aria-expanded", "false");
     details.append(
       document.createTextNode(detailsLabel), 
       createIcon({ name: "chevronDownCompact", size: 16, color: "currentColor" })

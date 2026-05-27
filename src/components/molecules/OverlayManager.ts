@@ -19,6 +19,8 @@ export class OverlayManager {
   ): void {
     this.closePopover();
 
+    anchor.setAttribute("aria-expanded", "true");
+
     const isMobile = window.innerWidth < 768;
 
     popover.style.display = "block";
@@ -109,6 +111,8 @@ export class OverlayManager {
     document.body.classList.remove("no-scroll");
     if (this.activeAnchor) {
       this.activeAnchor.classList.remove("bottom-bar-circuit-card__details--active");
+      this.activeAnchor.setAttribute("aria-expanded", "false");
+      this.activeAnchor.focus();
       this.activeAnchor = null;
     }
     if (this.popoverOutsideClickListener) {

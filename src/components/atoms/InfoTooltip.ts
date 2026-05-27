@@ -7,7 +7,7 @@ export type InfoTooltipOptions = {
 };
 
 export const createInfoTooltip = ({
-  text = "Lorem ipsum",
+  text = "Información adicional sobre esta opción",
   visible = false,
   id = uniqueId("info-tooltip"),
 }: InfoTooltipOptions = {}): HTMLElement => {

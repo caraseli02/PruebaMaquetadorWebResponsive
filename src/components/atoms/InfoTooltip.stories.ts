@@ -24,7 +24,7 @@ export const States = () => {
 
 export const Playground = {
   args: {
-    text: "Lorem ipsum",
+    text: "Información detallada sobre esta sección de aventura",
     visible: true,
   } satisfies TooltipArgs,
   argTypes: {

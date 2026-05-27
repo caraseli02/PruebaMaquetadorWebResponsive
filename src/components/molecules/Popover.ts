@@ -77,9 +77,9 @@ export const createPricingPopover = ({
   const desktopDetails = document.createElement("ul");
   desktopDetails.className = "pricing-popover__details";
   [
-    ["Precio antes de impuestos", `${breakdown.base} €`],
-    ["Impuesto", `${breakdown.tax} €`],
-    ["Lorem Ipsum", `${breakdown.fees} €`],
+    ["Base", `${breakdown.base} €`],
+    ["Impuestos", `${breakdown.tax} €`],
+    ["Gastos de gestión", `${breakdown.fees} €`],
   ].forEach(([label, value]) => {
     const row = document.createElement("li");
     const labelEl = document.createElement("span");
@@ -89,16 +89,18 @@ export const createPricingPopover = ({
     row.append(labelEl, valueEl);
     desktopDetails.append(row);
   });
-  const desktopTotal = document.createElement("li");
-  desktopTotal.className = "pricing-popover__total";
+  desktopView.append(desktopDetails);
+
+  // FOOTER (Total Price)
+  const footer = document.createElement("div");
+  footer.className = "pricing-popover__footer";
+  
   const totalLabel = document.createElement("span");
   totalLabel.textContent = "Precio final";
   const totalPrice = document.createElement("strong");
   totalPrice.textContent = price;
-  desktopTotal.append(totalLabel, totalPrice);
-  desktopDetails.append(desktopTotal);
-  desktopView.append(desktopDetails);
+  footer.append(totalLabel, totalPrice);
 
-  popover.append(header, subtitleEl, desktopView);
+  popover.append(header, subtitleEl, desktopView, footer);
   return popover;
 };

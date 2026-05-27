@@ -159,6 +159,15 @@ const createSuccessState = (card: CardData, onClose: () => void): HTMLElement =>
 export const createBookingDialog = (): BookingDialogController => {
   const dialog = document.createElement("dialog");
   dialog.className = "booking-dialog";
+  let triggerEl: HTMLElement | null = null;
+
+  const handleCloseEvent = () => {
+    if (triggerEl) {
+      triggerEl.focus();
+      triggerEl = null;
+    }
+  };
+  dialog.addEventListener("close", handleCloseEvent);
 
   const closeDialog = () => {
     OverlayManager.closeModal(dialog);
@@ -171,6 +180,7 @@ export const createBookingDialog = (): BookingDialogController => {
   });
 
   const show = (card: CardData) => {
+    triggerEl = document.activeElement as HTMLElement;
     const content = document.createElement("div");
     content.className = "booking-dialog__content";
 

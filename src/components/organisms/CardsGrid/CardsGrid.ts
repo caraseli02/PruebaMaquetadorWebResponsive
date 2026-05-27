@@ -55,7 +55,7 @@ export function createCardsGrid({
   grid.className = "cards-grid";
   grid.setAttribute("role", "list");
   
-  cards.forEach((cardData) => {
+  cards.forEach((cardData, index) => {
     const cardItem = document.createElement("div");
     cardItem.setAttribute("role", "listitem");
     
@@ -67,6 +67,8 @@ export function createCardsGrid({
       region: cardData.region,
       durationDays: cardData.durationDays,
       title: cardData.title,
+      loading: index < 3 ? "eager" : "lazy",
+      fetchpriority: index === 0 ? "high" : "auto",
       bottomBar: {
         price: cardData.price,
         onDetailsClick: (e) => {

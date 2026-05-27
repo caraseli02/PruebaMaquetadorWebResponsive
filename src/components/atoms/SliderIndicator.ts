@@ -13,7 +13,7 @@ export const createSliderIndicator = ({
 }: SliderIndicatorOptions = {}): HTMLElement => {
   const indicator = document.createElement("div");
   indicator.className = "slider-indicator";
-  indicator.setAttribute("role", "status");
+  indicator.setAttribute("role", "group");
   indicator.setAttribute("aria-label", `${label}: ${activeIndex + 1} de ${total}`);
 
   Array.from({ length: total }, (_, index) => {
@@ -24,6 +24,9 @@ export const createSliderIndicator = ({
       const btn = dot as HTMLButtonElement;
       btn.type = "button";
       btn.setAttribute("aria-label", `Ir a diapositiva ${index + 1}`);
+      if (index === activeIndex) {
+        btn.setAttribute("aria-current", "true");
+      }
       btn.addEventListener("click", (e) => {
         e.preventDefault();
         onDotClick(index);

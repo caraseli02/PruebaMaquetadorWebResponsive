@@ -5,7 +5,7 @@ export type TagBarOptions = {
   ariaLabel?: string;
 };
 
-export const figmaTagBarLabels = ["Lorem ipsum", "Lorem", "Ipsum", "Lorem ipsum", "Lorem", "Ipsum"];
+export const figmaTagBarLabels = ["Quads", "Parapente", "Rafting", "Explora", "Buceo", "Surf", "Snowboard"];
 
 export const createTagBar = ({
   labels = figmaTagBarLabels,

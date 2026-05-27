@@ -106,6 +106,18 @@ const bindHeader = (): void => {
       isOpen ? "Cerrar menú de navegación móvil" : "Abrir menú de navegación móvil"
     );
     setToggleIcon(isOpen);
+    if (isOpen) {
+      // Focus the first link in the mobile menu for keyboard convenience
+      const firstLink = mobileMenu.querySelector("a");
+      firstLink?.focus();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && mobileMenu.classList.contains("header__mobile-menu--open")) {
+      closeMenu();
+      toggleButton.focus();
+    }
   });
 
   mobileMenu.querySelectorAll("a").forEach((link) => {

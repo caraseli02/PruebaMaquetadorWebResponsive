@@ -13,6 +13,8 @@ export type CircuitCardOptions = {
   durationDays?: number;
   title?: string;
   bottomBar?: BottomBarCircuitCardOptions;
+  loading?: "lazy" | "eager";
+  fetchpriority?: "high" | "low" | "auto";
 };
 
 export const circuitCardImages = {
@@ -30,6 +32,8 @@ export const createCircuitCard = ({
   durationDays = 9,
   title = "Descubre Bangkok con Iberojet",
   bottomBar = {},
+  loading = "lazy",
+  fetchpriority,
 }: CircuitCardOptions = {}): HTMLElement => {
   const article = document.createElement("article");
   article.className = "circuit-card";
@@ -41,7 +45,10 @@ export const createCircuitCard = ({
   image.className = "circuit-card__image";
   image.src = imageSrc;
   image.alt = imageAlt;
-  image.loading = "lazy";
+  image.loading = loading;
+  if (fetchpriority) {
+    image.setAttribute("fetchpriority", fetchpriority);
+  }
 
   const tagElement = createTag({ label: tag, variant: "filled" });
   tagElement.classList.add("circuit-card__tag");

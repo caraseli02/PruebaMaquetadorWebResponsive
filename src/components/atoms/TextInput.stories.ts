@@ -33,14 +33,14 @@ export const Matrix = () => {
     column.className = "text-input-matrix__column";
 
     column.append(
-      createTextInput({ variant, hasChevron: columnIndex === 0, value: "Lorem Ipsum" }),
-      createTextInput({ variant, hasChevron: columnIndex === 0, value: "Lorem Ipsum" }),
-      createTextInput({ variant, hasChevron: columnIndex === 0, value: "Lorem Ipsum" }),
-      createTextInput({ variant, hasChevron: columnIndex === 0, value: "Lorem Ipsum" }),
-      createTextInput({ variant, value: "Lorem Ipsum" }),
-      createTextInput({ variant, value: "Lorem Ipsum" }),
-      createTextInput({ variant, value: "Lorem Ipsum" }),
-      createTextInput({ variant, value: "Lorem Ipsum" }),
+      createTextInput({ variant, hasChevron: columnIndex === 0, value: "Aventura" }),
+      createTextInput({ variant, hasChevron: columnIndex === 0, value: "Destinos" }),
+      createTextInput({ variant, hasChevron: columnIndex === 0, value: "Marruecos" }),
+      createTextInput({ variant, hasChevron: columnIndex === 0, value: "Australia" }),
+      createTextInput({ variant, value: "9 días" }),
+      createTextInput({ variant, value: "2 personas" }),
+      createTextInput({ variant, value: "Madrid" }),
+      createTextInput({ variant, value: "Reservado" }),
     );
     matrix.append(column);
   });
@@ -52,8 +52,8 @@ export const Matrix = () => {
 export const Playground = {
   args: {
     label: "Entrada",
-    value: "Lorem Ipsum",
-    placeholder: "Lorem Ipsum",
+    value: "Australia",
+    placeholder: "Escribe aquí...",
     variant: "neutral",
     hasChevron: true,
     disabled: false,
